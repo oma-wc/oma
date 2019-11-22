@@ -1,0 +1,24 @@
+{
+  "name": "@oma/site",
+  "version": "0.0.0",
+  "description": "",
+  "main": "dist/index.cjs.js",
+  "unpkg": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oma-wc/oma.git",
+    "directory": "components/site"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPL3",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "haunted": "^4.6.2"
+  }
+}

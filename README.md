@@ -8,6 +8,8 @@ _noun_. everywhere
 
 oma is a framework independent web components library.
 
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+
 ## Install and use
 
 See `components/` for available components.
