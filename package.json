@@ -17,5 +17,6 @@
   },
   "dependencies": {
     "haunted": "^4.6.2"
-  }
+  },
+  "private": true
 }

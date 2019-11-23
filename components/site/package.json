@@ -20,5 +20,9 @@
   },
   "dependencies": {
     "haunted": "^4.6.2"
-  }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d638de3021e61ccd19e529aa5e051d1ab415de20"
 }
