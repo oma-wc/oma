@@ -1,5 +1,5 @@
 {
-  "name": "@oma/site",
+  "name": "@oma-wc/site",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.cjs.js",
@@ -21,8 +21,5 @@
   "dependencies": {
     "haunted": "^4.6.2"
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "gitHead": "d638de3021e61ccd19e529aa5e051d1ab415de20"
+  "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
 }
