@@ -68,6 +68,10 @@ const Grid = ({
   }
 
   useEffect(() => {
+    stylesheet.write()
+  })
+
+  useEffect(() => {
     for (let [breakpoint, className] of Object.entries(breakpoints)) {
       const mediaQueryList = window.matchMedia(breakpoint)
       const adjustToBreakpoint = () => adjustToMedia(mediaQueryList, className)

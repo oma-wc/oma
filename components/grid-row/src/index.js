@@ -1,4 +1,4 @@
-import { component, html } from 'haunted'
+import { component, html, useEffect } from 'haunted'
 
 import { stylesheet } from '@oma-wc/internal'
 
@@ -24,6 +24,10 @@ stylesheet.add_rule(
 )
 
 const Row = () =>
+  useEffect(() => {
+    stylesheet.write()
+  })
+
   html`
     <slot></slot>
   `

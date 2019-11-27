@@ -1,4 +1,4 @@
-import { component, html } from 'haunted'
+import { component, html, useEffect } from 'haunted'
 
 import { stylesheet } from '@oma-wc/internal'
 import {
@@ -33,6 +33,10 @@ stylesheet.add_rule(
 )
 
 const Subgrid = () =>
+  useEffect(() => {
+    stylesheet.write()
+  })
+
   html`
     <slot></slot>
   `

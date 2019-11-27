@@ -528,88 +528,6 @@ const isIterable = (value) => {
         !!(value && value[Symbol.iterator]);
 };
 /**
- * Writes attribute values to the DOM for a group of AttributeParts bound to a
- * single attibute. The value is only set once even if there are multiple parts
- * for an attribute.
- */
-class AttributeCommitter {
-    constructor(element, name, strings) {
-        this.dirty = true;
-        this.element = element;
-        this.name = name;
-        this.strings = strings;
-        this.parts = [];
-        for (let i = 0; i < strings.length - 1; i++) {
-            this.parts[i] = this._createPart();
-        }
-    }
-    /**
-     * Creates a single part. Override this to create a differnt type of part.
-     */
-    _createPart() {
-        return new AttributePart(this);
-    }
-    _getValue() {
-        const strings = this.strings;
-        const l = strings.length - 1;
-        let text = '';
-        for (let i = 0; i < l; i++) {
-            text += strings[i];
-            const part = this.parts[i];
-            if (part !== undefined) {
-                const v = part.value;
-                if (isPrimitive(v) || !isIterable(v)) {
-                    text += typeof v === 'string' ? v : String(v);
-                }
-                else {
-                    for (const t of v) {
-                        text += typeof t === 'string' ? t : String(t);
-                    }
-                }
-            }
-        }
-        text += strings[l];
-        return text;
-    }
-    commit() {
-        if (this.dirty) {
-            this.dirty = false;
-            this.element.setAttribute(this.name, this._getValue());
-        }
-    }
-}
-/**
- * A Part that controls all or part of an attribute value.
- */
-class AttributePart {
-    constructor(committer) {
-        this.value = undefined;
-        this.committer = committer;
-    }
-    setValue(value) {
-        if (value !== noChange && (!isPrimitive(value) || value !== this.value)) {
-            this.value = value;
-            // If the value is a not a directive, dirty the committer so that it'll
-            // call setAttribute. If the value is a directive, it'll dirty the
-            // committer if it calls setValue().
-            if (!isDirective(value)) {
-                this.committer.dirty = true;
-            }
-        }
-    }
-    commit() {
-        while (isDirective(this.value)) {
-            const directive = this.value;
-            this.value = noChange;
-            directive(this);
-        }
-        if (this.value === noChange) {
-            return;
-        }
-        this.committer.commit();
-    }
-}
-/**
  * A Part that controls a location within a Node tree. Like a Range, NodePart
  * has start and end locations and can set and update the Nodes between those
  * locations.
@@ -792,83 +710,6 @@ class NodePart {
         removeNodes(this.startNode.parentNode, startNode.nextSibling, this.endNode);
     }
 }
-/**
- * Implements a boolean attribute, roughly as defined in the HTML
- * specification.
- *
- * If the value is truthy, then the attribute is present with a value of
- * ''. If the value is falsey, the attribute is removed.
- */
-class BooleanAttributePart {
-    constructor(element, name, strings) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
-            throw new Error('Boolean attributes can only contain a single expression');
-        }
-        this.element = element;
-        this.name = name;
-        this.strings = strings;
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        if (this.__pendingValue === noChange) {
-            return;
-        }
-        const value = !!this.__pendingValue;
-        if (this.value !== value) {
-            if (value) {
-                this.element.setAttribute(this.name, '');
-            }
-            else {
-                this.element.removeAttribute(this.name);
-            }
-            this.value = value;
-        }
-        this.__pendingValue = noChange;
-    }
-}
-/**
- * Sets attribute values for PropertyParts, so that the value is only set once
- * even if there are multiple parts for a property.
- *
- * If an expression controls the whole property value, then the value is simply
- * assigned to the property under control. If there are string literals or
- * multiple expressions, then the strings are expressions are interpolated into
- * a string first.
- */
-class PropertyCommitter extends AttributeCommitter {
-    constructor(element, name, strings) {
-        super(element, name, strings);
-        this.single =
-            (strings.length === 2 && strings[0] === '' && strings[1] === '');
-    }
-    _createPart() {
-        return new PropertyPart(this);
-    }
-    _getValue() {
-        if (this.single) {
-            return this.parts[0].value;
-        }
-        return super._getValue();
-    }
-    commit() {
-        if (this.dirty) {
-            this.dirty = false;
-            // tslint:disable-next-line:no-any
-            this.element[this.name] = this._getValue();
-        }
-    }
-}
-class PropertyPart extends AttributePart {
-}
 // Detect event listener options support. If the `capture` property is read
 // from the options object, then options are supported. If not, then the thrid
 // argument to add/removeEventListener is interpreted as the boolean capture
@@ -888,112 +729,6 @@ try {
 }
 catch (_e) {
 }
-class EventPart {
-    constructor(element, eventName, eventContext) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        this.element = element;
-        this.eventName = eventName;
-        this.eventContext = eventContext;
-        this.__boundHandleEvent = (e) => this.handleEvent(e);
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        if (this.__pendingValue === noChange) {
-            return;
-        }
-        const newListener = this.__pendingValue;
-        const oldListener = this.value;
-        const shouldRemoveListener = newListener == null ||
-            oldListener != null &&
-                (newListener.capture !== oldListener.capture ||
-                    newListener.once !== oldListener.once ||
-                    newListener.passive !== oldListener.passive);
-        const shouldAddListener = newListener != null && (oldListener == null || shouldRemoveListener);
-        if (shouldRemoveListener) {
-            this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-        }
-        if (shouldAddListener) {
-            this.__options = getOptions(newListener);
-            this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-        }
-        this.value = newListener;
-        this.__pendingValue = noChange;
-    }
-    handleEvent(event) {
-        if (typeof this.value === 'function') {
-            this.value.call(this.eventContext || this.element, event);
-        }
-        else {
-            this.value.handleEvent(event);
-        }
-    }
-}
-// We copy options because of the inconsistent behavior of browsers when reading
-// the third argument of add/removeEventListener. IE11 doesn't support options
-// at all. Chrome 41 only reads `capture` if the argument is an object.
-const getOptions = (o) => o &&
-    (eventOptionsSupported ?
-        { capture: o.capture, passive: o.passive, once: o.once } :
-        o.capture);
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * Creates Parts when a template is instantiated.
- */
-class DefaultTemplateProcessor {
-    /**
-     * Create parts for an attribute-position binding, given the event, attribute
-     * name, and string literals.
-     *
-     * @param element The element containing the binding
-     * @param name  The attribute name
-     * @param strings The string literals. There are always at least two strings,
-     *   event for fully-controlled bindings with a single expression.
-     */
-    handleAttributeExpressions(element, name, strings, options) {
-        const prefix = name[0];
-        if (prefix === '.') {
-            const committer = new PropertyCommitter(element, name.slice(1), strings);
-            return committer.parts;
-        }
-        if (prefix === '@') {
-            return [new EventPart(element, name.slice(1), options.eventContext)];
-        }
-        if (prefix === '?') {
-            return [new BooleanAttributePart(element, name.slice(1), strings)];
-        }
-        const committer = new AttributeCommitter(element, name, strings);
-        return committer.parts;
-    }
-    /**
-     * Create parts for a text-position binding.
-     * @param templateFactory
-     */
-    handleTextExpression(options) {
-        return new NodePart(options);
-    }
-}
-const defaultTemplateProcessor = new DefaultTemplateProcessor();
 
 /**
  * @license
@@ -1099,11 +834,6 @@ const render = (result, container, options) => {
 // This line will be used in regexes to search for lit-html usage.
 // TODO(justinfagnani): inject version number at build time
 (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.1.2');
-/**
- * Interprets a template literal as an HTML template that can efficiently
- * render to and update a container.
- */
-const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
 
 let current;
 let currentId = 0;
@@ -1635,8 +1365,8 @@ stylesheet.add_rule(
 );
 
 const Row = () =>
-  html`
-    <slot></slot>
-  `;
+  useEffect(() => {
+    stylesheet.write();
+  });
 
 customElements.define('oma-grid-row', component(Row));
