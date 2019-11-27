@@ -29,3 +29,11 @@ Use in HTML or JSX: `<oma-button>A simple button</oma-button>`
 Add to main HTML file: `<script src="https://unpkg.com/@oma/button" type="text/javascript"></script>`
 
 And then use it in HTML: `<oma-button>A simple button</oma-button>`
+
+# Layout components
+
+Requires <oma-site> due to style dependancies.
+
+# Content components
+
+Doesn't require <oma-site>, self contained style.

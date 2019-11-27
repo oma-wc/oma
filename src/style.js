@@ -1,4 +1,4 @@
-import StyleSheet from 'StyleSheet'
+import StyleSheet from './StyleSheet'
 
 const style = new StyleSheet('heimr-styles')
 

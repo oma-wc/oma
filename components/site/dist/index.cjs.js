@@ -1,10 +1,5 @@
 'use strict';
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
-var stylesheet = _interopDefault(require('style'));
-var custom_property_names = require('constants/custom_property_names');
-
 function _typeof(obj) {
   if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
     _typeof = function (obj) {
@@ -2508,6 +2503,94 @@ var _haunted = haunted({
 }),
     component = _haunted.component;
 
+var StyleSheet =
+/*#__PURE__*/
+function () {
+  function StyleSheet(id) {
+    _classCallCheck(this, StyleSheet);
+
+    if (document.getElementById(id)) {
+      this.sheet = document.getElementById(id);
+    } else {
+      this.sheet = this.create_sheet(id);
+    }
+
+    this.pending_rules = {};
+  }
+
+  _createClass(StyleSheet, [{
+    key: "create_sheet",
+    value: function create_sheet(id) {
+      var style_element = document.createElement('style');
+
+      if (id) {
+        style_element.id = id;
+      } // WebKit hack :(
+
+
+      style_element.appendChild(document.createTextNode(''));
+      document.head.appendChild(style_element);
+      return style_element.sheet;
+    }
+  }, {
+    key: "add_rule",
+    value: function add_rule(input) {
+      var matches = input.match(/^([^{]*)\{([^}]*)\}/);
+      var selector = matches[1].trim();
+      var rules = matches[2].trim();
+
+      if (!this.pending_rules[selector]) {
+        this.pending_rules[selector] = '';
+      }
+
+      this.pending_rules[selector] = "".concat(this.pending_rules[selector], "\n").concat(rules);
+    }
+  }, {
+    key: "write",
+    value: function write() {
+      var _this = this;
+
+      Object.keys(this.pending_rules).forEach(function (selector) {
+        _this.write_rule(selector, _this.pending_rules[selector]);
+
+        delete _this.pending_rules[selector];
+      });
+    }
+  }, {
+    key: "write_rule",
+    value: function write_rule(selector, rules) {
+      if ('insertRule' in this.sheet) {
+        this.sheet.insertRule(selector + '{' + rules + '}');
+      } else if ('addRule' in this.sheet) {
+        this.sheet.addRule(selector, rules);
+      }
+    }
+  }]);
+
+  return StyleSheet;
+}();
+
+Object.defineProperty(StyleSheet, 'pending_rules', {
+  value: {},
+  writable: true
+});
+
+var style = new StyleSheet('heimr-styles');
+Object.freeze(style);
+
+/* Global */
+var PREFIX = '--heimr';
+/* Page */
+
+var PAGE_PREFIX = "".concat(PREFIX, "-page");
+var PAGE_FONT_SIZE = "".concat(PAGE_PREFIX, "__font-size");
+var PAGE_LINE_HEIGHT = "".concat(PAGE_PREFIX, "__line-height");
+var PAGE_SPACE_EXTRA_LARGE = "".concat(PAGE_PREFIX, "__space--extra-large");
+var PAGE_SPACE_EXTRA_SMALL = "".concat(PAGE_PREFIX, "__space--extra-small");
+var PAGE_SPACE_LARGE = "".concat(PAGE_PREFIX, "__space--large");
+var PAGE_SPACE_MEDIUM = "".concat(PAGE_PREFIX, "__space--medium");
+var PAGE_SPACE_SMALL = "".concat(PAGE_PREFIX, "__space--small");
+
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n    <slot></slot>\n  "]);
 
@@ -2517,12 +2600,12 @@ function _templateObject() {
 
   return data;
 }
-stylesheet.add_rule("html {\n    ".concat(custom_property_names.PAGE_FONT_SIZE, ": 16px;\n    ").concat(custom_property_names.PAGE_LINE_HEIGHT, ": 1.8;\n    ").concat(custom_property_names.PAGE_SPACE_EXTRA_LARGE, ": 10rem;\n    ").concat(custom_property_names.PAGE_SPACE_EXTRA_SMALL, ": 1rem;\n    ").concat(custom_property_names.PAGE_SPACE_LARGE, ": 5rem;\n    ").concat(custom_property_names.PAGE_SPACE_MEDIUM, ": 3rem;\n    ").concat(custom_property_names.PAGE_SPACE_SMALL, ": 1.5rem;\n    scroll-behavior: smooth;\n  }"));
-stylesheet.add_rule("html {\n    ".concat(custom_property_names.PAGE_FONT_SIZE, ": 16px;\n    ").concat(custom_property_names.PAGE_LINE_HEIGHT, ": 1.8;\n    ").concat(custom_property_names.PAGE_SPACE_EXTRA_LARGE, ": 10rem;\n    ").concat(custom_property_names.PAGE_SPACE_EXTRA_SMALL, ": 1rem;\n    ").concat(custom_property_names.PAGE_SPACE_LARGE, ": 5rem;\n    ").concat(custom_property_names.PAGE_SPACE_MEDIUM, ": 3rem;\n    ").concat(custom_property_names.PAGE_SPACE_SMALL, ": 1.5rem;\n    scroll-behavior: smooth;\n  }"));
+style.add_rule("html {\n    ".concat(PAGE_FONT_SIZE, ": 16px;\n    ").concat(PAGE_LINE_HEIGHT, ": 1.8;\n    ").concat(PAGE_SPACE_EXTRA_LARGE, ": 10rem;\n    ").concat(PAGE_SPACE_EXTRA_SMALL, ": 1rem;\n    ").concat(PAGE_SPACE_LARGE, ": 5rem;\n    ").concat(PAGE_SPACE_MEDIUM, ": 3rem;\n    ").concat(PAGE_SPACE_SMALL, ": 1.5rem;\n    scroll-behavior: smooth;\n  }"));
+style.add_rule("html {\n    ".concat(PAGE_FONT_SIZE, ": 16px;\n    ").concat(PAGE_LINE_HEIGHT, ": 1.8;\n    ").concat(PAGE_SPACE_EXTRA_LARGE, ": 10rem;\n    ").concat(PAGE_SPACE_EXTRA_SMALL, ": 1rem;\n    ").concat(PAGE_SPACE_LARGE, ": 5rem;\n    ").concat(PAGE_SPACE_MEDIUM, ": 3rem;\n    ").concat(PAGE_SPACE_SMALL, ": 1.5rem;\n    scroll-behavior: smooth;\n  }"));
 
 var Site = function Site() {
   useEffect(function () {
-    stylesheet.write();
+    style.write();
   });
   return html(_templateObject());
 };

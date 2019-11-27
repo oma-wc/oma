@@ -1,6 +1,6 @@
 import { component, html, useEffect } from 'haunted'
 
-import stylesheet from 'style'
+import stylesheet from '../../../src/style'
 import {
   PAGE_FONT_SIZE,
   PAGE_LINE_HEIGHT,
@@ -9,7 +9,7 @@ import {
   PAGE_SPACE_LARGE,
   PAGE_SPACE_MEDIUM,
   PAGE_SPACE_SMALL,
-} from 'constants/custom_property_names'
+} from '../../../src/constants/custom_property_names'
 
 stylesheet.add_rule(
   `html {
