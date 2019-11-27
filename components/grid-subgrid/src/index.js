@@ -1,12 +1,12 @@
 import { component, html } from 'haunted'
 
-import { stylesheet } from '@oma-wc/site'
+import { stylesheet } from '@oma-wc/internal'
 import {
   GRID_COLUMNS,
   GRID_COLUMN_GAP,
   GRID_COLUMN_WIDTH,
   GRID_ROW_GAP,
-} from '@oma-wc/site'
+} from '@oma-wc/internal'
 
 stylesheet.add_rule(
   `.size-1200 oma-grid-subgrid {

@@ -1,5 +1,5 @@
 {
-  "name": "@oma-wc/grid",
+  "name": "@oma-wc/internal",
   "version": "0.2.0",
   "description": "",
   "main": "dist/index.cjs.js",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/oma-wc/oma.git",
-    "directory": "components/grid"
+    "directory": "components/internal"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,10 +17,6 @@
   "license": "GPL3",
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@oma-wc/internal": "^0.2.0",
-    "haunted": "^4.6.2"
   },
   "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
 }

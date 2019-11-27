@@ -1,7 +1,6 @@
 import { component, html, useEffect } from 'haunted'
-import stylesheet from './style'
+import stylesheet from '@oma-wc/internal'
 
-export * from './constants/custom_property_names';
 export { stylesheet }
 
 import {
@@ -12,7 +11,7 @@ import {
   PAGE_SPACE_LARGE,
   PAGE_SPACE_MEDIUM,
   PAGE_SPACE_SMALL,
-} from './constants/custom_property_names';
+} from '@oma-wc/internal';
 
 stylesheet.add_rule(
   `html {

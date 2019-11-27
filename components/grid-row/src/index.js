@@ -1,8 +1,8 @@
 import { component, html } from 'haunted'
 
-import { stylesheet } from '@oma-wc/site'
+import { stylesheet } from '@oma-wc/internal'
 
-import { GRID_WIDTH } from '@oma-wc/site'
+import { GRID_WIDTH } from '@oma-wc/internal'
 
 stylesheet.add_rule(
   `.size-1200 oma-grid-row:not([fullWidth]) {

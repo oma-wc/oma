@@ -1,6 +1,6 @@
 import { component, html, useEffect } from 'haunted'
 
-import { stylesheet } from '@oma-wc/site'
+import { stylesheet } from '@oma-wc/internal'
 import {
   GRID_BACKGROUND_COLOR,
   GRID_COLUMNS,
@@ -8,7 +8,7 @@ import {
   GRID_COLUMN_WIDTH,
   GRID_ROW_GAP,
   GRID_WIDTH,
-} from '@oma-wc/site'
+} from '@oma-wc/internal'
 
 stylesheet.add_rule(
   `html {
