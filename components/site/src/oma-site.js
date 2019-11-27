@@ -24,19 +24,6 @@ stylesheet.add_rule(
   }`
 )
 
-stylesheet.add_rule(
-  `html {
-    ${PAGE_FONT_SIZE}: 16px;
-    ${PAGE_LINE_HEIGHT}: 1.8;
-    ${PAGE_SPACE_EXTRA_LARGE}: 10rem;
-    ${PAGE_SPACE_EXTRA_SMALL}: 1rem;
-    ${PAGE_SPACE_LARGE}: 5rem;
-    ${PAGE_SPACE_MEDIUM}: 3rem;
-    ${PAGE_SPACE_SMALL}: 1.5rem;
-    scroll-behavior: smooth;
-  }`
-)
-
 const Site = () => {
   useEffect(() => {
     stylesheet.write()
@@ -47,4 +34,4 @@ const Site = () => {
   `
 }
 
-customElements.define('heimr-site', component(Site))
+customElements.define('oma-site', component(Site))

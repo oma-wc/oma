@@ -1,5 +1,5 @@
 /* Global */
-const PREFIX = '--heimr'
+const PREFIX = '--oma'
 
 /* Page */
 const PAGE_PREFIX = `${PREFIX}-page`

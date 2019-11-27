@@ -1602,12 +1602,12 @@ Object.defineProperty(StyleSheet, 'pending_rules', {
   writable: true,
 });
 
-const style = new StyleSheet('heimr-styles');
+const style = new StyleSheet('oma-styles');
 
 Object.freeze(style);
 
 /* Global */
-const PREFIX = '--heimr';
+const PREFIX = '--oma';
 
 /* Page */
 const PAGE_PREFIX = `${PREFIX}-page`;
@@ -1633,19 +1633,6 @@ style.add_rule(
   }`
 );
 
-style.add_rule(
-  `html {
-    ${PAGE_FONT_SIZE}: 16px;
-    ${PAGE_LINE_HEIGHT}: 1.8;
-    ${PAGE_SPACE_EXTRA_LARGE}: 10rem;
-    ${PAGE_SPACE_EXTRA_SMALL}: 1rem;
-    ${PAGE_SPACE_LARGE}: 5rem;
-    ${PAGE_SPACE_MEDIUM}: 3rem;
-    ${PAGE_SPACE_SMALL}: 1.5rem;
-    scroll-behavior: smooth;
-  }`
-);
-
 const Site = () => {
   useEffect(() => {
     style.write();
@@ -1656,4 +1643,4 @@ const Site = () => {
   `
 };
 
-customElements.define('heimr-site', component(Site));
+customElements.define('oma-site', component(Site));
