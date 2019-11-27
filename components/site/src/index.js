@@ -1,7 +1,5 @@
 import { component, html, useEffect } from 'haunted'
-import stylesheet from '@oma-wc/internal'
-
-export { stylesheet }
+import { stylesheet } from '@oma-wc/internal'
 
 import {
   PAGE_FONT_SIZE,

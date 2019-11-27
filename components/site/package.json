@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "haunted": "^4.6.2",
-    "@oma-wc/internal": "^0.2.0",
+    "@oma-wc/internal": "^0.2.0"
   },
   "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
 }

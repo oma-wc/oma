@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 /**
  * @license
  * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -1606,10 +1604,6 @@ Object.defineProperty(StyleSheet, 'pending_rules', {
   writable: true,
 });
 
-const style = new StyleSheet('oma-styles');
-
-Object.freeze(style);
-
 /* Global */
 const PREFIX = '--oma';
 
@@ -1624,17 +1618,11 @@ const PAGE_SPACE_LARGE = `${PAGE_PREFIX}__space--large`;
 const PAGE_SPACE_MEDIUM = `${PAGE_PREFIX}__space--medium`;
 const PAGE_SPACE_SMALL = `${PAGE_PREFIX}__space--small`;
 
-/* Grid */
-const GRID_PREFIX = `${PREFIX}-grid`;
+const stylesheet = new StyleSheet('oma-styles');
 
-const GRID_BACKGROUND_COLOR = `${GRID_PREFIX}__background-color`;
-const GRID_COLUMNS = `${GRID_PREFIX}__columns`;
-const GRID_COLUMN_GAP = `${GRID_PREFIX}__column-gap`;
-const GRID_COLUMN_WIDTH = `${GRID_PREFIX}__column-width`;
-const GRID_ROW_GAP = `${GRID_PREFIX}__row-gap`;
-const GRID_WIDTH = `${GRID_PREFIX}__width`;
+Object.freeze(stylesheet);
 
-style.add_rule(
+stylesheet.add_rule(
   `html {
     ${PAGE_FONT_SIZE}: 16px;
     ${PAGE_LINE_HEIGHT}: 1.8;
@@ -1649,7 +1637,7 @@ style.add_rule(
 
 const Site = () => {
   useEffect(() => {
-    style.write();
+    stylesheet.write();
   });
 
   return html`
@@ -1658,18 +1646,3 @@ const Site = () => {
 };
 
 customElements.define('oma-site', component(Site));
-
-exports.GRID_BACKGROUND_COLOR = GRID_BACKGROUND_COLOR;
-exports.GRID_COLUMNS = GRID_COLUMNS;
-exports.GRID_COLUMN_GAP = GRID_COLUMN_GAP;
-exports.GRID_COLUMN_WIDTH = GRID_COLUMN_WIDTH;
-exports.GRID_ROW_GAP = GRID_ROW_GAP;
-exports.GRID_WIDTH = GRID_WIDTH;
-exports.PAGE_FONT_SIZE = PAGE_FONT_SIZE;
-exports.PAGE_LINE_HEIGHT = PAGE_LINE_HEIGHT;
-exports.PAGE_SPACE_EXTRA_LARGE = PAGE_SPACE_EXTRA_LARGE;
-exports.PAGE_SPACE_EXTRA_SMALL = PAGE_SPACE_EXTRA_SMALL;
-exports.PAGE_SPACE_LARGE = PAGE_SPACE_LARGE;
-exports.PAGE_SPACE_MEDIUM = PAGE_SPACE_MEDIUM;
-exports.PAGE_SPACE_SMALL = PAGE_SPACE_SMALL;
-exports.stylesheet = style;
