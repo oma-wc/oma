@@ -1551,7 +1551,7 @@ const { component, createContext } = haunted({ render });
 class StyleSheet {
   constructor(id) {
     if (document.getElementById(id)) {
-      this.sheet = document.getElementById(id);
+      this.sheet = document.getElementById(id).sheet;
     } else {
       this.sheet = this.create_sheet(id);
     }
