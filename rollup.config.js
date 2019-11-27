@@ -1,6 +1,6 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
-import babel from 'rollup-plugin-babel'
+//import babel from 'rollup-plugin-babel'
 
 export default opts => {
   const options = Object.assign(
@@ -18,17 +18,13 @@ export default opts => {
     ],
 
     plugins: [
-      nodeResolve({
-        extensions: ['.js', '.jsx'],
-      }),
-      commonjs({
-        include: '../../node_modules/**',
-      }),
-      babel({
-        runtimeHelpers: true,
-        exclude: '../../node_modules/**',
-        configFile: '../../babel.config.js',
-      }),
+      nodeResolve({}),
+      commonjs({}),
+//      babel({
+//        runtimeHelpers: true,
+//        exclude: '../../node_modules/**',
+//        configFile: '../../babel.config.js',
+//      }),
     ],
   }
 }
