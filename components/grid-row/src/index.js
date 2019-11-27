@@ -23,13 +23,14 @@ stylesheet.add_rule(
   }`
 )
 
-const Row = () =>
+const Row = () => {
   useEffect(() => {
     stylesheet.write()
   })
 
-  html`
+  return html`
     <slot></slot>
   `
+}
 
 customElements.define('oma-grid-row', component(Row))
