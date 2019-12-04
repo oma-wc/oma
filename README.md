@@ -18,15 +18,15 @@ See each components documentation for details on properties and styling.
 
 ### Using a javascript build tool
 
-Install: `yarn add @oma/button`
+Install: `yarn add @oma-wc/button`
 
-Add to main javascript file: `import '@oma/button'`
+Add to main javascript file: `import '@oma-wc/button'`
 
 Use in HTML or JSX: `<oma-button>A simple button</oma-button>`
 
 ### Using a `<script>` tag
 
-Add to main HTML file: `<script src="https://unpkg.com/@oma/button" type="text/javascript"></script>`
+Add to main HTML file: `<script src="https://unpkg.com/@oma-wc/button" type="text/javascript"></script>`
 
 And then use it in HTML: `<oma-button>A simple button</oma-button>`
 
