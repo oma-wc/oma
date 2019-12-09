@@ -1553,6 +1553,7 @@ class StyleSheet {
     } else {
       this.sheet = this.create_sheet(id);
     }
+    this.written_rules = {};
     this.pending_rules = {};
   }
 
@@ -1569,23 +1570,30 @@ class StyleSheet {
     return style_element.sheet
   }
 
-  add_rule(input) {
+  add_rule( input ){
     const matches = input.match(/^([^{]*)\{([^}]*)\}/);
     const selector = matches[1].trim();
     const rules = matches[2].trim();
 
-    if (!this.pending_rules[selector]) {
-      this.pending_rules[selector] = '';
+    if( !this.pending_rules[ selector ]){
+      this.pending_rules[ selector ] = `${rules}`;
+    } else {
+      this.pending_rules[ selector ] += `\n${rules}`;
     }
-
-    this.pending_rules[selector] = `${this.pending_rules[selector]}\n${rules}`;
   }
 
   write() {
-    Object.keys(this.pending_rules).forEach((selector) => {
-      this.write_rule(selector, this.pending_rules[selector]);
+    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
+      this.write_rule(selector, rules);
+
+      if( !this.written_rules[ selector ]){
+        this.written_rules[ selector ] = `${rules}`;
+      } else {
+        this.written_rules[ selector ] += `\n${rules}`;
+      }
+
       delete this.pending_rules[selector];
-    });
+    }
   }
 
   write_rule(selector, rules) {
@@ -1616,11 +1624,20 @@ const PAGE_SPACE_LARGE = `${PAGE_PREFIX}__space--large`;
 const PAGE_SPACE_MEDIUM = `${PAGE_PREFIX}__space--medium`;
 const PAGE_SPACE_SMALL = `${PAGE_PREFIX}__space--small`;
 
-const stylesheet = new StyleSheet('oma-styles');
+class Singleton {
+  constructor() {
+    this._stylesheet = new StyleSheet( 'oma-styles' );
+    Object.freeze( this._stylesheet );
+  }
 
-Object.freeze(stylesheet);
+  get stylesheet() {
+    return this._stylesheet;
+  }
+}
 
-stylesheet.add_rule(
+const State$1 = Singleton();
+
+State$1.stylesheet.add_rule(
   `html {
     ${PAGE_FONT_SIZE}: 16px;
     ${PAGE_LINE_HEIGHT}: 1.8;
@@ -1635,7 +1652,7 @@ stylesheet.add_rule(
 
 const Site = () => {
   useEffect(() => {
-    stylesheet.write();
+    State$1.stylesheet.write();
   });
 
   return html`

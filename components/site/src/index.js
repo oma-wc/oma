@@ -1,5 +1,5 @@
 import { component, html, useEffect } from 'haunted'
-import { stylesheet } from '@oma-wc/internal'
+import { State } from '@oma-wc/state'
 
 import {
   PAGE_FONT_SIZE,
@@ -9,9 +9,9 @@ import {
   PAGE_SPACE_LARGE,
   PAGE_SPACE_MEDIUM,
   PAGE_SPACE_SMALL,
-} from '@oma-wc/internal';
+} from '@oma-wc/state';
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `html {
     ${PAGE_FONT_SIZE}: 16px;
     ${PAGE_LINE_HEIGHT}: 1.8;
@@ -26,7 +26,7 @@ stylesheet.add_rule(
 
 const Site = () => {
   useEffect(() => {
-    stylesheet.write()
+    State.stylesheet.write()
   })
 
   return html`

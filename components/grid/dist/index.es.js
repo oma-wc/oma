@@ -1553,6 +1553,7 @@ class StyleSheet {
     } else {
       this.sheet = this.create_sheet(id);
     }
+    this.written_rules = {};
     this.pending_rules = {};
   }
 
@@ -1569,23 +1570,30 @@ class StyleSheet {
     return style_element.sheet
   }
 
-  add_rule(input) {
+  add_rule( input ){
     const matches = input.match(/^([^{]*)\{([^}]*)\}/);
     const selector = matches[1].trim();
     const rules = matches[2].trim();
 
-    if (!this.pending_rules[selector]) {
-      this.pending_rules[selector] = '';
+    if( !this.pending_rules[ selector ]){
+      this.pending_rules[ selector ] = `${rules}`;
+    } else {
+      this.pending_rules[ selector ] += `\n${rules}`;
     }
-
-    this.pending_rules[selector] = `${this.pending_rules[selector]}\n${rules}`;
   }
 
   write() {
-    Object.keys(this.pending_rules).forEach((selector) => {
-      this.write_rule(selector, this.pending_rules[selector]);
+    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
+      this.write_rule(selector, rules);
+
+      if( !this.written_rules[ selector ]){
+        this.written_rules[ selector ] = `${rules}`;
+      } else {
+        this.written_rules[ selector ] += `\n${rules}`;
+      }
+
       delete this.pending_rules[selector];
-    });
+    }
   }
 
   write_rule(selector, rules) {
@@ -1615,11 +1623,20 @@ const GRID_COLUMN_WIDTH = `${GRID_PREFIX}__column-width`;
 const GRID_ROW_GAP = `${GRID_PREFIX}__row-gap`;
 const GRID_WIDTH = `${GRID_PREFIX}__width`;
 
-const stylesheet = new StyleSheet('oma-styles');
+class Singleton {
+  constructor() {
+    this._stylesheet = new StyleSheet( 'oma-styles' );
+    Object.freeze( this._stylesheet );
+  }
 
-Object.freeze(stylesheet);
+  get stylesheet() {
+    return this._stylesheet;
+  }
+}
 
-stylesheet.add_rule(
+const State$1 = Singleton();
+
+State$1.stylesheet.add_rule(
   `html {
     ${GRID_BACKGROUND_COLOR}: transparent;
     ${GRID_COLUMN_GAP}: 0px;
@@ -1628,7 +1645,7 @@ stylesheet.add_rule(
     ${GRID_ROW_GAP}: 0;
   }`
 );
-stylesheet.add_rule(
+State$1.stylesheet.add_rule(
   `.size-1200 oma-grid {
     ${GRID_COLUMNS}: 12;
     ${GRID_COLUMN_WIDTH}: calc( ( var(${GRID_WIDTH}) - ( (var(${GRID_COLUMNS}) - 1) * var(${GRID_COLUMN_GAP}) ) ) / var(${GRID_COLUMNS}) );
@@ -1637,7 +1654,7 @@ stylesheet.add_rule(
       auto;
   }`
 );
-stylesheet.add_rule(
+State$1.stylesheet.add_rule(
   `.size-600 oma-grid {
     ${GRID_COLUMNS}: 8;
     ${GRID_COLUMN_WIDTH}: 12.5%;
@@ -1645,7 +1662,7 @@ stylesheet.add_rule(
       repeat(var(${GRID_COLUMNS}), var(${GRID_COLUMN_WIDTH}));
   }`
 );
-stylesheet.add_rule(
+State$1.stylesheet.add_rule(
   `oma-grid {
     display: grid;
     ${GRID_WIDTH}: 1050px;
@@ -1677,7 +1694,7 @@ const Grid = ({
   };
 
   useEffect(() => {
-    stylesheet.write();
+    State$1.stylesheet.write();
   });
 
   useEffect(() => {

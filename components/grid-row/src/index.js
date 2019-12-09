@@ -1,23 +1,23 @@
 import { component, html, useEffect } from 'haunted'
 
-import { stylesheet } from '@oma-wc/internal'
+import { State } from '@oma-wc/state'
 
-import { GRID_WIDTH } from '@oma-wc/internal'
+import { GRID_WIDTH } from '@oma-wc/state'
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `.size-1200 oma-grid-row:not([fullWidth]) {
     grid-column: 2 / -2;
   }`
 )
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `.size-1200 oma-grid-row[fullWidth][contentAlignedWithGrid] {
     padding-left: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
     padding-right: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
   }`
 )
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `oma-grid-row {
     grid-column: 1 / -1;
   }`
@@ -25,7 +25,7 @@ stylesheet.add_rule(
 
 const Row = () => {
   useEffect(() => {
-    stylesheet.write()
+    State.stylesheet.write()
   })
 
   return html`

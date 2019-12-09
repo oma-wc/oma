@@ -1,6 +1,6 @@
 import { component, html, useEffect } from 'haunted'
 
-import { stylesheet } from '@oma-wc/internal'
+import { State } from '@oma-wc/state'
 import {
   GRID_BACKGROUND_COLOR,
   GRID_COLUMNS,
@@ -8,9 +8,9 @@ import {
   GRID_COLUMN_WIDTH,
   GRID_ROW_GAP,
   GRID_WIDTH,
-} from '@oma-wc/internal'
+} from '@oma-wc/state'
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `html {
     ${GRID_BACKGROUND_COLOR}: transparent;
     ${GRID_COLUMN_GAP}: 0px;
@@ -19,7 +19,7 @@ stylesheet.add_rule(
     ${GRID_ROW_GAP}: 0;
   }`
 )
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `.size-1200 oma-grid {
     ${GRID_COLUMNS}: 12;
     ${GRID_COLUMN_WIDTH}: calc( ( var(${GRID_WIDTH}) - ( (var(${GRID_COLUMNS}) - 1) * var(${GRID_COLUMN_GAP}) ) ) / var(${GRID_COLUMNS}) );
@@ -28,7 +28,7 @@ stylesheet.add_rule(
       auto;
   }`
 )
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `.size-600 oma-grid {
     ${GRID_COLUMNS}: 8;
     ${GRID_COLUMN_WIDTH}: 12.5%;
@@ -36,7 +36,7 @@ stylesheet.add_rule(
       repeat(var(${GRID_COLUMNS}), var(${GRID_COLUMN_WIDTH}));
   }`
 )
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `oma-grid {
     display: grid;
     ${GRID_WIDTH}: 1050px;
@@ -68,7 +68,7 @@ const Grid = ({
   }
 
   useEffect(() => {
-    stylesheet.write()
+    State.stylesheet.write()
   })
 
   useEffect(() => {

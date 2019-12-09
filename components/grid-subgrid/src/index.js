@@ -1,20 +1,20 @@
 import { component, html, useEffect } from 'haunted'
 
-import { stylesheet } from '@oma-wc/internal'
+import { State } from '@oma-wc/state'
 import {
   GRID_COLUMNS,
   GRID_COLUMN_GAP,
   GRID_COLUMN_WIDTH,
   GRID_ROW_GAP,
-} from '@oma-wc/internal'
+} from '@oma-wc/state'
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `.size-1200 oma-grid-subgrid {
     grid-column: 2 / -2;
   }`
 )
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `oma-grid-subgrid {
     grid-column: 1 / -1;
     display: grid;
@@ -26,7 +26,7 @@ stylesheet.add_rule(
   }`
 )
 
-stylesheet.add_rule(
+State.stylesheet.add_rule(
   `oma-grid-subgrid[overflow] {
     overflow: visible;
   }`
@@ -34,7 +34,7 @@ stylesheet.add_rule(
 
 const Subgrid = () =>
   useEffect(() => {
-    stylesheet.write()
+    State.stylesheet.write()
   })
 
   html`

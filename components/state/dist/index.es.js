@@ -1,7 +1,3 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
 class StyleSheet {
   constructor(id) {
     if (document.getElementById(id)) {
@@ -9,6 +5,7 @@ class StyleSheet {
     } else {
       this.sheet = this.create_sheet(id);
     }
+    this.written_rules = {};
     this.pending_rules = {};
   }
 
@@ -25,23 +22,30 @@ class StyleSheet {
     return style_element.sheet
   }
 
-  add_rule(input) {
+  add_rule( input ){
     const matches = input.match(/^([^{]*)\{([^}]*)\}/);
     const selector = matches[1].trim();
     const rules = matches[2].trim();
 
-    if (!this.pending_rules[selector]) {
-      this.pending_rules[selector] = '';
+    if( !this.pending_rules[ selector ]){
+      this.pending_rules[ selector ] = `${rules}`;
+    } else {
+      this.pending_rules[ selector ] += `\n${rules}`;
     }
-
-    this.pending_rules[selector] = `${this.pending_rules[selector]}\n${rules}`;
   }
 
   write() {
-    Object.keys(this.pending_rules).forEach((selector) => {
-      this.write_rule(selector, this.pending_rules[selector]);
+    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
+      this.write_rule(selector, rules);
+
+      if( !this.written_rules[ selector ]){
+        this.written_rules[ selector ] = `${rules}`;
+      } else {
+        this.written_rules[ selector ] += `\n${rules}`;
+      }
+
       delete this.pending_rules[selector];
-    });
+    }
   }
 
   write_rule(selector, rules) {
@@ -82,21 +86,17 @@ const GRID_COLUMN_WIDTH = `${GRID_PREFIX}__column-width`;
 const GRID_ROW_GAP = `${GRID_PREFIX}__row-gap`;
 const GRID_WIDTH = `${GRID_PREFIX}__width`;
 
-const stylesheet = new StyleSheet('oma-styles');
+class Singleton {
+  constructor() {
+    this._stylesheet = new StyleSheet( 'oma-styles' );
+    Object.freeze( this._stylesheet );
+  }
 
-Object.freeze(stylesheet);
+  get stylesheet() {
+    return this._stylesheet;
+  }
+}
 
-exports.GRID_BACKGROUND_COLOR = GRID_BACKGROUND_COLOR;
-exports.GRID_COLUMNS = GRID_COLUMNS;
-exports.GRID_COLUMN_GAP = GRID_COLUMN_GAP;
-exports.GRID_COLUMN_WIDTH = GRID_COLUMN_WIDTH;
-exports.GRID_ROW_GAP = GRID_ROW_GAP;
-exports.GRID_WIDTH = GRID_WIDTH;
-exports.PAGE_FONT_SIZE = PAGE_FONT_SIZE;
-exports.PAGE_LINE_HEIGHT = PAGE_LINE_HEIGHT;
-exports.PAGE_SPACE_EXTRA_LARGE = PAGE_SPACE_EXTRA_LARGE;
-exports.PAGE_SPACE_EXTRA_SMALL = PAGE_SPACE_EXTRA_SMALL;
-exports.PAGE_SPACE_LARGE = PAGE_SPACE_LARGE;
-exports.PAGE_SPACE_MEDIUM = PAGE_SPACE_MEDIUM;
-exports.PAGE_SPACE_SMALL = PAGE_SPACE_SMALL;
-exports.stylesheet = stylesheet;
+const State = Singleton();
+
+export { GRID_BACKGROUND_COLOR, GRID_COLUMNS, GRID_COLUMN_GAP, GRID_COLUMN_WIDTH, GRID_ROW_GAP, GRID_WIDTH, PAGE_FONT_SIZE, PAGE_LINE_HEIGHT, PAGE_SPACE_EXTRA_LARGE, PAGE_SPACE_EXTRA_SMALL, PAGE_SPACE_LARGE, PAGE_SPACE_MEDIUM, PAGE_SPACE_SMALL, State };

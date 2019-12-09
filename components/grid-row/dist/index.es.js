@@ -1553,6 +1553,7 @@ class StyleSheet {
     } else {
       this.sheet = this.create_sheet(id);
     }
+    this.written_rules = {};
     this.pending_rules = {};
   }
 
@@ -1569,23 +1570,30 @@ class StyleSheet {
     return style_element.sheet
   }
 
-  add_rule(input) {
+  add_rule( input ){
     const matches = input.match(/^([^{]*)\{([^}]*)\}/);
     const selector = matches[1].trim();
     const rules = matches[2].trim();
 
-    if (!this.pending_rules[selector]) {
-      this.pending_rules[selector] = '';
+    if( !this.pending_rules[ selector ]){
+      this.pending_rules[ selector ] = `${rules}`;
+    } else {
+      this.pending_rules[ selector ] += `\n${rules}`;
     }
-
-    this.pending_rules[selector] = `${this.pending_rules[selector]}\n${rules}`;
   }
 
   write() {
-    Object.keys(this.pending_rules).forEach((selector) => {
-      this.write_rule(selector, this.pending_rules[selector]);
+    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
+      this.write_rule(selector, rules);
+
+      if( !this.written_rules[ selector ]){
+        this.written_rules[ selector ] = `${rules}`;
+      } else {
+        this.written_rules[ selector ] += `\n${rules}`;
+      }
+
       delete this.pending_rules[selector];
-    });
+    }
   }
 
   write_rule(selector, rules) {
@@ -1609,24 +1617,33 @@ const PREFIX = '--oma';
 const GRID_PREFIX = `${PREFIX}-grid`;
 const GRID_WIDTH = `${GRID_PREFIX}__width`;
 
-const stylesheet = new StyleSheet('oma-styles');
+class Singleton {
+  constructor() {
+    this._stylesheet = new StyleSheet( 'oma-styles' );
+    Object.freeze( this._stylesheet );
+  }
 
-Object.freeze(stylesheet);
+  get stylesheet() {
+    return this._stylesheet;
+  }
+}
 
-stylesheet.add_rule(
+const State$1 = Singleton();
+
+State$1.stylesheet.add_rule(
   `.size-1200 oma-grid-row:not([fullWidth]) {
     grid-column: 2 / -2;
   }`
 );
 
-stylesheet.add_rule(
+State$1.stylesheet.add_rule(
   `.size-1200 oma-grid-row[fullWidth][contentAlignedWithGrid] {
     padding-left: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
     padding-right: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
   }`
 );
 
-stylesheet.add_rule(
+State$1.stylesheet.add_rule(
   `oma-grid-row {
     grid-column: 1 / -1;
   }`
@@ -1634,7 +1651,7 @@ stylesheet.add_rule(
 
 const Row = () => {
   useEffect(() => {
-    stylesheet.write();
+    State$1.stylesheet.write();
   });
 
   return html`
