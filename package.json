@@ -2,8 +2,6 @@
   "scripts": {
     "build": "node scripts/build.js",
     "start": "npm run watch",
-    "lerna:publish": "npx lerna publish --conventional-commits",
-    "lerna:changed": "npx lerna changed",
     "test": "jest"
   },
   "devDependencies": {
