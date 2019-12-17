@@ -4,3 +4,6 @@ node_modules
 
 # Vim
 *.swp
+
+# Lerna
+lerna-debug.log
