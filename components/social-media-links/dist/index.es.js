@@ -1556,19 +1556,20 @@ const Links = ({ socialMedias }) => {
 
 customElements.define('oma-social-media-links', component(Links));
 
-const Instagram = ({ accountId }) => {
-  const baseUrl = 'https://www.instagram.com/';
+const Link = ({ type, url }) => {
+  const classes = `oma-social-media-links__link oma-social-media-links__link--${type}`;
 
   return html`
-    <a
-      class="oma-social-media-link"
-      href="${baseUrl}${accountId}"
-      target="_blank"
-    >
-      <slot></slot>
-    </a>
+    <li>
+      <a class="${classes}" href="${url}" target="_blank"> <slot></slot> </a>
+    </li>
   `
 };
+
+const Instagram = ({ accountId }) =>
+  html`
+    ${Link({ url: `https://www.instagram.com/${accountId}`, type: 'facebook' })}
+  `;
 
 customElements.define('oma-instagram-link', component(Instagram));
 
