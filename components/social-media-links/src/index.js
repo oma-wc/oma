@@ -33,7 +33,7 @@ const Faceboook = ({ accountId }) => {
   return html`
     <li>
       <a
-        class="oma-social-media-links__link"
+        class="oma-social-media-link"
         href="${baseUrl}${accountId}"
         target="_blank"
       >
