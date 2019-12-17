@@ -20,26 +20,21 @@ const Link = ({ type, url }) => {
   `
 }
 
-const Instagram = ({ accountId }) =>
-  html`
-    ${Link({ url: `https://www.instagram.com/${accountId}`, type: 'facebook' })}
+const Instagram = ({ accountId }) => {
+  const url = `https://www.instagram.com/${accountId}`
+
+  return html`
+    ${Link({ url: url, type: 'instagram' })}
   `
+}
 
 customElements.define('oma-instagram-link', component(Instagram))
 
 const Facebook = ({ accountId }) => {
-  const baseUrl = 'https://www.facebook.com/'
+  const url = `https://www.facebook.com/${accountId}`
 
   return html`
-    <li>
-      <a
-        class="oma-social-media-link"
-        href="${baseUrl}${accountId}"
-        target="_blank"
-      >
-        <slot></slot>
-      </a>
-    </li>
+    ${Link({ url: url, type: 'facebook' })}
   `
 }
 
