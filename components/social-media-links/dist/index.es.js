@@ -1573,4 +1573,20 @@ const Instagram = ({ accountId }) =>
 
 customElements.define('oma-instagram-link', component(Instagram));
 
-customElements.define('oma-facebook-link', component(FaceBook));
+const Facebook = ({ accountId }) => {
+  const baseUrl = 'https://www.facebook.com/';
+
+  return html`
+    <li>
+      <a
+        class="oma-social-media-link"
+        href="${baseUrl}${accountId}"
+        target="_blank"
+      >
+        <slot></slot>
+      </a>
+    </li>
+  `
+};
+
+customElements.define('oma-facebook-link', component(Facebook));
