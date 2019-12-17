@@ -1,3 +1,6 @@
 .DS_Store
 logo--huge.png
 node_modules
+
+# Vim
+*.swp
