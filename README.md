@@ -37,3 +37,14 @@ Requires <oma-site> due to style dependancies.
 # Content components
 
 Doesn't require <oma-site>, self contained style.
+
+# Development
+This is a multi package repo managed with [Lerna](https://lerna.js.org).
+
+## Adding new components
+Run `lerna bootstrap` to setup internal dependencies.
+
+## Publishing
+- `yarn build`
+- Commit all changes
+- Run `lerna publish` (you need authentication to NPM (`npm adduser`))
