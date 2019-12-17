@@ -27,7 +27,7 @@ const Instagram = ({ accountId }) =>
 
 customElements.define('oma-instagram-link', component(Instagram))
 
-const Faceboook = ({ accountId }) => {
+const Facebook = ({ accountId }) => {
   const baseUrl = 'https://www.facebook.com/'
 
   return html`
@@ -43,4 +43,4 @@ const Faceboook = ({ accountId }) => {
   `
 }
 
-customElements.define('oma-facebook-link', component(FaceBook))
+customElements.define('oma-facebook-link', component(Facebook))
