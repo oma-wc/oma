@@ -1599,15 +1599,6 @@ const Link = ({ accountId, type }) => {
   `
 };
 
-Link.observedAttributes = ['accountId, type'];
+Link.observedAttributes = ['accountId', 'type'];
 
 customElements.define('oma-social-media-link', component(Link));
-
-const Test = ({ name }) => {
-  console.log(name);
-  return `Hello ${name}!`
-};
-
-Test.observedAttributes = ['name'];
-
-customElements.define('oma-test', component(Test));
