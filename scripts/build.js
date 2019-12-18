@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
-Usage: npm run build [component name...] [options] [lerna options]
+Usage: yrn build [component name...] [options] [lerna options]
   By default, only updated packages will be built.
   All lerna options will be forwarded onto lerna commands.
   Options:
@@ -20,45 +20,43 @@ const getPackageNames = (callback, forceUpdatedPackages) => {
 
   const command = tdsOptions.all ? 'ls' : 'updated'
 
-  exec(`npx lerna ${command} --json ${lernaOptions.join(' ')}`, (error, stdout) => {
-    if (stdout === '') {
-      console.log('No components have been changed, nothing to do. Exiting.')
-      process.exit(0)
-    } else {
-      const updatedPackages = JSON.parse(stdout)
-      const packageNames = updatedPackages.map(packageObject => packageObject.name)
+  exec(
+    `npx lerna ${command} --json ${lernaOptions.join(' ')}`,
+    (error, stdout) => {
+      if (stdout === '') {
+        console.log('No components have been changed, nothing to do. Exiting.')
+        process.exit(0)
+      } else {
+        const updatedPackages = JSON.parse(stdout)
+        const packageNames = updatedPackages.map(
+          (packageObject) => packageObject.name
+        )
 
-      callback(packageNames)
+        callback(packageNames)
+      }
     }
-  })
+  )
 }
 
-
-const arrayToGlob = arr => {
+const arrayToGlob = (arr) => {
   return arr.length === 1 ? arr[0] : `{${arr.join(',')}}`
 }
 
-
-
-getPackageNames(packageNames => {
+getPackageNames((packageNames) => {
   const scopeGlob = arrayToGlob(packageNames)
 
   spawnSync(
     'npx',
-    [
-      'lerna',
-      'exec',
-      '--scope',
-      scopeGlob,
-      '--no-private',
-      '--',
-      'rollup -c',
-    ],
+    ['lerna', 'exec', '--scope', scopeGlob, '--no-private', '--', 'rollup -c'],
     {
       stdio: 'inherit',
     }
   )
-  spawnSync('npx', ['lerna', 'run', '--scope', scopeGlob, '--no-private', 'build'], {
-    stdio: 'inherit',
-  })
+  spawnSync(
+    'npx',
+    ['lerna', 'run', '--scope', scopeGlob, '--no-private', 'build'],
+    {
+      stdio: 'inherit',
+    }
+  )
 })
