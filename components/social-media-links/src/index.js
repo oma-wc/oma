@@ -34,7 +34,20 @@ State.stylesheet.add_rule(
 
 const Links = () => {
   return html`
-    <ul style="margin: 0; padding: 0; list-style: none;">
+    <style>
+      ul {
+        margin: var(--oma-social-media-links__margin, 0);
+        padding: var(--oma-social-media-links__padding, 0);
+        list-style: var(--oma-social-media-links__list-style, none);
+        display: var(--oma-social-media-links__display, block);
+        grid-template-columns: var(
+          --oma-social-media-links__grid-template-columns,
+          none
+        );
+        justify-content: var(--oma-social-media-links__justify-content, normal);
+      }
+    </style>
+    <ul>
       <slot></slot>
     </ul>
   `
