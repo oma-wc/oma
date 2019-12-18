@@ -1,5 +1,7 @@
 'use strict';
 
+var state = require('@oma-wc/state');
+
 /**
  * @license
  * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -1379,7 +1381,7 @@ function createEffect(setEffects) {
 function setEffects(state, cb) {
     state[effectsSymbol].push(cb);
 }
-const useEffect = createEffect(setEffects);
+const useEffect$1 = createEffect(setEffects);
 
 const useContext = hook(class extends Hook {
     constructor(id, state, _) {
@@ -1563,16 +1565,17 @@ const urls = {
   [TWITTER]: 'https://twitter.com/',
 };
 
+state.State.stylesheet.add_rule(
+  `oma-social-media-links {
+     margin: 0;
+     padding: 0;
+     list-style: none;
+  }`
+);
+
 const Links = () => {
   return html`
-    <style>
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-    </style>
-    <ul class="oma-social-media-links">
+    <ul>
       <slot></slot>
     </ul>
   `
@@ -1593,12 +1596,15 @@ const Link = ({ accountid, type }) => {
     `
   }
 
-  const classes = `oma-social-media-links__link oma-social-media-links__link--${type}`;
+  useEffect(() => {
+    state.State.stylesheet.write();
+  });
+
   const url = urls[type] + accountid;
 
   return html`
     <li>
-      <a class="${classes}" href="${url}" target="_blank"> <slot> </slot> </a>
+      <a href="${url}" target="_blank"> <slot> </slot> </a>
     </li>
   `
 };
