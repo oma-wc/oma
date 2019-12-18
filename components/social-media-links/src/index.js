@@ -1,4 +1,4 @@
-import { component, html } from 'haunted'
+import { component, html, useEffect } from 'haunted'
 
 import { State } from '@oma-wc/state'
 

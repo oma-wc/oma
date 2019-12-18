@@ -1377,7 +1377,7 @@ function createEffect(setEffects) {
 function setEffects(state, cb) {
     state[effectsSymbol].push(cb);
 }
-const useEffect$1 = createEffect(setEffects);
+const useEffect = createEffect(setEffects);
 
 const useContext = hook(class extends Hook {
     constructor(id, state, _) {
