@@ -1556,11 +1556,11 @@ const TWITTER = 'twitter';
 
 const types = [FACEBOOK, INSTAGRAM, LINKEDIN_PRIVATE, LINKEDIN_COMPANY, TWITTER];
 const urls = {
-  FACEBOOK: 'https://www.facebook.com/',
-  INSTAGRAM: 'https://www.instagram.com/',
-  LINKEDIN_PRIVATE: 'https://www.linkedin.com/in/',
-  COMPANY_LINKEDIN: 'https://www.linkedin.com/company/',
-  TWITTER: 'https://twitter.com/',
+  [FACEBOOK]: 'https://www.facebook.com/',
+  [INSTAGRAM]: 'https://www.instagram.com/',
+  [LINKEDIN_PRIVATE]: 'https://www.linkedin.com/in/',
+  [COMPANY_LINKEDIN]: 'https://www.linkedin.com/company/',
+  [TWITTER]: 'https://twitter.com/',
 };
 
 const Links = () => {
