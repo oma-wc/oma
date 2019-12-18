@@ -1546,6 +1546,21 @@ function haunted({ render }) {
 
 const { component, createContext } = haunted({ render });
 
+const FACEBOOK = 'facebook';
+const INSTAGRAM = 'instagram';
+const LINKEDIN_PRIVATE = 'linkedin-private';
+const LINKEDIN_COMPANY = 'linkedin-company';
+const TWITTER = 'twitter';
+
+const types = [FACEBOOK, INSTAGRAM, LINKEDIN_PRIVATE, LINKEDIN_COMPANY, TWITTER];
+const urls = {
+  FACEBOOK: 'https://www.facebook.com/',
+  INSTAGRAM: 'https://www.instagram.com/',
+  LINKEDIN_PRIVATE: 'https://www.linkedin.com/in/',
+  COMPANY_LINKEDIN: 'https://www.linkedin.com/company/',
+  TWITTER: 'https://twitter.com/',
+};
+
 const Links = ({ socialMedias }) => {
   return html`
     <ul class="oma-social-media-links">
@@ -1556,8 +1571,21 @@ const Links = ({ socialMedias }) => {
 
 customElements.define('oma-social-media-links', component(Links));
 
-const Link = ({ type, url }) => {
+const Link = ({ accountId, type }) => {
+  if (!types.includes(type)) {
+    return html`
+      <slot>Social media type "${type}" not supported</slot>
+    `
+  }
+
+  if (accountId === undefined) {
+    return html`
+      <slot>Account id must be provided</slot>
+    `
+  }
+
   const classes = `oma-social-media-links__link oma-social-media-links__link--${type}`;
+  const url = urls[type] + accountId;
 
   return html`
     <li>
@@ -1566,22 +1594,4 @@ const Link = ({ type, url }) => {
   `
 };
 
-const Instagram = ({ accountId }) => {
-  const url = `https://www.instagram.com/${accountId}`;
-
-  return html`
-    ${Link({ url: url, type: 'instagram' })}
-  `
-};
-
-customElements.define('oma-instagram-link', component(Instagram));
-
-const Facebook = ({ accountId }) => {
-  const url = `https://www.facebook.com/${accountId}`;
-
-  return html`
-    ${Link({ url: url, type: 'facebook' })}
-  `
-};
-
-customElements.define('oma-facebook-link', component(Facebook));
+customElements.define('oma-social-media-link', component(Link));
