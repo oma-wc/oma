@@ -18,7 +18,11 @@ const urls = {
 const Links = () => {
   return html`
     <style>
-      ul {margin: 0, padding: 0, list-style: none}
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
     </style>
     <ul class="oma-social-media-links">
       <slot></slot>
