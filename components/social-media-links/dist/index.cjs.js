@@ -1559,7 +1559,7 @@ const urls = {
   [FACEBOOK]: 'https://www.facebook.com/',
   [INSTAGRAM]: 'https://www.instagram.com/',
   [LINKEDIN_PRIVATE]: 'https://www.linkedin.com/in/',
-  [COMPANY_LINKEDIN]: 'https://www.linkedin.com/company/',
+  [LINKEDIN_COMPANY]: 'https://www.linkedin.com/company/',
   [TWITTER]: 'https://twitter.com/',
 };
 
