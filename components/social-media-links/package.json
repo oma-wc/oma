@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/social-media-links",
-  "version": "0.3.17",
+  "version": "0.3.18",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
