@@ -1573,24 +1573,21 @@ const Links = () => {
 
 customElements.define('oma-social-media-links', component(Links));
 
-const Link = ({ accountId, type }) => {
-  console.log(accountId);
-  console.log(type);
-
+const Link = ({ accountid, type }) => {
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
     `
   }
 
-  if (accountId === undefined) {
+  if (accountid === undefined) {
     return html`
       <slot>Account id must be provided</slot>
     `
   }
 
   const classes = `oma-social-media-links__link oma-social-media-links__link--${type}`;
-  const url = urls[type] + accountId;
+  const url = urls[type] + accountid;
 
   return html`
     <li>
@@ -1599,6 +1596,6 @@ const Link = ({ accountId, type }) => {
   `
 };
 
-Link.observedAttributes = ['accountId', 'type'];
+Link.observedAttributes = ['accountid', 'type'];
 
 customElements.define('oma-social-media-link', component(Link));
