@@ -1561,7 +1561,7 @@ const urls = {
   TWITTER: 'https://twitter.com/',
 };
 
-const Links = ({ socialMedias }) => {
+const Links = (socialMedias) => {
   return html`
     <ul class="oma-social-media-links">
       <slot></slot>
@@ -1571,7 +1571,7 @@ const Links = ({ socialMedias }) => {
 
 customElements.define('oma-social-media-links', component(Links));
 
-const Link = ({ accountId, type }) => {
+const Link = (accountId, type) => {
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
