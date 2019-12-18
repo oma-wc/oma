@@ -26,6 +26,9 @@ const Links = () => {
 customElements.define('oma-social-media-links', component(Links))
 
 const Link = ({ accountId, type }) => {
+  console.log(accountId)
+  console.log(type)
+
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
@@ -51,3 +54,12 @@ const Link = ({ accountId, type }) => {
 Link.observedAttributes = ['accountId, type']
 
 customElements.define('oma-social-media-link', component(Link))
+
+const Test = ({ name }) => {
+  console.log(name)
+  return `Hello ${name}!`
+}
+
+Test.observedAttributes = ['name']
+
+customElements.define('oma-test', component(Test))
