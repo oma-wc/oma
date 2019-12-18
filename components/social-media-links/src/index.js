@@ -1,6 +1,10 @@
-import { component, html, useEffect } from 'haunted'
+import { component, html } from 'haunted'
 
-import { State } from '@oma-wc/state'
+// TODO: Fix #3
+//import { component, html, useEffect } from 'haunted'
+
+// TODO: Fix #3
+// import { State } from '@oma-wc/state'
 
 const FACEBOOK = 'facebook'
 const INSTAGRAM = 'instagram'
@@ -17,6 +21,8 @@ const urls = {
   [TWITTER]: 'https://twitter.com/',
 }
 
+/*
+ * TODO: Fix #3
 State.stylesheet.add_rule(
   `oma-social-media-links {
      margin: 0;
@@ -24,10 +30,11 @@ State.stylesheet.add_rule(
      list-style: none;
   }`
 )
+*/
 
 const Links = () => {
   return html`
-    <ul>
+    <ul style="margin: 0; padding: 0; list-style: none;">
       <slot></slot>
     </ul>
   `
@@ -48,9 +55,12 @@ const Link = ({ accountid, type }) => {
     `
   }
 
+  /*
+   * TODO: Fix #3
   useEffect(() => {
     State.stylesheet.write()
   })
+  */
 
   const url = urls[type] + accountid
 
