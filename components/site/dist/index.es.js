@@ -1639,7 +1639,7 @@ const State$1 = new Singleton();
 
 State$1.stylesheet.add_rule(
   `html {
-    ${PAGE_FONT_SIZE}: 16px;
+    ${PAGE_FONT_SIZE}: 18px;
     ${PAGE_LINE_HEIGHT}: 1.8;
     ${PAGE_SPACE_EXTRA_LARGE}: 10rem;
     ${PAGE_SPACE_EXTRA_SMALL}: 1rem;
