@@ -1628,7 +1628,7 @@ class Singleton {
   }
 }
 
-const State$1 = Singleton();
+const State$1 = new Singleton();
 
 State$1.stylesheet.add_rule(
   `.size-1200 oma-grid-row:not([fullWidth]) {

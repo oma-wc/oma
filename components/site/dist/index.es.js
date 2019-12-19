@@ -1635,7 +1635,7 @@ class Singleton {
   }
 }
 
-const State$1 = Singleton();
+const State$1 = new Singleton();
 
 State$1.stylesheet.add_rule(
   `html {

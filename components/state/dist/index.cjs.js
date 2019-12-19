@@ -101,7 +101,7 @@ class Singleton {
   }
 }
 
-const State = Singleton();
+const State = new Singleton();
 
 exports.GRID_BACKGROUND_COLOR = GRID_BACKGROUND_COLOR;
 exports.GRID_COLUMNS = GRID_COLUMNS;

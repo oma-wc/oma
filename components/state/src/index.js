@@ -13,6 +13,6 @@ class Singleton {
   }
 }
 
-const State = Singleton()
+const State = new Singleton()
 
 export { State };
