@@ -37,6 +37,7 @@ const LinkTag = ({ content, to }) => {
 }
 
 const Link = ({ to }) => {
+  console.log(to)
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}
@@ -44,6 +45,7 @@ const Link = ({ to }) => {
   }
 
   const phoneNumber = parsePhoneNumberFromString(to)
+  console.log(phoneNumber)
   if (phoneNumber.isValid()) {
     return html`
       ${PhoneLink({ number: phoneNumber })}
