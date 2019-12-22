@@ -5933,7 +5933,7 @@ AsYouType$1.prototype.constructor = AsYouType$1;
 const ELEMENT = 'oma-link';
 
 State$1.stylesheet.add_rule(
-  `oma-link {
+  `${ELEMENT} {
     a {
       color: var(--oma-link__color);
       margin: var(--oma-link__margin);
@@ -5953,7 +5953,7 @@ const PhoneLink = ({ number }) =>
     ${
       LinkTag({
         content: number.formatNational(),
-        to: `tel:${number.getURI()}`,
+        to: number.getURI(),
       })
     }
   `;
@@ -5965,6 +5965,10 @@ const LinkTag = ({ content, to }) => {
 };
 
 const Link = ({ to }) => {
+  useEffect(() => {
+    State$1.stylesheet.write();
+  });
+
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}

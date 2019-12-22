@@ -1,4 +1,4 @@
-import { component, html } from 'haunted'
+import { component, html, useEffect } from 'haunted'
 
 import { State } from '@oma-wc/state'
 
@@ -7,7 +7,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js/min'
 const ELEMENT = 'oma-link'
 
 State.stylesheet.add_rule(
-  `oma-link {
+  `${ELEMENT} {
     a {
       color: var(--oma-link__color);
       margin: var(--oma-link__margin);
@@ -27,7 +27,7 @@ const PhoneLink = ({ number }) =>
     ${
       LinkTag({
         content: number.formatNational(),
-        to: `tel:${number.getURI()}`,
+        to: number.getURI(),
       })
     }
   `
@@ -39,6 +39,10 @@ const LinkTag = ({ content, to }) => {
 }
 
 const Link = ({ to }) => {
+  useEffect(() => {
+    State.stylesheet.write()
+  })
+
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}
