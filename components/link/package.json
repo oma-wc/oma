@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/link",
-  "version": "0.3.25",
+  "version": "0.3.26",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
