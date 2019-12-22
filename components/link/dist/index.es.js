@@ -5930,17 +5930,6 @@ AsYouType$1.prototype.constructor = AsYouType$1;
 
 const ELEMENT = 'oma-link';
 
-State$1.stylesheet.add_rule(
-  `${ELEMENT} {
-    a {
-      color: var(--oma-link__color);
-      margin: var(--oma-link__margin);
-      padding: var(--oma-link__padding);
-      text_decoration: var(--oma-link__text-decoration, underline);
-    }
-  }`
-);
-
 const EmailLink = ({ email }) =>
   html`
     ${LinkTag({ content: email, to: `mailto:${email}` })}
@@ -5958,12 +5947,23 @@ const PhoneLink = ({ number }) =>
 
 const LinkTag = ({ content, to }) => {
   return html`
+    <style>
+      ${ELEMENT} {
+        a {
+          color: var(--oma-link__color);
+          margin: var(--oma-link__margin);
+          padding: var(--oma-link__padding);
+          text-decoration: var(--oma-link__text-decoration, underline);
+        }
+      }
+    </style>
     <a href="${to}"> ${content} <slot></slot> </a>
   `
 };
 
 const Link = ({ to }) => {
   useEffect(() => {
+    console.log('=================oma-link loaded===================');
     State$1.stylesheet.write();
   });
 
