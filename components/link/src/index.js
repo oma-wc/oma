@@ -1,6 +1,4 @@
-import { component, html, useEffect } from 'haunted'
-
-import { State } from '@oma-wc/state'
+import { component, html } from 'haunted'
 
 import { parsePhoneNumberFromString } from 'libphonenumber-js/min'
 
@@ -24,13 +22,11 @@ const PhoneLink = ({ number }) =>
 const LinkTag = ({ content, to }) => {
   return html`
     <style>
-      ${ELEMENT} {
-        a {
-          color: var(--oma-link__color);
-          margin: var(--oma-link__margin);
-          padding: var(--oma-link__padding);
-          text-decoration: var(--oma-link__text-decoration, underline);
-        }
+      a {
+        color: var(--oma-link__color);
+        margin: var(--oma-link__margin);
+        padding: var(--oma-link__padding);
+        text-decoration: var(--oma-link__text-decoration, underline);
       }
     </style>
     <a href="${to}"> ${content} <slot></slot> </a>
@@ -38,11 +34,6 @@ const LinkTag = ({ content, to }) => {
 }
 
 const Link = ({ to }) => {
-  useEffect(() => {
-    console.log('=================oma-link loaded===================')
-    State.stylesheet.write()
-  })
-
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}

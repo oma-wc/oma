@@ -1546,83 +1546,6 @@ function haunted({ render }) {
 
 const { component, createContext } = haunted({ render });
 
-class StyleSheet {
-  constructor(id) {
-    if (document.getElementById(id)) {
-      this.sheet = document.getElementById(id).sheet;
-    } else {
-      this.sheet = this.create_sheet(id);
-    }
-    this.written_rules = {};
-    this.pending_rules = {};
-  }
-
-  create_sheet(id) {
-    var style_element = document.createElement('style');
-    if (id) {
-      style_element.id = id;
-    }
-    // WebKit hack :(
-    style_element.appendChild(document.createTextNode(''));
-
-    document.head.appendChild(style_element);
-
-    return style_element.sheet
-  }
-
-  add_rule( input ){
-    const matches = input.match(/^([^{]*)\{([^}]*)\}/);
-    const selector = matches[1].trim();
-    const rules = matches[2].trim();
-
-    if( !this.pending_rules[ selector ]){
-      this.pending_rules[ selector ] = `${rules}`;
-    } else {
-      this.pending_rules[ selector ] += `\n${rules}`;
-    }
-  }
-
-  write() {
-    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
-      this.write_rule(selector, rules);
-
-      if( !this.written_rules[ selector ]){
-        this.written_rules[ selector ] = `${rules}`;
-      } else {
-        this.written_rules[ selector ] += `\n${rules}`;
-      }
-
-      delete this.pending_rules[selector];
-    }
-  }
-
-  write_rule(selector, rules) {
-    if ('insertRule' in this.sheet) {
-      this.sheet.insertRule(selector + '{' + rules + '}');
-    } else if ('addRule' in this.sheet) {
-      this.sheet.addRule(selector, rules);
-    }
-  }
-}
-
-Object.defineProperty(StyleSheet, 'pending_rules', {
-  value: {},
-  writable: true,
-});
-
-class Singleton {
-  constructor() {
-    this._stylesheet = new StyleSheet( 'oma-styles' );
-    Object.freeze( this._stylesheet );
-  }
-
-  get stylesheet() {
-    return this._stylesheet;
-  }
-}
-
-const State$1 = new Singleton();
-
 // This file is a workaround for a bug in web browsers' "native"
 // ES6 importing system which is uncapable of importing "*.json" files.
 // https://github.com/catamphetamine/libphonenumber-js/issues/239
@@ -5948,13 +5871,11 @@ const PhoneLink = ({ number }) =>
 const LinkTag = ({ content, to }) => {
   return html`
     <style>
-      ${ELEMENT} {
-        a {
-          color: var(--oma-link__color);
-          margin: var(--oma-link__margin);
-          padding: var(--oma-link__padding);
-          text-decoration: var(--oma-link__text-decoration, underline);
-        }
+      a {
+        color: var(--oma-link__color);
+        margin: var(--oma-link__margin);
+        padding: var(--oma-link__padding);
+        text-decoration: var(--oma-link__text-decoration, underline);
       }
     </style>
     <a href="${to}"> ${content} <slot></slot> </a>
@@ -5962,11 +5883,6 @@ const LinkTag = ({ content, to }) => {
 };
 
 const Link = ({ to }) => {
-  useEffect(() => {
-    console.log('=================oma-link loaded===================');
-    State$1.stylesheet.write();
-  });
-
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}
