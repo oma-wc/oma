@@ -5934,10 +5934,12 @@ const ELEMENT = 'oma-link';
 
 State$1.stylesheet.add_rule(
   `oma-link {
-    color: var(--oma-link__color);
-    margin: var(--oma-link__margin);
-    padding: var(--oma-link__padding);
-    text_decoration: var(--oma-link__text-decoration, underline);
+    a {
+      color: var(--oma-link__color);
+      margin: var(--oma-link__margin);
+      padding: var(--oma-link__padding);
+      text_decoration: var(--oma-link__text-decoration, underline);
+    }
   }`
 );
 
