@@ -12,7 +12,7 @@ State.stylesheet.add_rule(
       color: var(--oma-link__color);
       margin: var(--oma-link__margin);
       padding: var(--oma-link__padding);
-      text_decoration: var(--oma-link__text-decoration, underline);
+      text-decoration: var(--oma-link__text-decoration, underline);
     }
   }`
 )
