@@ -37,19 +37,25 @@ const LinkTag = ({ content, to }) => {
 }
 
 const Link = ({ to }) => {
-  console.log(to)
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}
     `
   }
 
-  const phoneNumber = parsePhoneNumberFromString(to)
-  console.log(phoneNumber)
-  if (phoneNumber.isValid()) {
-    return html`
-      ${PhoneLink({ number: phoneNumber })}
-    `
+  try {
+    const phoneNumber = parsePhoneNumberFromString(to)
+    if (phoneNumber.isValid()) {
+      return html`
+        ${PhoneLink({ number: phoneNumber })}
+      `
+    }
+  } catch (error) {
+    if (error instanceof ParseError) {
+      console.log(`${ELEMENT}: ${error.message}`)
+    } else {
+      throw error
+    }
   }
 
   console.error(`ERROR, ${ELEMENT}: Unknown link type. Link to: ${to}`)
