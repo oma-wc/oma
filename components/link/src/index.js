@@ -34,6 +34,12 @@ const LinkTag = ({ content, to }) => {
 }
 
 const Link = ({ to }) => {
+  if (to.includes('://')) {
+    return html`
+      <a href="${to}" /><slot></slot></a>
+    `
+  }
+
   if (to.includes('@')) {
     return html`
       ${EmailLink({ email: to })}
