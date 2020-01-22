@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/state",
-  "version": "0.3.22",
+  "version": "0.4.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
