@@ -1,6 +1,6 @@
 import { component, html } from 'haunted'
 
-import { parsePhoneNumberFromString } from 'libphonenumber-js/min'
+import { parsePhoneNumberFromString, ParseError } from 'libphonenumber-js/min'
 
 const ELEMENT = 'oma-link'
 
