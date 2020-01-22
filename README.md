@@ -45,7 +45,6 @@ This is a multi package repo managed with [Lerna](https://lerna.js.org).
 Run `lerna bootstrap` to setup internal dependencies.
 
 ## Publishing
-- Commit all changes
 - `yarn build`
-- Commit build
+- Commit
 - Run `lerna publish` (you need authentication to NPM (`npm adduser`))
