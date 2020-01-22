@@ -1554,7 +1554,7 @@ var metadata = {"version":"1.7.29","country_calling_codes":{"1":["US","AG","AI",
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 // https://stackoverflow.com/a/46971044/970769
-var ParseError$1 = function ParseError(code) {
+var ParseError = function ParseError(code) {
   _classCallCheck(this, ParseError);
 
   this.name = this.constructor.name;
@@ -1563,8 +1563,8 @@ var ParseError$1 = function ParseError(code) {
 };
 
 
-ParseError$1.prototype = Object.create(Error.prototype);
-ParseError$1.prototype.constructor = ParseError$1;
+ParseError.prototype = Object.create(Error.prototype);
+ParseError.prototype.constructor = ParseError;
 
 // The minimum length of the national significant number.
 var MIN_LENGTH_FOR_NSN = 2;
@@ -3141,7 +3141,7 @@ function parse(text) {
 	// Validate `defaultCountry`.
 	if (options.defaultCountry && !metadata.hasCountry(options.defaultCountry)) {
 		if (options.v2) {
-			throw new ParseError$1('INVALID_COUNTRY');
+			throw new ParseError('INVALID_COUNTRY');
 		}
 		throw new Error('Unknown country: ' + options.defaultCountry);
 	}
@@ -3157,7 +3157,7 @@ function parse(text) {
 
 	if (!formattedPhoneNumber) {
 		if (options.v2) {
-			throw new ParseError$1('NOT_A_NUMBER');
+			throw new ParseError('NOT_A_NUMBER');
 		}
 		return {};
 	}
@@ -3170,7 +3170,7 @@ function parse(text) {
 
 	if (!metadata.selectedCountry()) {
 		if (options.v2) {
-			throw new ParseError$1('INVALID_COUNTRY');
+			throw new ParseError('INVALID_COUNTRY');
 		}
 		return {};
 	}
@@ -3180,7 +3180,7 @@ function parse(text) {
 		// Won't throw here because the regexp already demands length > 1.
 		/* istanbul ignore if */
 		if (options.v2) {
-			throw new ParseError$1('TOO_SHORT');
+			throw new ParseError('TOO_SHORT');
 		}
 		// Google's demo just throws an error in this case.
 		return {};
@@ -3197,7 +3197,7 @@ function parse(text) {
 	//
 	if (nationalNumber.length > MAX_LENGTH_FOR_NSN) {
 		if (options.v2) {
-			throw new ParseError$1('TOO_LONG');
+			throw new ParseError('TOO_LONG');
 		}
 		// Google's demo just throws an error in this case.
 		return {};
@@ -3251,7 +3251,7 @@ function extract_formatted_phone_number(text, v2) {
 
 	if (text.length > MAX_INPUT_STRING_LENGTH) {
 		if (v2) {
-			throw new ParseError$1('TOO_LONG');
+			throw new ParseError('TOO_LONG');
 		}
 		return;
 	}
@@ -3746,7 +3746,7 @@ function parsePhoneNumberFromString(text, options, metadata) {
 		return parsePhoneNumber$1(text, options, metadata);
 	} catch (error) {
 		/* istanbul ignore else */
-		if (error instanceof ParseError$1) ; else {
+		if (error instanceof ParseError) ; else {
 			throw error;
 		}
 	}
