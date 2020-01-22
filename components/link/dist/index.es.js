@@ -5891,7 +5891,7 @@ const Link = ({ to }) => {
 
   try {
     const phoneNumber = parsePhoneNumberFromString$2(to);
-    if (phoneNumber.isValid()) {
+    if (phoneNumber && phoneNumber.isValid()) {
       return html`
         ${PhoneLink({ number: phoneNumber })}
       `

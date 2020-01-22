@@ -42,7 +42,7 @@ const Link = ({ to }) => {
 
   try {
     const phoneNumber = parsePhoneNumberFromString(to)
-    if (phoneNumber.isValid()) {
+    if (phoneNumber && phoneNumber.isValid()) {
       return html`
         ${PhoneLink({ number: phoneNumber })}
       `
