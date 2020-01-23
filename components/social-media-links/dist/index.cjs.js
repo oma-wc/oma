@@ -1685,7 +1685,7 @@ const Link = ({ accountid, type }) => {
 
   return html`
     <li>
-      <a href="${url}" target="_blank"> <slot> </slot> </a>
+      <a href="${url}"> <slot> </slot> </a>
     </li>
   `
 };
