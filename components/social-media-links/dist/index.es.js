@@ -1638,6 +1638,14 @@ const urls = {
   [TWITTER]: 'https://twitter.com/',
 };
 
+const labels = {
+  [FACEBOOK]: 'Link to Facebook',
+  [INSTAGRAM]: 'Link to Instagram',
+  [LINKEDIN_PRIVATE]: 'Link to Linkedin',
+  [LINKEDIN_COMPANY]: 'Link to Linkedin',
+  [TWITTER]: 'Link to Twitter',
+};
+
 State$1.stylesheet.add_rule(
   `oma-social-media-links {
      margin: var(--oma-social-media-links__margin, 0);
@@ -1662,7 +1670,7 @@ const Links = () => {
 
 customElements.define('oma-social-media-links', component(Links));
 
-const Link = ({ accountid, type }) => {
+const Link = ({ accountid, alt, label = labels[type], type }) => {
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
@@ -1683,7 +1691,7 @@ const Link = ({ accountid, type }) => {
 
   return html`
     <li>
-      <a href="${url}"> <slot> </slot> </a>
+      <a href="${url}" aria-label="${label}"> <slot> </slot> </a>
     </li>
   `
 };

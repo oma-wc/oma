@@ -12,9 +12,17 @@ const types = [FACEBOOK, INSTAGRAM, LINKEDIN_PRIVATE, LINKEDIN_COMPANY, TWITTER]
 const urls = {
   [FACEBOOK]: 'https://www.facebook.com/',
   [INSTAGRAM]: 'https://www.instagram.com/',
-  [LINKEDIN_PRIVATE]: 'https://www.linkedin.com/in/',
   [LINKEDIN_COMPANY]: 'https://www.linkedin.com/company/',
+  [LINKEDIN_PRIVATE]: 'https://www.linkedin.com/in/',
   [TWITTER]: 'https://twitter.com/',
+}
+
+const labels = {
+  [FACEBOOK]: 'Link to Facebook',
+  [INSTAGRAM]: 'Link to Instagram',
+  [LINKEDIN_COMPANY]: 'Link to Linkedin',
+  [LINKEDIN_PRIVATE]: 'Link to Linkedin',
+  [TWITTER]: 'Link to Twitter',
 }
 
 State.stylesheet.add_rule(
@@ -41,7 +49,7 @@ const Links = () => {
 
 customElements.define('oma-social-media-links', component(Links))
 
-const Link = ({ accountid, type }) => {
+const Link = ({ accountid, alt, label = labels[type], type }) => {
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
@@ -62,7 +70,7 @@ const Link = ({ accountid, type }) => {
 
   return html`
     <li>
-      <a href="${url}"> <slot> </slot> </a>
+      <a href="${url}" aria-label="${label}"> <slot> </slot> </a>
     </li>
   `
 }
