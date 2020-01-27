@@ -1670,7 +1670,7 @@ const Links = () => {
 
 customElements.define('oma-social-media-links', component(Links));
 
-const Link = ({ accountid, alt, label, type }) => {
+const Link = ({ accountid, label, type }) => {
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
