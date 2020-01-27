@@ -76,6 +76,6 @@ const Link = ({ accountid, label, type }) => {
   `
 }
 
-Link.observedAttributes = ['accountid', 'type']
+Link.observedAttributes = ['accountid', 'label', 'type']
 
 customElements.define('oma-social-media-link', component(Link))
