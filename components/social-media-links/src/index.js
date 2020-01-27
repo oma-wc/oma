@@ -49,7 +49,7 @@ const Links = () => {
 
 customElements.define('oma-social-media-links', component(Links))
 
-const Link = ({ accountid, alt, label = labels[type], type }) => {
+const Link = ({ accountid, alt, label, type }) => {
   if (!types.includes(type)) {
     return html`
       <slot>Social media type "${type}" not supported</slot>
@@ -67,10 +67,11 @@ const Link = ({ accountid, alt, label = labels[type], type }) => {
   })
 
   const url = urls[type] + accountid
+  const actualLabel = label || labels[type]
 
   return html`
     <li>
-      <a href="${url}" aria-label="${label}"> <slot> </slot> </a>
+      <a href="${url}" aria-label="${actualLabel}"> <slot> </slot> </a>
     </li>
   `
 }
