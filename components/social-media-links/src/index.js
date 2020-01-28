@@ -1,4 +1,5 @@
-import { component, html } from 'haunted'
+import { component, html, useEffect } from 'haunted'
+import { State } from '@oma-wc/state'
 
 const FACEBOOK = 'facebook'
 const INSTAGRAM = 'instagram'
@@ -23,9 +24,16 @@ const labels = {
   [TWITTER]: 'Link to Twitter',
 }
 
+State.stylesheet.add_rule(`
+  .items-slot {
+    display: grid;
+    grid-template-rows: 6rem 6rem;
+  }
+`)
+
 const Links = () =>
   html`
-    <div role="list"><slot></slot></div>
+    <div role="list"><slot class="items-slot"></slot></div>
   `
 
 customElements.define('oma-social-media-links', component(Links))
@@ -42,6 +50,10 @@ const Link = ({ accountid, label, type }) => {
       <slot>Account id must be provided</slot>
     `
   }
+
+  useEffect(() => {
+    State.stylesheet.write()
+  })
 
   const url = urls[type] + accountid
   const actualLabel = label || labels[type]
