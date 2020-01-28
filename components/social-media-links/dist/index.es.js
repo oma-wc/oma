@@ -1546,83 +1546,6 @@ function haunted({ render }) {
 
 const { component, createContext } = haunted({ render });
 
-class StyleSheet {
-  constructor(id) {
-    if (document.getElementById(id)) {
-      this.sheet = document.getElementById(id).sheet;
-    } else {
-      this.sheet = this.create_sheet(id);
-    }
-    this.written_rules = {};
-    this.pending_rules = {};
-  }
-
-  create_sheet(id) {
-    var style_element = document.createElement('style');
-    if (id) {
-      style_element.id = id;
-    }
-    // WebKit hack :(
-    style_element.appendChild(document.createTextNode(''));
-
-    document.head.appendChild(style_element);
-
-    return style_element.sheet
-  }
-
-  add_rule( input ){
-    const matches = input.match(/^([^{]*)\{([^}]*)\}/);
-    const selector = matches[1].trim();
-    const rules = matches[2].trim();
-
-    if( !this.pending_rules[ selector ]){
-      this.pending_rules[ selector ] = `${rules}`;
-    } else {
-      this.pending_rules[ selector ] += `\n${rules}`;
-    }
-  }
-
-  write() {
-    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
-      this.write_rule(selector, rules);
-
-      if( !this.written_rules[ selector ]){
-        this.written_rules[ selector ] = `${rules}`;
-      } else {
-        this.written_rules[ selector ] += `\n${rules}`;
-      }
-
-      delete this.pending_rules[selector];
-    }
-  }
-
-  write_rule(selector, rules) {
-    if ('insertRule' in this.sheet) {
-      this.sheet.insertRule(selector + '{' + rules + '}');
-    } else if ('addRule' in this.sheet) {
-      this.sheet.addRule(selector, rules);
-    }
-  }
-}
-
-Object.defineProperty(StyleSheet, 'pending_rules', {
-  value: {},
-  writable: true,
-});
-
-class Singleton {
-  constructor() {
-    this._stylesheet = new StyleSheet( 'oma-styles' );
-    Object.freeze( this._stylesheet );
-  }
-
-  get stylesheet() {
-    return this._stylesheet;
-  }
-}
-
-const State$1 = new Singleton();
-
 const FACEBOOK = 'facebook';
 const INSTAGRAM = 'instagram';
 const LINKEDIN_PRIVATE = 'linkedin-private';
@@ -1646,17 +1569,6 @@ const labels = {
   [TWITTER]: 'Link to Twitter',
 };
 
-State$1.stylesheet.add_rule(`
-  oma-social-media-links {
-    border: 1px solid red;
-  }
-
-  .items-slot {
-    display: grid;
-    grid-template-rows: 6rem 6rem;
-  }
-`);
-
 const Links = () =>
   html`
     <div role="list"><slot class="items-slot"></slot></div>
@@ -1676,10 +1588,6 @@ const Link = ({ accountid, label, type }) => {
       <slot>Account id must be provided</slot>
     `
   }
-
-  useEffect(() => {
-    State$1.stylesheet.write();
-  });
 
   const url = urls[type] + accountid;
   const actualLabel = label || labels[type];
