@@ -25,6 +25,10 @@ const labels = {
 }
 
 State.stylesheet.add_rule(`
+  oma-social-media-links {
+    border: 1px solid red;
+  }
+
   .items-slot {
     display: grid;
     grid-template-rows: 6rem 6rem;
