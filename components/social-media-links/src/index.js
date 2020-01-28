@@ -39,10 +39,20 @@ State.stylesheet.add_rule(
   }`
 )
 
-const Links = () => {
+// This is a function to allow call to "this".
+function Links() {
+  const slotted = this.host.shadowRoot.querySelector('slot')
+  this.children = slotted
+    .assignedNodes()
+    .filter((node) => node.nodeName !== '#text')
+
+  const childrenListItems = this.children.map((child) => {
+    return html`<li innerHTML="{child.outerHTML}" />`
+  })
+
   return html`
     <ul>
-      <slot></slot>
+      ${childrenListItems}
     </ul>
   `
 }
