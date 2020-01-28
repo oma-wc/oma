@@ -1662,6 +1662,8 @@ State$1.stylesheet.add_rule(
 
 // This is a function to allow call to "this".
 function Links() {
+  console.log(this);
+  console.log(this.host);
   const slotted = this.host.shadowRoot.querySelector('slot');
   this.children = slotted
     .assignedNodes()
