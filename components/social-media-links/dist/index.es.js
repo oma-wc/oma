@@ -1660,25 +1660,10 @@ State$1.stylesheet.add_rule(
   }`
 );
 
-// This is a function to allow call to "this".
-function Links() {
-  console.log(this);
-  console.log(this.host);
-  const slotted = this.host.shadowRoot.querySelector('slot');
-  this.children = slotted
-    .assignedNodes()
-    .filter((node) => node.nodeName !== '#text');
-
-  const childrenListItems = this.children.map((child) => {
-    return html`<li innerHTML="{child.outerHTML}" />`
-  });
-
-  return html`
-    <ul>
-      ${childrenListItems}
-    </ul>
-  `
-}
+const Links = () =>
+  html`
+    <div role="list"><slot></slot></div>
+  `;
 
 customElements.define('oma-social-media-links', component(Links));
 
@@ -1703,9 +1688,9 @@ const Link = ({ accountid, label, type }) => {
   const actualLabel = label || labels[type];
 
   return html`
-    <li>
+    <div role="listitem">
       <a href="${url}" aria-label="${actualLabel}"> <slot> </slot> </a>
-    </li>
+    </div>
   `
 };
 
