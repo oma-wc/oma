@@ -1,6 +1,4 @@
-import { component, html, useEffect } from 'haunted'
-
-import { State } from '@oma-wc/state'
+import { component, html } from 'haunted'
 
 const FACEBOOK = 'facebook'
 const INSTAGRAM = 'instagram'
@@ -25,20 +23,6 @@ const labels = {
   [TWITTER]: 'Link to Twitter',
 }
 
-State.stylesheet.add_rule(
-  `oma-social-media-links {
-     margin: var(--oma-social-media-links__margin, 0);
-     padding: var(--oma-social-media-links__padding, 0);
-     list-style: var(--oma-social-media-links__list-style, none);
-     display: var(--oma-social-media-links__display, block);
-     grid-template-columns: var(
-       --oma-social-media-links__grid-template-columns,
-       none
-     );
-     justify-content: var(--oma-social-media-links__justify-content, normal);
-  }`
-)
-
 const Links = () =>
   html`
     <div role="list"><slot></slot></div>
@@ -59,17 +43,13 @@ const Link = ({ accountid, label, type }) => {
     `
   }
 
-  useEffect(() => {
-    State.stylesheet.write()
-  })
-
   const url = urls[type] + accountid
   const actualLabel = label || labels[type]
 
   return html`
-    <div role="listitem">
-      <a href="${url}" aria-label="${actualLabel}"> <slot> </slot> </a>
-    </div>
+    <a href="${url}" aria-label="${actualLabel}" role="listitem">
+      <slot></slot>
+    </a>
   `
 }
 
