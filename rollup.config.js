@@ -2,7 +2,7 @@ import nodeResolve from 'rollup-plugin-node-resolve'
 //import commonjs from 'rollup-plugin-commonjs'
 //import babel from 'rollup-plugin-babel'
 
-export default opts => {
+export default (opts) => {
   const options = Object.assign(
     {
       css: true,
@@ -19,12 +19,12 @@ export default opts => {
 
     plugins: [
       nodeResolve({}),
-//      commonjs({}),
-//      babel({
-//        runtimeHelpers: true,
-//        exclude: '../../node_modules/**',
-//        configFile: '../../babel.config.js',
-//      }),
+      //      commonjs({}),
+      //      babel({
+      //        runtimeHelpers: true,
+      //        exclude: '../../node_modules/**',
+      //        configFile: '../../babel.config.js',
+      //      }),
     ],
   }
 }
