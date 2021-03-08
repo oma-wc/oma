@@ -32,13 +32,14 @@ State.stylesheet.add_rule(
   }`
 )
 
-const Subgrid = () =>
+const Subgrid = () => {
   useEffect(() => {
     State.stylesheet.write()
   })
 
-  html`
+  return html`
     <slot></slot>
   `
+}
 
 customElements.define('oma-grid-subgrid', component(Subgrid))
