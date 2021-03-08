@@ -21,7 +21,7 @@ const getPackageNames = (callback, forceUpdatedPackages) => {
   const command = tdsOptions.all ? 'ls' : 'updated'
 
   exec(
-    `npx lerna ${command} --json ${lernaOptions.join(' ')}`,
+    `yarn -s lerna ${command} --json ${lernaOptions.join(' ')}`,
     (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`)
