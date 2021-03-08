@@ -1,0 +1,41 @@
+<html>
+  <head></head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+      }
+      .wrapper {
+        background-color: red;
+      }
+    </style>
+    <oma-grid>
+      <oma-grid-row fullwidth paddingOnSelf>
+        <div class="wrapper">
+          <p>Padding on self</p>
+        </div>
+      </oma-grid-row>
+      <oma-grid-row fullwidth paddingOnChildren>
+        <div class="wrapper">
+          <p>Padding on children</p>
+        </div>
+      </oma-grid-row>
+      <oma-grid-row fullwidth>
+        <div class="wrapper">
+          <p>Fullwidth</p>
+        </div>
+      </oma-grid-row>
+      <oma-grid-row paddingOnChildren>
+        <div class="wrapper">
+          <oma-grid-subgrid>
+            <p>Fullwidth</p>
+          </oma-grid-subgrid>
+        </div>
+      </oma-grid-row>
+    </oma-grid>
+    <script src="site/dist/index.cjs.js" type="module"></script>
+    <script src="grid/dist/index.cjs.js" type="module"></script>
+    <script src="grid-subgrid/dist/index.cjs.js" type="module"></script>
+    <script src="grid-row/dist/index.cjs.js" type="module"></script>
+  </body>
+</html>
