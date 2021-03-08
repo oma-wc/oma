@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/site",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@oma-wc/state": "^0.5.0",
+    "@oma-wc/state": "^0.6.0",
     "haunted": "^4.6.2"
   },
   "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
