@@ -22,7 +22,12 @@ const getPackageNames = (callback, forceUpdatedPackages) => {
 
   exec(
     `npx lerna ${command} --json ${lernaOptions.join(' ')}`,
-    (error, stdout) => {
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(`exec error: ${error}`)
+        return;
+      }
+
       if (stdout === '') {
         console.log('No components have been changed, nothing to do. Exiting.')
         process.exit(0)
@@ -33,6 +38,9 @@ const getPackageNames = (callback, forceUpdatedPackages) => {
         )
 
         callback(packageNames)
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`)
       }
     }
   )
