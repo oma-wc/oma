@@ -24,8 +24,6 @@ const GoogleMap = ({
   `
 }
 
-export default GoogleMap
-
 GoogleMap.observedAttributes = ['title', 'width', 'height', 'zoom', 'placeid']
 
 customElements.define('oma-google-map', component(GoogleMap))

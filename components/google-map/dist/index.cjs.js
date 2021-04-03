@@ -113,4 +113,4 @@ class m{constructor(t,e,s){this.__parts=[],this.template=t,this.processor=e,this
     style="border: 0"
     src=${`https://www.google.com/maps/embed/v1/place?zoom=${n}&key=AIzaSyC15_MCJvlfBq_0WUom3_SyxliaTMiNxRY&q=${`place_id:${i}`}`}
   />
-  `;it.observedAttributes=["title","width","height","zoom","placeid"],customElements.define("oma-google-map",st(it)),module.exports=it;
+  `;it.observedAttributes=["title","width","height","zoom","placeid"],customElements.define("oma-google-map",st(it));
