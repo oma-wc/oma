@@ -44,6 +44,13 @@ This is a multi package repo managed with [Lerna](https://lerna.js.org).
 ## Adding new components
 Run `lerna bootstrap` to setup internal dependencies.
 
+## Testing components
+There's a very simple test page located in `components/index.html` which you can run with a local web server like [http-server](https://github.com/http-party/http-server), something like
+```
+$ cd components/
+$ http-server .
+```
+
 ## Publishing
 - `yarn build`
 - Commit
