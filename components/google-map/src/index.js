@@ -6,11 +6,11 @@ const GoogleMap = ({
   height = '400px',
   zoom = 10,
   placeid,
-  key,
+  apikey,
 }) => {
   const basePath = 'https://www.google.com/maps/embed/v1/place'
   const query = `place_id:${placeid}`
-  const src = `${basePath}?zoom=${zoom}&key=${key}&q=${query}`
+  const src = `${basePath}?zoom=${zoom}&key=${apikey}&q=${query}`
 
   return html`
     <iframe
@@ -24,6 +24,6 @@ const GoogleMap = ({
   `
 }
 
-GoogleMap.observedAttributes = ['title', 'width', 'height', 'zoom', 'placeid', 'key']
+GoogleMap.observedAttributes = ['title', 'width', 'height', 'zoom', 'placeid', 'apikey']
 
 customElements.define('oma-google-map', component(GoogleMap))
