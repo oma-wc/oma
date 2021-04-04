@@ -6,8 +6,8 @@ const GoogleMap = ({
   height = '400px',
   zoom = 10,
   placeid,
+  key,
 }) => {
-  const key = 'AIzaSyC15_MCJvlfBq_0WUom3_SyxliaTMiNxRY'
   const basePath = 'https://www.google.com/maps/embed/v1/place'
   const query = `place_id:${placeid}`
   const src = `${basePath}?zoom=${zoom}&key=${key}&q=${query}`
@@ -24,6 +24,6 @@ const GoogleMap = ({
   `
 }
 
-GoogleMap.observedAttributes = ['title', 'width', 'height', 'zoom', 'placeid']
+GoogleMap.observedAttributes = ['title', 'width', 'height', 'zoom', 'placeid', 'key']
 
 customElements.define('oma-google-map', component(GoogleMap))
