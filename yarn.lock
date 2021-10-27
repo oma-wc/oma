@@ -1388,6 +1388,11 @@
     npmlog "^4.1.2"
     write-file-atomic "^2.3.0"
 
+"@lit/reactive-element@^1.0.0-rc.2":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@lit/reactive-element/-/reactive-element-1.0.1.tgz#853cacd4d78d79059f33f66f8e7b0e5c34bee294"
+  integrity sha512-nSD5AA2AZkKuXuvGs8IK7K5ZczLAogfDd26zT9l6S7WzvqALdVWcW5vMUiTnZyj5SPcNwNNANj0koeV1ieqTFQ==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -3006,11 +3011,12 @@ has@^1.0.1, has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-haunted@^4.6.2:
-  version "4.6.2"
-  resolved "https://registry.yarnpkg.com/haunted/-/haunted-4.6.2.tgz#bd5eafc0520ddeafea402a039c9cb70bc82552c9"
-  integrity sha512-Nj1JfnT9OVngWcs7Tcq7oMaxKW0Bijjod/vpjwCoKK15W9hwkKBaisfXht+2RDvR2qLtgciVtCDgMbl4SSQjaQ==
+haunted@^4.7.0:
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/haunted/-/haunted-4.8.2.tgz#2f9a82b238da9b3fe43bcb59a8ee7352b17cf9e7"
+  integrity sha512-+auNzzp1AjzZblPrY3oV8PuTGAcK6I9ExBfFnhR+6HINVFeM7BR+jPDAKxa7NF22RBbu5McBhbp+t0zO0rqrqQ==
   dependencies:
+    "@lit/reactive-element" "^1.0.0-rc.2"
     lit-html "^1.0.0"
 
 hosted-git-info@^2.1.4, hosted-git-info@^2.7.1:
