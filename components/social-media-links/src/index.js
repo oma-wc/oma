@@ -47,7 +47,7 @@ const Link = ({ accountid, label, type, target, rel }) => {
   const actualLabel = label || labels[type]
 
   return html`
-    <a href="${url}" aria-label="${actualLabel}" role="listitem" target="${target}" rel="${rel}">
+    <a href="${url}" aria-label="${actualLabel}" role="listitem" target="${target}" rel="${rel}" part="link">
       <slot></slot>
     </a>
   `
