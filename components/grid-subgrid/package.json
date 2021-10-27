@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@oma-wc/state": "^0.7.0",
-    "haunted": "^4.6.2"
+    "haunted": "^4.7.0"
   },
   "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
 }
