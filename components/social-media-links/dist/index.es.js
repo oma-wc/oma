@@ -64,7 +64,7 @@ class m{constructor(t,e,s){this.__parts=[],this.template=t,this.processor=e,this
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
- */;const S=new class{handleAttributeExpressions(t,e,s,n){const i=e[0];if("."===i){return new E(t,e.slice(1),s).parts}return"@"===i?[new V(t,e.slice(1),n.eventContext)]:"?"===i?[new y(t,e.slice(1),s)]:new b(t,e,s).parts}handleTextExpression(t){return new w(t)}};
+ */;const S=new class{handleAttributeExpressions(t,e,s,n){const i=e[0];if("."===i){return new E(t,e.slice(1),s).parts}if("@"===i)return[new V(t,e.slice(1),n.eventContext)];if("?"===i)return[new y(t,e.slice(1),s)];return new b(t,e,s).parts}handleTextExpression(t){return new w(t)}};
 /**
  * @license
  * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.

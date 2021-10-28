@@ -64,7 +64,7 @@ class f{constructor(t,d,e){this.__parts=[],this.template=t,this.processor=d,this
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at
  * http://polymer.github.io/PATENTS.txt
- */;const I=new class{handleAttributeExpressions(t,d,e,n){const r=d[0];if("."===r){return new x(t,d.slice(1),e).parts}return"@"===r?[new w(t,d.slice(1),n.eventContext)]:"?"===r?[new C(t,d.slice(1),e)]:new g(t,d,e).parts}handleTextExpression(t){return new _(t)}};
+ */;const I=new class{handleAttributeExpressions(t,d,e,n){const r=d[0];if("."===r){return new x(t,d.slice(1),e).parts}if("@"===r)return[new w(t,d.slice(1),n.eventContext)];if("?"===r)return[new C(t,d.slice(1),e)];return new g(t,d,e).parts}handleTextExpression(t){return new _(t)}};
 /**
  * @license
  * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
@@ -118,10 +118,10 @@ class f{constructor(t,d,e){this.__parts=[],this.template=t,this.processor=d,this
       <a href="${t}" /><slot></slot></a>
     `;if(t.includes("@"))return S`
       ${(({email:t})=>S`
-    ${ge({content:t,to:`mailto:${t}`})}
+    ${ge({content:t,to:"mailto:"+t})}
   `)({email:t})}
     `;try{const d=function(){return pe(cd,arguments)}(t);if(d&&d.isValid())return S`
         ${(({number:t})=>S`
     ${ge({content:t.formatNational(),to:t.getURI()})}
   `)({number:d})}
-      `}catch(t){if(!(t instanceof rt))throw t;console.log(`oma-link: ${t.message}`)}console.error(`ERROR, oma-link: Unknown link type. Link to: ${t}`)};be.observedAttributes=["to"],customElements.define("oma-link",dt(be));
+      `}catch(t){if(!(t instanceof rt))throw t;console.log("oma-link: "+t.message)}console.error("ERROR, oma-link: Unknown link type. Link to: "+t)};be.observedAttributes=["to"],customElements.define("oma-link",dt(be));
