@@ -111,7 +111,7 @@ class m{constructor(t,e,s){this.__parts=[],this.template=t,this.processor=e,this
     `;if(void 0===t)return P`
       <slot>Account id must be provided</slot>
     `;return P`
-    <a href="${it[s]+t}" aria-label="${e||rt[s]}" role="listitem" target="${n}" rel="${i}">
+    <a href="${it[s]+t}" aria-label="${e||rt[s]}" role="listitem" target="${n}" rel="${i}" part="link">
       <slot></slot>
     </a>
   `};ot.observedAttributes=["accountid","label","type","target","rel"],customElements.define("oma-social-media-link",et(ot));

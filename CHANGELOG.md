@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Part attribute to social-media-link, which allows you to style the anchor
+  tag from outside the Shadow DOM, with something like
+  `social-media-link::part(link)`
+
 ## [0.7.4]
 ### Fixed
 - Actually fixes what 0.7.3 attempted to (forgot to build component before
