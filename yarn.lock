@@ -3421,7 +3421,7 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
-haunted@^4.7.0:
+haunted@^4.8.2:
   version "4.8.2"
   resolved "https://registry.yarnpkg.com/haunted/-/haunted-4.8.2.tgz#2f9a82b238da9b3fe43bcb59a8ee7352b17cf9e7"
   integrity sha512-+auNzzp1AjzZblPrY3oV8PuTGAcK6I9ExBfFnhR+6HINVFeM7BR+jPDAKxa7NF22RBbu5McBhbp+t0zO0rqrqQ==

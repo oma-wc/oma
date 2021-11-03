@@ -10,6 +10,12 @@ import {
   GRID_WIDTH,
 } from '@oma-wc/state'
 
+import {
+  DEFAULT_BREAKPOINT_SMALL,
+  DEFAULT_BREAKPOINT_MEDIUM,
+  DEFAULT_BREAKPOINT_LARGE,
+} from './constants'
+
 State.stylesheet.add_rule(
   `html {
     ${GRID_BACKGROUND_COLOR}: transparent;
@@ -49,9 +55,9 @@ State.stylesheet.add_rule(
 )
 
 const DEFAULT_BREAKPOINTS = {
-  '(min-width: 600px)': 'size-600',
-  '(min-width: 900px)': 'size-900',
-  '(min-width: 1200px)': 'size-1200',
+  [DEFAULT_BREAKPOINT_SMALL.breakpoint]: DEFAULT_BREAKPOINT_SMALL.className,
+  [DEFAULT_BREAKPOINT_MEDIUM.breakpoint]: DEFAULT_BREAKPOINT_MEDIUM.className,
+  [DEFAULT_BREAKPOINT_LARGE.breakpoint]: DEFAULT_BREAKPOINT_LARGE.className,
   '(landscape: true)': 'landscape',
   '(landscape: false)': 'portrait',
 }
