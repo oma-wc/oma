@@ -1,22 +1,21 @@
-import { component, html } from "haunted";
+import { component, html } from "haunted"
 
 import {
   GRID_COLUMNS,
   GRID_COLUMN_GAP,
   GRID_COLUMN_WIDTH,
   GRID_ROW_GAP,
-} from "@oma-wc/state";
-import { DEFAULT_BREAKPOINT_SMALL, DEFAULT_BREAKPOINT_MEDIUM, DEFAULT_BREAKPOINT_LARGE } from "../../grid/src/constants";
+} from "@oma-wc/state"
+
+import { DEFAULT_BREAKPOINT_SMALL, DEFAULT_BREAKPOINT_MEDIUM, DEFAULT_BREAKPOINT_LARGE } from "../../grid/src/constants"
 
 const isEven = (num) => num % 2 === 0
-
-const bodyStyles = window.getComputedStyle(document.body)
-const gridColumns = parseInt(bodyStyles.getPropertyValue(GRID_COLUMNS), 10)
 
 const Slider = ({ preferredColumns }) => {
   const preferredColumnsPerScreenSize = preferredColumns
     .split(",")
     .map(parseFloat)
+      
   if (preferredColumnsPerScreenSize.length !== 4) {
     throw Error(
       `Invalid preferred-columns value passed to <oma-slider />. 
@@ -26,18 +25,11 @@ const Slider = ({ preferredColumns }) => {
       the last number is for large screens.`
     )
   }
-  if (
-    preferredColumnsPerScreenSize.find(
-      (preferredColumns) => preferredColumns > gridColumns
-    )
-  ) {
-    throw Error(
-      `Invalid preferred-columns value passed to <oma-slider />. 
-      Cannot use more columns than what is defined for the page.
-      The total number of columns is defined to: ${gridColumns}.
-      `
-    )
-  }
+
+  const bodyStyles = window.getComputedStyle(document.getElementsByTagName('oma-grid')[0])
+  const gridColumns =    parseInt(bodyStyles.getPropertyValue(GRID_COLUMNS), 10)
+  console.log("gridColumns", gridColumns)
+
   const closestCenterableColumnCount = (preferredColumnCount) => {
     const transformationsToTry = [
       (value) => value,
