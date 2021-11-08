@@ -1,4 +1,4 @@
-import { component, html } from "haunted"
+import { component, html, useEffect, useState } from "haunted"
 
 import {
   GRID_COLUMNS,
@@ -8,10 +8,13 @@ import {
 } from "@oma-wc/state"
 
 import { DEFAULT_BREAKPOINT_SMALL, DEFAULT_BREAKPOINT_MEDIUM, DEFAULT_BREAKPOINT_LARGE } from "../../grid/src/constants"
+import { useWindowSize } from './useWindowSize'
 
 const isEven = (num) => num % 2 === 0
 
 const Slider = ({ preferredColumns }) => {
+  const [gridColumns, setGridColumns] = useState(12);
+  const windowSize = useWindowSize()
   const preferredColumnsPerScreenSize = preferredColumns
     .split(",")
     .map(parseFloat)
@@ -26,9 +29,12 @@ const Slider = ({ preferredColumns }) => {
     )
   }
 
-  const bodyStyles = window.getComputedStyle(document.getElementsByTagName('oma-grid')[0])
-  const gridColumns =    parseInt(bodyStyles.getPropertyValue(GRID_COLUMNS), 10)
-  console.log("gridColumns", gridColumns)
+  useEffect(() => {
+    const styles = document.getElementsByTagName('oma-grid').length > 0 ?
+      window.getComputedStyle(document.getElementsByTagName('oma-grid')[0]) :
+      window.getComputedStyle(document.body)
+    setGridColumns(parseInt(styles.getPropertyValue(GRID_COLUMNS), 10))
+  }, [windowSize.width])
 
   const closestCenterableColumnCount = (preferredColumnCount) => {
     const transformationsToTry = [
@@ -53,10 +59,7 @@ const Slider = ({ preferredColumns }) => {
     (columnSpan) => (gridColumns - columnSpan) / 2 + 1
   )
 
-  console.log("columnSpanPerScreenSize", columnSpanPerScreenSize)
-  console.log("columnStartPerScreenSize", columnStartPerScreenSize)
-
-  return html`<style>
+  const result = html`<style>
       .slider__content {
         color: purple;
         grid-column-start: ${columnStartPerScreenSize[0]};
@@ -100,6 +103,9 @@ const Slider = ({ preferredColumns }) => {
     <div class="slider">
       <div class="slider__content"><slot></slot></div>
     </div>`;
+
+    console.log("result", result)
+    return result;
 };
 
 Slider.observedAttributes = ["preferred-columns"];
