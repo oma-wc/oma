@@ -12,7 +12,7 @@ import { useWindowSize } from './useWindowSize'
 
 const isEven = (num) => num % 2 === 0
 
-const Slider = ({ preferredColumns }) => {
+const Center = ({ preferredColumns }) => {
   const [gridColumns, setGridColumns] = useState(12);
   const windowSize = useWindowSize()
   const preferredColumnsPerScreenSize = preferredColumns
@@ -21,7 +21,7 @@ const Slider = ({ preferredColumns }) => {
       
   if (preferredColumnsPerScreenSize.length !== 4) {
     throw Error(
-      `Invalid preferred-columns value passed to <oma-slider />. 
+      `Invalid preferred-columns value passed to <oma-center />. 
       The expected format is four comma separated numbers (preferred-columns="4,4,2,1") where 
       the first number is the number of columns to use for extra small screens, 
       the second is for small screens, the third is for medium screens and 
@@ -60,14 +60,14 @@ const Slider = ({ preferredColumns }) => {
   )
 
   const result = html`<style>
-      .slider__content {
+      .center__content {
         color: purple;
         grid-column-start: ${columnStartPerScreenSize[0]};
         grid-column-end: ${columnStartPerScreenSize[0] +
         columnSpanPerScreenSize[0]};
       }
       @media ${DEFAULT_BREAKPOINT_SMALL.breakpoint} {
-        .slider__content {
+        .center__content {
           color: green;
           grid-column-start: ${columnStartPerScreenSize[1]};
           grid-column-end: ${columnStartPerScreenSize[1] +
@@ -75,7 +75,7 @@ const Slider = ({ preferredColumns }) => {
         }
       }
       @media ${DEFAULT_BREAKPOINT_MEDIUM.breakpoint} {
-        .slider__content {
+        .center__content {
           color: yellow;
           grid-column-start: ${columnStartPerScreenSize[2]};
           grid-column-end: ${columnStartPerScreenSize[2] +
@@ -83,14 +83,14 @@ const Slider = ({ preferredColumns }) => {
         }
       }
       @media ${DEFAULT_BREAKPOINT_LARGE.breakpoint} {
-        .slider__content {
+        .center__content {
           color: blue;
           grid-column-start: ${columnStartPerScreenSize[3]};
           grid-column-end: ${columnStartPerScreenSize[3] +
           columnSpanPerScreenSize[3]};
         }
       }
-      .slider {
+      .center {
         display: grid;
         column-gap: var(${GRID_COLUMN_GAP});
         row-gap: var(${GRID_ROW_GAP});
@@ -100,14 +100,14 @@ const Slider = ({ preferredColumns }) => {
         );
       }
     </style>
-    <div class="slider">
-      <div class="slider__content"><slot></slot></div>
+    <div class="center">
+      <div class="center__content"><slot></slot></div>
     </div>`;
 
     console.log("result", result)
     return result;
 };
 
-Slider.observedAttributes = ["preferred-columns"];
+Center.observedAttributes = ["preferred-columns"];
 
-customElements.define("oma-slider", component(Slider));
+customElements.define("oma-center", component(Center));

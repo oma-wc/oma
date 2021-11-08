@@ -1,5 +1,5 @@
 {
-  "name": "@oma-wc/slider",
+  "name": "@oma-wc/center",
   "version": "0.7.0",
   "description": "",
   "main": "dist/index.cjs.js",
@@ -8,7 +8,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/oma-wc/oma.git",
-    "directory": "components/slider"
+    "directory": "components/center"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
