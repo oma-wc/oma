@@ -59,7 +59,7 @@ const Center = ({ preferredColumns }) => {
     (columnSpan) => (gridColumns - columnSpan) / 2 + 1
   )
 
-  const result = html`<style>
+  return html`<style>
       .center__content {
         color: purple;
         grid-column-start: ${columnStartPerScreenSize[0]};
@@ -103,9 +103,6 @@ const Center = ({ preferredColumns }) => {
     <div class="center">
       <div class="center__content"><slot></slot></div>
     </div>`;
-
-    console.log("result", result)
-    return result;
 };
 
 Center.observedAttributes = ["preferred-columns"];
