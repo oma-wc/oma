@@ -1,21 +1,32 @@
 import { State } from "@oma-wc/state";
 
+const Animation = {
+  Fade: "Fade",
+};
+
 const className = "oma-content-switch";
-const classNameHidden = `${className}__hidden`;
+const classNameActive = `${className}--active`;
+const animationClass = `oma-content-switch__animation`;
 State.stylesheet.add_rule(
   `.${className} {
-    opacity: 1;
+    opacity: 0;
     position: absolute;
     width: 100%;
-    transition: opacity 400ms ease-in-out 600ms;
   }`
 );
 State.stylesheet.add_rule(
-  `.${className}.${classNameHidden} {
-    opacity: 0;
+  `.${animationClass} {
     transition: opacity 400ms ease-in-out;
   }`
 );
+State.stylesheet.add_rule(
+  `.${className}.${classNameActive} {
+    opacity: 1;
+    transition: opacity 400ms ease-in-out 600ms;
+  }`
+);
+
+State.stylesheet.write();
 
 const template = document.createElement("template");
 template.innerHTML = `
@@ -26,6 +37,7 @@ template.innerHTML = `
   </style>
   <div class="content-switch"><slot></slot></div>
 `;
+
 class ContentSwitch extends HTMLElement {
   constructor() {
     super();
@@ -36,15 +48,19 @@ class ContentSwitch extends HTMLElement {
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    State.stylesheet.write();
   }
 
   setInitialClasses() {
     this._children.forEach((child) => {
       child.classList.toggle(className);
-      child.classList.toggle(classNameHidden);
     });
-    this._children[this._currentContentIndex].classList.toggle(classNameHidden);
+    this._children[this._currentContentIndex].classList.toggle(classNameActive);
+    // set animation classes with a delay to avoid an immediate animation to the initial state
+    setTimeout(() => {
+      this._children.forEach((child) => {
+        child.classList.toggle(animationClass);
+      });
+    });
   }
 
   connectedCallback() {
@@ -73,12 +89,12 @@ class ContentSwitch extends HTMLElement {
   }
 
   switchContent() {
-    this._children[this._currentContentIndex].classList.toggle(classNameHidden);
+    this._children[this._currentContentIndex].classList.toggle(classNameActive);
     this._currentContentIndex += 1;
     if (this._currentContentIndex >= this._children.length) {
       this._currentContentIndex = 0;
     }
-    this._children[this._currentContentIndex].classList.toggle(classNameHidden);
+    this._children[this._currentContentIndex].classList.toggle(classNameActive);
   }
 }
 
