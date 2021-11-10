@@ -33,6 +33,10 @@ template.innerHTML = `
   <style>
     .content-switch {
       position: relative;
+      visibility: hidden;
+    }
+    .content-switch--ready {
+      visibility: visible;
     }
   </style>
   <div class="content-switch"><slot></slot></div>
@@ -43,38 +47,47 @@ class ContentSwitch extends HTMLElement {
     super();
 
     this._currentContentIndex = 0;
-    this._children = [];
-    this._maxContentHeight = 0;
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
   }
 
   setInitialClasses() {
-    this._children.forEach((child) => {
+    const children = this.children();
+    children.forEach((child) => {
       child.classList.toggle(className);
     });
-    this._children[this._currentContentIndex].classList.toggle(classNameActive);
+    children[this._currentContentIndex].classList.toggle(classNameActive);
     // set animation classes with a delay to avoid an immediate animation to the initial state
     setTimeout(() => {
-      this._children.forEach((child) => {
+      children.forEach((child) => {
         child.classList.toggle(animationClass);
       });
+      this.shadowRoot
+        .querySelector(".content-switch")
+        .classList.toggle("content-switch--ready");
     });
+  }
+
+  children() {
+    const slot = this.shadowRoot.querySelector("slot");
+    const children = slot.assignedNodes().filter((node) => {
+      return node.nodeName !== "#text";
+    });
+    return children;
   }
 
   connectedCallback() {
     const slot = this.shadowRoot.querySelector("slot");
-    this._children = slot.assignedNodes().filter((node) => {
-      return node.nodeName !== "#text";
+    slot.addEventListener("slotchange", () => {
+      const maxContentHeight = this.children().reduce(
+        (max, child) => Math.max(child.offsetHeight, max),
+        0
+      );
+      this.shadowRoot.querySelector(
+        ".content-switch"
+      ).style = `min-height: ${maxContentHeight}px`;
     });
-    const maxChildHeight = this._children.reduce(
-      (max, child) => Math.max(child.offsetHeight, max),
-      0
-    );
-    this.shadowRoot.querySelector(
-      ".content-switch"
-    ).style = `min-height: ${maxChildHeight}px`;
     this.setInitialClasses();
 
     if (!this._switchInterval) {
@@ -86,15 +99,21 @@ class ContentSwitch extends HTMLElement {
     if (!this._switchInterval) {
       clearInterval(this._switchInterval);
     }
+    const slot = this.shadowRoot.querySelector("slot");
+    slot.removeEventListener("slotchange");
   }
 
   switchContent() {
-    this._children[this._currentContentIndex].classList.toggle(classNameActive);
+    this.children()[this._currentContentIndex].classList.toggle(
+      classNameActive
+    );
     this._currentContentIndex += 1;
-    if (this._currentContentIndex >= this._children.length) {
+    if (this._currentContentIndex >= this.children().length) {
       this._currentContentIndex = 0;
     }
-    this._children[this._currentContentIndex].classList.toggle(classNameActive);
+    this.children()[this._currentContentIndex].classList.toggle(
+      classNameActive
+    );
   }
 }
 
