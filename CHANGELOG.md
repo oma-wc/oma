@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.8.0]
 ### Added
 - Part attribute to social-media-link, which allows you to style the anchor
   tag from outside the Shadow DOM, with something like
@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixes
 - `oma-grid-subgrid` now renders its children.
 
+[0.8.0]: https://github.com/oma-wc/oma/compare/v0.7.4...v0.8.0
 [0.7.4]: https://github.com/oma-wc/oma/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/oma-wc/oma/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/oma-wc/oma/compare/v0.7.1...v0.7.2
