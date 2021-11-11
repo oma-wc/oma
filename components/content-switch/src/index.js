@@ -55,17 +55,17 @@ class ContentSwitch extends HTMLElement {
   setInitialClasses() {
     const children = this.children();
     children.forEach((child) => {
-      child.classList.toggle(className);
+      child.classList.add(className);
     });
-    children[this._currentContentIndex].classList.toggle(classNameActive);
+    children[this._currentContentIndex].classList.add(classNameActive);
     // set animation classes with a delay to avoid an immediate animation to the initial state
     setTimeout(() => {
       children.forEach((child) => {
-        child.classList.toggle(animationClass);
+        child.classList.add(animationClass);
       });
       this.shadowRoot
         .querySelector(".content-switch")
-        .classList.toggle("content-switch--ready");
+        .classList.add("content-switch--ready");
     });
   }
 
@@ -77,18 +77,24 @@ class ContentSwitch extends HTMLElement {
     return children;
   }
 
+  slot = () => this.shadowRoot.querySelector("slot");
+
+  setComponentHeight = () => {
+    const maxContentHeight = this.children().reduce(
+      (max, child) => Math.max(child.offsetHeight, max),
+      0
+    );
+    this.shadowRoot.querySelector(
+      ".content-switch"
+    ).style = `min-height: ${maxContentHeight}px`;
+  };
+
   connectedCallback() {
-    const slot = this.shadowRoot.querySelector("slot");
-    slot.addEventListener("slotchange", () => {
-      const maxContentHeight = this.children().reduce(
-        (max, child) => Math.max(child.offsetHeight, max),
-        0
-      );
-      this.shadowRoot.querySelector(
-        ".content-switch"
-      ).style = `min-height: ${maxContentHeight}px`;
-    });
     this.setInitialClasses();
+    this.observer = new ResizeObserver(this.setComponentHeight);
+    this.children().forEach((child) => this.observer.observe(child));
+
+    this.setComponentHeight();
 
     if (!this._switchInterval) {
       this._switchInterval = setInterval(this.switchContent.bind(this), 5000);
@@ -99,8 +105,7 @@ class ContentSwitch extends HTMLElement {
     if (!this._switchInterval) {
       clearInterval(this._switchInterval);
     }
-    const slot = this.shadowRoot.querySelector("slot");
-    slot.removeEventListener("slotchange");
+    this.observer.disconnect();
   }
 
   switchContent() {
