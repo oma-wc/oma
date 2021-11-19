@@ -1,27 +1,26 @@
 <html>
-  <head>
-    <script src="content-switch/dist/index.cjs.js" type="module"></script>
-  </head>
+  <head> </head>
   <body>
     <style>
       body {
         margin: 0;
       }
     </style>
-
     <h1>Slider component</h1>
     <p>Can be used to show images or quotes from happy customers</p>
+
+    <h2>Fade animation</h2>
     <oma-grid style="margin-bottom: 100px">
       <oma-grid-row fullwidth paddingOnSelf style="background-color: #ffaf33">
-        <oma-center preferred-columns="4,4,2,1">
-          <oma-content-switch>
-            <div style="display: flex; justify-content: center">
+        <oma-center preferred-columns="10,8,4,4">
+          <oma-content-switch-fade>
+            <div style="text-align: center; padding: 100px 0">
               'This is some content for the slider'
             </div>
-            <div style="display: flex; justify-content: center">
+            <div style="text-align: center; padding: 100px 0">
               'This is the 2nd content for the slider'
             </div>
-          </oma-content-switch>
+          </oma-content-switch-fade>
         </oma-center>
       </oma-grid-row>
     </oma-grid>
@@ -30,5 +29,6 @@
     <script src="grid-subgrid/dist/index.cjs.js" type="module"></script>
     <script src="grid-row/dist/index.cjs.js" type="module"></script>
     <script src="center/dist/index.cjs.js" type="module"></script>
+    <script src="content-switch-fade/dist/index.cjs.js" type="module"></script>
   </body>
 </html>

@@ -1,33 +1,3 @@
-import { State } from "@oma-wc/state";
-
-const Animation = {
-  Fade: "Fade",
-};
-
-const className = "oma-content-switch";
-const classNameActive = `${className}--active`;
-const animationClass = `oma-content-switch__animation`;
-State.stylesheet.add_rule(
-  `.${className} {
-    opacity: 0;
-    position: absolute;
-    width: 100%;
-  }`
-);
-State.stylesheet.add_rule(
-  `.${animationClass} {
-    transition: opacity 400ms ease-in-out;
-  }`
-);
-State.stylesheet.add_rule(
-  `.${className}.${classNameActive} {
-    opacity: 1;
-    transition: opacity 400ms ease-in-out 600ms;
-  }`
-);
-
-State.stylesheet.write();
-
 const template = document.createElement("template");
 template.innerHTML = `
   <style>
@@ -41,10 +11,17 @@ template.innerHTML = `
   </style>
   <div class="content-switch"><slot></slot></div>
 `;
-
 class ContentSwitch extends HTMLElement {
-  constructor() {
+  constructor({
+    className = "oma-content-switch",
+    classNameActive = "oma-content-switch--active",
+    animationClass = "oma-content-switch__no-animation",
+  }) {
     super();
+
+    this._className = className;
+    this._classNameActive = classNameActive;
+    this._animationClass = animationClass;
 
     this._currentContentIndex = 0;
 
@@ -55,13 +32,13 @@ class ContentSwitch extends HTMLElement {
   setInitialClasses() {
     const children = this.children();
     children.forEach((child) => {
-      child.classList.add(className);
+      child.classList.add(this._className);
     });
-    children[this._currentContentIndex].classList.add(classNameActive);
+    children[this._currentContentIndex].classList.add(this._classNameActive);
     // set animation classes with a delay to avoid an immediate animation to the initial state
     setTimeout(() => {
       children.forEach((child) => {
-        child.classList.add(animationClass);
+        child.classList.add(this._animationClass);
       });
       this.shadowRoot
         .querySelector(".content-switch")
@@ -110,16 +87,16 @@ class ContentSwitch extends HTMLElement {
 
   switchContent() {
     this.children()[this._currentContentIndex].classList.toggle(
-      classNameActive
+      this._classNameActive
     );
     this._currentContentIndex += 1;
     if (this._currentContentIndex >= this.children().length) {
       this._currentContentIndex = 0;
     }
     this.children()[this._currentContentIndex].classList.toggle(
-      classNameActive
+      this._classNameActive
     );
   }
 }
 
-customElements.define("oma-content-switch", ContentSwitch);
+export { ContentSwitch };
