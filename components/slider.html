@@ -13,7 +13,7 @@
     <oma-grid style="margin-bottom: 100px">
       <oma-grid-row fullwidth paddingOnSelf style="background-color: #ffaf33">
         <oma-center preferred-columns="10,8,4,4">
-          <oma-content-switch-fade>
+          <oma-content-switch-fade milliseconds-per-slide="1000">
             <div style="text-align: center; padding: 100px 0">
               'This is some content for the slider'
             </div>
@@ -30,5 +30,20 @@
     <script src="grid-row/dist/index.cjs.js" type="module"></script>
     <script src="center/dist/index.cjs.js" type="module"></script>
     <script src="content-switch-fade/dist/index.cjs.js" type="module"></script>
+    <script>
+      setTimeout(() => {
+        console.log("Updating milliseconds per slide via element attributes");
+        document
+          .getElementsByTagName("oma-content-switch-fade")[0]
+          .setAttribute("milliseconds-per-slide", 3000);
+      }, 10000);
+
+      setTimeout(() => {
+        console.log("Updating milliseconds per slide via element property");
+        document.getElementsByTagName(
+          "oma-content-switch-fade"
+        )[0].millisecondsPerSlide = 6000;
+      }, 20000);
+    </script>
   </body>
 </html>

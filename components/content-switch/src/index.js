@@ -22,14 +22,50 @@ class ContentSwitch extends HTMLElement {
     this._className = className;
     this._classNameActive = classNameActive;
     this._animationClass = animationClass;
-
     this._currentContentIndex = 0;
+    this._millisecondsPerSlide = this.getAttribute("milliseconds-per-slide");
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
+    this._rootElement = this.shadowRoot.querySelector(".content-switch");
+    this._slot = this.shadowRoot.querySelector("slot");
   }
 
-  setInitialClasses() {
+  static get observedAttributes() {
+    return ["milliseconds-per-slide"];
+  }
+
+  set millisecondsPerSlide(val) {
+    this.setAttribute("milliseconds-per-slide", val);
+  }
+  get millisecondsPerSlide() {
+    return this._millisecondsPerSlide;
+  }
+
+  connectedCallback() {
+    this.setInitialClasses();
+    this.observer = new ResizeObserver(this.setComponentHeight);
+    this.children().forEach((child) => this.observer.observe(child));
+    this.setContentSwitchInterval();
+    this.setComponentHeight();
+  }
+
+  disconnectedCallback() {
+    this.clearContentSwitchInterval();
+    this.observer.disconnect();
+  }
+
+  attributeChangedCallback(name, _, newValue) {
+    switch (name) {
+      case "milliseconds-per-slide":
+        this._millisecondsPerSlide = newValue;
+        this.clearContentSwitchInterval();
+        this.setContentSwitchInterval();
+        break;
+    }
+  }
+
+  setInitialClasses = () => {
     const children = this.children();
     children.forEach((child) => {
       child.classList.add(this._className);
@@ -40,63 +76,54 @@ class ContentSwitch extends HTMLElement {
       children.forEach((child) => {
         child.classList.add(this._animationClass);
       });
-      this.shadowRoot
-        .querySelector(".content-switch")
-        .classList.add("content-switch--ready");
-    });
-  }
 
-  children() {
-    const slot = this.shadowRoot.querySelector("slot");
-    const children = slot.assignedNodes().filter((node) => {
+      this._rootElement.classList.add("content-switch--ready");
+    });
+  };
+
+  children = () => {
+    const children = this._slot.assignedNodes().filter((node) => {
       return node.nodeName !== "#text";
     });
     return children;
-  }
-
-  slot = () => this.shadowRoot.querySelector("slot");
+  };
 
   setComponentHeight = () => {
-    const maxContentHeight = this.children().reduce(
+    const highestContent = this.children().reduce(
       (max, child) => Math.max(child.offsetHeight, max),
       0
     );
-    this.shadowRoot.querySelector(
-      ".content-switch"
-    ).style = `min-height: ${maxContentHeight}px`;
+    this._rootElement.style = `min-height: ${highestContent}px`;
   };
 
-  connectedCallback() {
-    this.setInitialClasses();
-    this.observer = new ResizeObserver(this.setComponentHeight);
-    this.children().forEach((child) => this.observer.observe(child));
-
-    this.setComponentHeight();
-
-    if (!this._switchInterval) {
-      this._switchInterval = setInterval(this.switchContent.bind(this), 5000);
-    }
-  }
-
-  disconnectedCallback() {
-    if (!this._switchInterval) {
-      clearInterval(this._switchInterval);
-    }
-    this.observer.disconnect();
-  }
-
-  switchContent() {
-    this.children()[this._currentContentIndex].classList.toggle(
-      this._classNameActive
-    );
+  increaseContentIndex = () => {
     this._currentContentIndex += 1;
     if (this._currentContentIndex >= this.children().length) {
       this._currentContentIndex = 0;
     }
-    this.children()[this._currentContentIndex].classList.toggle(
-      this._classNameActive
-    );
-  }
+  };
+
+  setContentSwitchInterval = () => {
+    if (!this._switchInterval) {
+      this._switchInterval = setInterval(
+        this.switchContent.bind(this),
+        this._millisecondsPerSlide
+      );
+    }
+  };
+  clearContentSwitchInterval = () => {
+    if (this._switchInterval) {
+      clearInterval(this._switchInterval);
+      this._switchInterval = null;
+    }
+  };
+
+  switchContent = () => {
+    const children = this.children();
+    children[this._currentContentIndex].classList.remove(this._classNameActive);
+    this.increaseContentIndex();
+    children[this._currentContentIndex].classList.add(this._classNameActive);
+  };
 }
 
 export { ContentSwitch };
