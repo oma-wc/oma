@@ -11,17 +11,30 @@ template.innerHTML = `
   </style>
   <div class="content-switch"><slot></slot></div>
 `;
+/**
+ * This component allows the component children to be shown one at a time. It takes three classnames
+ * that will be applied to the children.
+ *
+ *  - "childrenClassName", which will be applied to all children immediately
+ *  - "activeChildClass", which will be applied to the currently active child,
+ *                          probably making it visible while the other children are hidden
+ *  - "childrenActivateAnimationClassName", which will be scheduled to be applied to all children
+ *                          directly after the first render of the component. The purpose of this
+ *                          class is to avoid an immediate animation to happen as soon as the
+ *                          childrenClassName is applied.
+ */
 class ContentSwitch extends HTMLElement {
   constructor({
-    className = "oma-content-switch",
-    classNameActive = "oma-content-switch--active",
-    animationClass = "oma-content-switch__no-animation",
+    childrenClassName,
+    activeChildClass,
+    childrenActivateAnimationClassName,
   }) {
     super();
 
-    this._className = className;
-    this._classNameActive = classNameActive;
-    this._animationClass = animationClass;
+    this._childrenClassName = childrenClassName;
+    this._activeChildClass = activeChildClass;
+    this._childrenActivateAnimationClassName =
+      childrenActivateAnimationClassName;
     this._currentContentIndex = 0;
     this._millisecondsPerSlide = this.getAttribute("milliseconds-per-slide");
 
@@ -68,13 +81,13 @@ class ContentSwitch extends HTMLElement {
   setInitialClasses = () => {
     const children = this.children();
     children.forEach((child) => {
-      child.classList.add(this._className);
+      child.classList.add(this._childrenClassName);
     });
-    children[this._currentContentIndex].classList.add(this._classNameActive);
+    children[this._currentContentIndex].classList.add(this._activeChildClass);
     // set animation classes with a delay to avoid an immediate animation to the initial state
     setTimeout(() => {
       children.forEach((child) => {
-        child.classList.add(this._animationClass);
+        child.classList.add(this._childrenActivateAnimationClassName);
       });
 
       this._rootElement.classList.add("content-switch--ready");
@@ -120,9 +133,11 @@ class ContentSwitch extends HTMLElement {
 
   switchContent = () => {
     const children = this.children();
-    children[this._currentContentIndex].classList.remove(this._classNameActive);
+    children[this._currentContentIndex].classList.remove(
+      this._activeChildClass
+    );
     this.increaseContentIndex();
-    children[this._currentContentIndex].classList.add(this._classNameActive);
+    children[this._currentContentIndex].classList.add(this._activeChildClass);
   };
 }
 
