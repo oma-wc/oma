@@ -58,7 +58,7 @@ class ContentSwitch extends HTMLElement {
   connectedCallback() {
     this.setInitialClasses();
     this.observer = new ResizeObserver(this.setComponentHeight);
-    this.children().forEach((child) => this.observer.observe(child));
+    this.observer.observe(this._rootElement);
     this.setContentSwitchInterval();
     this.setComponentHeight();
   }
@@ -69,13 +69,12 @@ class ContentSwitch extends HTMLElement {
   }
 
   attributeChangedCallback(name, _, newValue) {
-    switch (name) {
-      case "milliseconds-per-slide":
-        this._millisecondsPerSlide = newValue;
-        this.clearContentSwitchInterval();
-        this.setContentSwitchInterval();
-        break;
+    if (name != "milliseconds-per-slide") {
+      return;
     }
+    this._millisecondsPerSlide = newValue;
+    this.clearContentSwitchInterval();
+    this.setContentSwitchInterval();
   }
 
   setInitialClasses = () => {
@@ -94,12 +93,8 @@ class ContentSwitch extends HTMLElement {
     });
   };
 
-  children = () => {
-    const children = this._slot.assignedNodes().filter((node) => {
-      return node.nodeName !== "#text";
-    });
-    return children;
-  };
+  children = () =>
+    this._slot.assignedNodes().filter((node) => node.nodeName !== "#text");
 
   setComponentHeight = () => {
     const highestContent = this.children().reduce(
@@ -109,26 +104,25 @@ class ContentSwitch extends HTMLElement {
     this._rootElement.style = `min-height: ${highestContent}px`;
   };
 
-  increaseContentIndex = () => {
-    this._currentContentIndex += 1;
-    if (this._currentContentIndex >= this.children().length) {
-      this._currentContentIndex = 0;
-    }
-  };
+  increaseContentIndex = () =>
+    (this._currentContentIndex =
+      (this._currentContentIndex + 1) % this.children().length);
 
   setContentSwitchInterval = () => {
-    if (!this._switchInterval) {
-      this._switchInterval = setInterval(
-        this.switchContent.bind(this),
-        this._millisecondsPerSlide
-      );
+    if (this._switchInterval) {
+      return;
     }
+    this._switchInterval = setInterval(
+      this.switchContent.bind(this),
+      this._millisecondsPerSlide
+    );
   };
   clearContentSwitchInterval = () => {
-    if (this._switchInterval) {
-      clearInterval(this._switchInterval);
-      this._switchInterval = null;
+    if (!this._switchInterval) {
+      return;
     }
+    clearInterval(this._switchInterval);
+    this._switchInterval = null;
   };
 
   switchContent = () => {

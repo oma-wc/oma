@@ -42,18 +42,9 @@ const Center = ({ preferredColumns }) => {
   }, [windowSize.width]);
 
   const closestCenterableColumnCount = (preferredColumnCount) => {
-    const transformationsToTry = [
-      (value) => value,
-      (value) => Math.round(value),
-      (value) => Math.floor(value),
-      (value) => Math.ceil(value),
-      (value) => Math.round(value) + 1,
-    ];
-    const transformationThatWorks = transformationsToTry.find(
-      (transformation) =>
-        isEven(gridColumns - transformation(preferredColumnCount))
-    );
-    return transformationThatWorks(preferredColumnCount);
+    const firstAttempt = Math.round(preferredColumnCount);
+    const otherwise = Math.round(preferredColumnCount) + 1;
+    return isEven(gridColumns - firstAttempt) ? firstAttempt : otherwise;
   };
 
   const columnSpanPerScreenSize = preferredColumnsPerScreenSize.map(
