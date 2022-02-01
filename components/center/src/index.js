@@ -7,11 +7,6 @@ import {
   GRID_ROW_GAP,
 } from "@oma-wc/state";
 
-import {
-  DEFAULT_BREAKPOINT_SMALL,
-  DEFAULT_BREAKPOINT_MEDIUM,
-  DEFAULT_BREAKPOINT_LARGE,
-} from "../../grid/src/constants";
 import { useWindowSize } from "./useWindowSize";
 
 const isEven = (num) => num % 2 === 0;
@@ -60,26 +55,21 @@ const Center = ({ preferredColumns }) => {
         grid-column-end: ${columnStartPerScreenSize[0] +
         columnSpanPerScreenSize[0]};
       }
-      @media ${DEFAULT_BREAKPOINT_SMALL.breakpoint} {
-        .center__content {
-          grid-column-start: ${columnStartPerScreenSize[1]};
-          grid-column-end: ${columnStartPerScreenSize[1] +
-          columnSpanPerScreenSize[1]};
-        }
+
+      .size-600 .center__content {
+        grid-column-start: ${columnStartPerScreenSize[1]};
+        grid-column-end: ${columnStartPerScreenSize[1] +
+        columnSpanPerScreenSize[1]};
       }
-      @media ${DEFAULT_BREAKPOINT_MEDIUM.breakpoint} {
-        .center__content {
-          grid-column-start: ${columnStartPerScreenSize[2]};
-          grid-column-end: ${columnStartPerScreenSize[2] +
-          columnSpanPerScreenSize[2]};
-        }
+      .size-900 .center__content {
+        grid-column-start: ${columnStartPerScreenSize[2]};
+        grid-column-end: ${columnStartPerScreenSize[2] +
+        columnSpanPerScreenSize[2]};
       }
-      @media ${DEFAULT_BREAKPOINT_LARGE.breakpoint} {
-        .center__content {
-          grid-column-start: ${columnStartPerScreenSize[3]};
-          grid-column-end: ${columnStartPerScreenSize[3] +
-          columnSpanPerScreenSize[3]};
-        }
+      .size-1200 .center__content {
+        grid-column-start: ${columnStartPerScreenSize[3]};
+        grid-column-end: ${columnStartPerScreenSize[3] +
+        columnSpanPerScreenSize[3]};
       }
       .center {
         display: grid;
