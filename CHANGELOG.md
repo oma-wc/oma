@@ -9,15 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Part attribute to social-media-link, which allows you to style the anchor
-  tag from outside the Shadow DOM, with something like
-  `social-media-link::part(link)`
 - New web component: <oma-center>
 - New web component: <oma-content-switch-fade>
 
 ### Changes
 
 - The screen size classes has changed name from size-600, size-900 and size-1200 to screen-size--small, screen-size--medium and screen-size--large (Backward incompatible change)
+
+## [0.8.0]
+
+### Added
+
+- Part attribute to social-media-link, which allows you to style the anchor
+  tag from outside the Shadow DOM, with something like
+  `social-media-link::part(link)`
 
 ## [0.7.4]
 
@@ -79,6 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `oma-grid-subgrid` now renders its children.
 
+[0.8.0]: https://github.com/oma-wc/oma/compare/v0.7.4...v0.8.0
 [0.7.4]: https://github.com/oma-wc/oma/compare/v0.7.3...v0.7.4
 [0.7.3]: https://github.com/oma-wc/oma/compare/v0.7.2...v0.7.3
 [0.7.2]: https://github.com/oma-wc/oma/compare/v0.7.1...v0.7.2
