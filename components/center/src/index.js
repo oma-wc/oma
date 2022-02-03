@@ -21,10 +21,10 @@ const Center = ({ preferredColumns }) => {
   if (preferredColumnsPerScreenSize.length !== 4) {
     throw Error(
       `Invalid preferred-columns value passed to <oma-center />. 
-      The expected format is four comma separated numbers (preferred-columns="4,4,2,1") where 
-      the first number is the number of columns to use for extra small screens, 
-      the second is for small screens, the third is for medium screens and 
-      the last number is for large screens.`
+      The expected format is a list of comma separated numbers (preferred-columns="4,4,2,1") where 
+      the numbers represent the number of columns to use for the centered content depening on screen size.
+      The first number is the number of columns to use for the smallest screens
+      and the last number is for the largest screens.`
     );
   }
 
@@ -56,17 +56,17 @@ const Center = ({ preferredColumns }) => {
         columnSpanPerScreenSize[0]};
       }
 
-      .size-600 .center__content {
+      .screen-size--small .center__content {
         grid-column-start: ${columnStartPerScreenSize[1]};
         grid-column-end: ${columnStartPerScreenSize[1] +
         columnSpanPerScreenSize[1]};
       }
-      .size-900 .center__content {
+      .screen-size--medium .center__content {
         grid-column-start: ${columnStartPerScreenSize[2]};
         grid-column-end: ${columnStartPerScreenSize[2] +
         columnSpanPerScreenSize[2]};
       }
-      .size-1200 .center__content {
+      .screen-size--large .center__content {
         grid-column-start: ${columnStartPerScreenSize[3]};
         grid-column-end: ${columnStartPerScreenSize[3] +
         columnSpanPerScreenSize[3]};
