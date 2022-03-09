@@ -1,12 +1,14 @@
 import { State } from "@oma-wc/state";
-import { ContentSwitch } from "@oma-wc/content-switch";
+import {
+  ContentSwitch,
+  SLIDE_CLASS_MANDATORY_STYLES,
+} from "@oma-wc/content-switch";
 
 const SLIDE_CLASS_NAME = "oma-content-switch-fade";
 const ACTIVE_SLIDE_CLASS_NAME = `${SLIDE_CLASS_NAME}--active`;
 State.stylesheet.add_rule(
   `.${SLIDE_CLASS_NAME} {
-    grid-column: 1;
-    grid-row: 1;
+    ${SLIDE_CLASS_MANDATORY_STYLES}
     opacity: 0;
     transition: opacity 400ms ease-in-out;
     width: 100%;

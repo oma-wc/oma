@@ -13,7 +13,7 @@ template.innerHTML = `
  * This component allows the component children to be shown one at a time.
  *
  *  - "slideClassName", class that will be applied to all slides. This class must contain the styles
- *                      "grid-column: 1" and "grid-row: 1" to be displayed correctly
+ *                      in the exported SLIDE_CLASS_MANDATORY_STYLES string
  *  - "activeSlideClassName", which will be applied to the active slide,
  *                          probably making it visible while the other slides are hidden
  */
@@ -89,4 +89,8 @@ class ContentSwitch extends HTMLElement {
   }
 }
 
-export { ContentSwitch };
+const SLIDE_CLASS_MANDATORY_STYLES = `
+grid-column: 1;
+grid-row: 1;`;
+
+export { ContentSwitch, SLIDE_CLASS_MANDATORY_STYLES };

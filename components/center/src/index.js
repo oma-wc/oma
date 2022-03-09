@@ -25,9 +25,10 @@ const Center = ({ preferredColumns }) => {
   }
 
   useEffect(() => {
+    const gridElements = document.getElementsByTagName("oma-grid");
     const styles =
-      document.getElementsByTagName("oma-grid").length > 0
-        ? window.getComputedStyle(document.getElementsByTagName("oma-grid")[0])
+      gridElements.length > 0
+        ? window.getComputedStyle(gridElements[0])
         : window.getComputedStyle(document.body);
     setGridColumns(parseInt(styles.getPropertyValue(GRID_COLUMNS), 10));
   }, [windowSize.width]);
