@@ -24,7 +24,6 @@ class ContentSwitch extends HTMLElement {
     this._slideClassName = slideClassName;
     this._activeSlideClassName = activeSlideClassName;
     this._currentSlideIndex = 0;
-    this._millisecondsPerSlide = this.getAttribute(MS_PER_SLIDE_ATTRIBUTE_NAME);
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
@@ -33,13 +32,6 @@ class ContentSwitch extends HTMLElement {
 
   static get observedAttributes() {
     return [MS_PER_SLIDE_ATTRIBUTE_NAME];
-  }
-
-  set millisecondsPerSlide(val) {
-    this.setAttribute(MS_PER_SLIDE_ATTRIBUTE_NAME, val);
-  }
-  get millisecondsPerSlide() {
-    return this._millisecondsPerSlide;
   }
 
   connectedCallback() {
@@ -63,8 +55,6 @@ class ContentSwitch extends HTMLElement {
     if (name != MS_PER_SLIDE_ATTRIBUTE_NAME) {
       return;
     }
-    this._millisecondsPerSlide = newValue;
-    this.clearChangeSlideInterval();
     this.setChangeSlideInterval();
   }
 
@@ -73,11 +63,11 @@ class ContentSwitch extends HTMLElement {
 
   setChangeSlideInterval = () => {
     if (this._changeSlideInterval) {
-      return;
+      this.clearChangeSlideInterval();
     }
     this._changeSlideInterval = setInterval(
       this.nextSlide,
-      this._millisecondsPerSlide
+      this.getAttribute(MS_PER_SLIDE_ATTRIBUTE_NAME)
     );
   };
   clearChangeSlideInterval = () => {
@@ -93,6 +83,10 @@ class ContentSwitch extends HTMLElement {
     this._currentSlideIndex = (this._currentSlideIndex + 1) % slides.length;
     slides[this._currentSlideIndex].classList.add(this._activeSlideClassName);
   };
+
+  set millisecondsPerSlide(val) {
+    this.setAttribute(MS_PER_SLIDE_ATTRIBUTE_NAME, val);
+  }
 }
 
 export { ContentSwitch };
