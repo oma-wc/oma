@@ -1,6 +1,11 @@
 import { component, html, useEffect, useState } from "haunted";
 
-import { GRID_COLUMNS } from "@oma-wc/state";
+import {
+  GRID_COLUMNS,
+  GRID_COLUMN_GAP,
+  GRID_ROW_GAP,
+  GRID_COLUMN_WIDTH,
+} from "@oma-wc/state";
 
 import { useWindowSize } from "./useWindowSize";
 
@@ -8,6 +13,7 @@ const isEven = (num) => num % 2 === 0;
 
 const Center = ({ preferredColumns }) => {
   const [gridColumns, setGridColumns] = useState(12);
+  const [screenSizeClass, setScreenSizeClass] = useState(undefined);
   const windowSize = useWindowSize();
   const preferredColumnsPerScreenSize = preferredColumns
     .split(",")
@@ -30,14 +36,20 @@ const Center = ({ preferredColumns }) => {
       gridElements.length > 0
         ? window.getComputedStyle(gridElements[0])
         : window.getComputedStyle(document.body);
+
+    setScreenSizeClass(
+      ["screen-size--large", "screen-size--medium", "screen-size--small"].find(
+        (clazz) => document.documentElement.classList.contains(clazz)
+      )
+    );
+
     setGridColumns(parseInt(styles.getPropertyValue(GRID_COLUMNS), 10));
   }, [windowSize.width]);
 
-  const centerableColumnCount = (preferredColumnCount) => {
-    return isEven(gridColumns - preferredColumnCount)
+  const centerableColumnCount = (preferredColumnCount) =>
+    isEven(gridColumns - preferredColumnCount)
       ? preferredColumnCount
       : preferredColumnCount + 1;
-  };
 
   const columnSpanPerScreenSize = preferredColumnsPerScreenSize.map(
     centerableColumnCount
@@ -66,8 +78,17 @@ const Center = ({ preferredColumns }) => {
       .screen-size--large .center__content {
         ${stylesForScreenSize(3)}
       }
+      .center {
+        display: grid;
+        column-gap: var(${GRID_COLUMN_GAP});
+        row-gap: var(${GRID_ROW_GAP});
+        grid-template-columns: repeat(
+          var(${GRID_COLUMNS}),
+          var(${GRID_COLUMN_WIDTH})
+        );
+      }
     </style>
-    <div class="center">
+    <div class="center ${screenSizeClass}">
       <div class="center__content"><slot></slot></div>
     </div>`;
 };
