@@ -76,7 +76,7 @@ class ContentSwitch extends HTMLElement {
       return;
     }
     this._changeSlideInterval = setInterval(
-      this.nextSlide.bind(this),
+      this.nextSlide,
       this._millisecondsPerSlide
     );
   };
