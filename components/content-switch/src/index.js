@@ -1,50 +1,42 @@
+const MS_PER_SLIDE_ATTRIBUTE_NAME = "milliseconds-per-slide";
+
 const template = document.createElement("template");
 template.innerHTML = `
-  <style>
-    .content-switch {
-      position: relative;
-      visibility: hidden;
-    }
-    .content-switch--ready {
-      visibility: visible;
-    }
-  </style>
-  <div class="content-switch"><slot></slot></div>
+<style>
+.content-switch {
+  display: grid;
+}
+</style>
+<div class="content-switch"><slot></slot></div>
 `;
 /**
- * This component allows the component children to be shown one at a time. It takes three classnames
- * that will be applied to the children.
+ * This component allows the component children to be shown one at a time.
  *
- *  - "childClassName", which will be applied to all children immediately
- *  - "activeChildClassName", which will be applied to the currently active child,
- *                          probably making it visible while the other children are hidden
- *  - "animationClassName", which will be scheduled to be applied to all children
- *                          directly after the first render of the component. The purpose of this
- *                          class is to avoid an immediate animation to happen as soon as the
- *                          childClassName is applied.
+ *  - "slideClassName", class that will be applied to all slides. This class must contain the styles
+ *                      "grid-column: 1" and "grid-row: 1" to be displayed correctly
+ *  - "activeSlideClassName", which will be applied to the active slide,
+ *                          probably making it visible while the other slides are hidden
  */
 class ContentSwitch extends HTMLElement {
-  constructor({ childClassName, activeChildClassName, animationClassName }) {
+  constructor({ slideClassName, activeSlideClassName }) {
     super();
 
-    this._childClassName = childClassName;
-    this._activeChildClassName = activeChildClassName;
-    this._animationClassName = animationClassName;
-    this._currentContentIndex = 0;
-    this._millisecondsPerSlide = this.getAttribute("milliseconds-per-slide");
+    this._slideClassName = slideClassName;
+    this._activeSlideClassName = activeSlideClassName;
+    this._currentSlideIndex = 0;
+    this._millisecondsPerSlide = this.getAttribute(MS_PER_SLIDE_ATTRIBUTE_NAME);
 
     this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(template.content.cloneNode(true));
-    this._rootElement = this.shadowRoot.querySelector(".content-switch");
     this._slot = this.shadowRoot.querySelector("slot");
   }
 
   static get observedAttributes() {
-    return ["milliseconds-per-slide"];
+    return [MS_PER_SLIDE_ATTRIBUTE_NAME];
   }
 
   set millisecondsPerSlide(val) {
-    this.setAttribute("milliseconds-per-slide", val);
+    this.setAttribute(MS_PER_SLIDE_ATTRIBUTE_NAME, val);
   }
   get millisecondsPerSlide() {
     return this._millisecondsPerSlide;
@@ -52,85 +44,54 @@ class ContentSwitch extends HTMLElement {
 
   connectedCallback() {
     this.setInitialClasses();
-    this.observer = new ResizeObserver(this.setComponentHeight);
-    this.observer.observe(this._rootElement);
-    this.setContentSwitchInterval();
-    this.setComponentHeight();
+    this.setChangeSlideInterval();
   }
 
   disconnectedCallback() {
-    this.clearContentSwitchInterval();
-    this.observer.disconnect();
-  }
-
-  attributeChangedCallback(name, _, newValue) {
-    if (name != "milliseconds-per-slide") {
-      return;
-    }
-    this._millisecondsPerSlide = newValue;
-    this.clearContentSwitchInterval();
-    this.setContentSwitchInterval();
+    this.clearChangeSlideInterval();
   }
 
   setInitialClasses = () => {
-    const children = this.children();
-    children.forEach((child) => {
-      child.classList.add(this._childClassName);
+    const slides = this.slides();
+    slides.forEach((slide) => {
+      slide.classList.add(this._slideClassName);
     });
-    children[this._currentContentIndex].classList.add(
-      this._activeChildClassName
-    );
-    // set animation classes with a delay to avoid an immediate animation to the initial state
-    setTimeout(() => {
-      children.forEach((child) => {
-        child.classList.add(this._animationClassName);
-      });
-
-      this._rootElement.classList.add("content-switch--ready");
-    });
+    slides[this._currentSlideIndex].classList.add(this._activeSlideClassName);
   };
 
-  children = () =>
-    this._slot.assignedNodes().filter((node) => node.nodeName !== "#text");
-
-  setComponentHeight = () => {
-    const highestContent = this.children().reduce(
-      (max, child) => Math.max(child.offsetHeight, max),
-      0
-    );
-    this._rootElement.style = `min-height: ${highestContent}px`;
-  };
-
-  increaseContentIndex = () =>
-    (this._currentContentIndex =
-      (this._currentContentIndex + 1) % this.children().length);
-
-  setContentSwitchInterval = () => {
-    if (this._switchInterval) {
+  attributeChangedCallback(name, _, newValue) {
+    if (name != MS_PER_SLIDE_ATTRIBUTE_NAME) {
       return;
     }
-    this._switchInterval = setInterval(
-      this.switchContent.bind(this),
+    this._millisecondsPerSlide = newValue;
+    this.clearChangeSlideInterval();
+    this.setChangeSlideInterval();
+  }
+
+  slides = () =>
+    this._slot.assignedNodes().filter((node) => node.nodeName !== "#text");
+
+  setChangeSlideInterval = () => {
+    if (this._changeSlideInterval) {
+      return;
+    }
+    this._changeSlideInterval = setInterval(
+      this.nextSlide.bind(this),
       this._millisecondsPerSlide
     );
   };
-  clearContentSwitchInterval = () => {
-    if (!this._switchInterval) {
-      return;
-    }
-    clearInterval(this._switchInterval);
-    this._switchInterval = null;
+  clearChangeSlideInterval = () => {
+    clearInterval(this._changeSlideInterval);
+    this._changeSlideInterval = null;
   };
 
-  switchContent = () => {
-    const children = this.children();
-    children[this._currentContentIndex].classList.remove(
-      this._activeChildClassName
+  nextSlide = () => {
+    const slides = this.slides();
+    slides[this._currentSlideIndex].classList.remove(
+      this._activeSlideClassName
     );
-    this.increaseContentIndex();
-    children[this._currentContentIndex].classList.add(
-      this._activeChildClassName
-    );
+    this._currentSlideIndex = (this._currentSlideIndex + 1) % slides.length;
+    slides[this._currentSlideIndex].classList.add(this._activeSlideClassName);
   };
 }
 

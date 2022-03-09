@@ -1,23 +1,19 @@
 import { State } from "@oma-wc/state";
 import { ContentSwitch } from "@oma-wc/content-switch";
 
-const CHILD_CLASS_NAME = "oma-content-switch-fade";
-const ACTIVE_CHILD_CLASS_NAME = `${CHILD_CLASS_NAME}--active`;
-const ANIMATION_CLASS_NAME = `${CHILD_CLASS_NAME}__animation`;
+const SLIDE_CLASS_NAME = "oma-content-switch-fade";
+const ACTIVE_SLIDE_CLASS_NAME = `${SLIDE_CLASS_NAME}--active`;
 State.stylesheet.add_rule(
-  `.${CHILD_CLASS_NAME} {
+  `.${SLIDE_CLASS_NAME} {
+    grid-column: 1;
+    grid-row: 1;
     opacity: 0;
-    position: absolute;
+    transition: opacity 400ms ease-in-out;
     width: 100%;
   }`
 );
 State.stylesheet.add_rule(
-  `.${ANIMATION_CLASS_NAME} {
-    transition: opacity 400ms ease-in-out;
-  }`
-);
-State.stylesheet.add_rule(
-  `.${CHILD_CLASS_NAME}.${ACTIVE_CHILD_CLASS_NAME} {
+  `.${SLIDE_CLASS_NAME}.${ACTIVE_SLIDE_CLASS_NAME} {
     opacity: 1;
     transition: opacity 400ms ease-in-out 600ms;
   }`
@@ -28,9 +24,8 @@ State.stylesheet.write();
 class ContentSwitchFade extends ContentSwitch {
   constructor() {
     super({
-      childClassName: CHILD_CLASS_NAME,
-      activeChildClassName: ACTIVE_CHILD_CLASS_NAME,
-      animationClassName: ANIMATION_CLASS_NAME,
+      slideClassName: SLIDE_CLASS_NAME,
+      activeSlideClassName: ACTIVE_SLIDE_CLASS_NAME,
     });
   }
 }
