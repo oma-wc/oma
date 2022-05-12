@@ -1,28 +1,53 @@
+import { State } from "@oma-wc/state";
+
 const MS_PER_SLIDE_ATTRIBUTE_NAME = "milliseconds-per-slide";
+const TRANSITION_ATTRIBUTE_NAME = "transition";
+
+const SLIDE_ANIMATION = {
+  FADE: {
+    SLIDE_CLASS_NAME: "oma-content-switch-slide-fade",
+    ACTIVE_SLIDE_CLASS_NAME: "oma-content-switch-slide-active",
+    SLIDE_STYLES: `
+      opacity: 0;
+      transition: opacity 400ms ease-in-out;
+      width: 100%;
+    `,
+    ACTIVE_SLIDE_STYLES: `
+      opacity: 1;
+      transition: opacity 400ms ease-in-out 600ms;
+    `,
+  },
+};
 
 const template = document.createElement("template");
 template.innerHTML = `
 <style>
-.content-switch {
-  display: grid;
+  .content-switch {
+    display: grid;
+  }
+  
+  .content-switch ::slotted(*) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .content-switch ::slotted(.${SLIDE_ANIMATION.FADE.SLIDE_CLASS_NAME}) {
+      ${SLIDE_ANIMATION.FADE.SLIDE_STYLES}
+  }
+  .content-switch ::slotted(.${SLIDE_ANIMATION.FADE.ACTIVE_SLIDE_CLASS_NAME}) {
+    ${SLIDE_ANIMATION.FADE.ACTIVE_SLIDE_STYLES}
 }
 </style>
 <div class="content-switch"><slot></slot></div>
 `;
+
 /**
  * This component allows the component children to be shown one at a time.
- *
- *  - "slideClassName", class that will be applied to all slides. This class must contain the styles
- *                      in the exported SLIDE_CLASS_MANDATORY_STYLES string
- *  - "activeSlideClassName", which will be applied to the active slide,
- *                          probably making it visible while the other slides are hidden
  */
 class ContentSwitch extends HTMLElement {
-  constructor({ slideClassName, activeSlideClassName }) {
+  constructor() {
     super();
 
-    this._slideClassName = slideClassName;
-    this._activeSlideClassName = activeSlideClassName;
     this._currentSlideIndex = 0;
 
     this.attachShadow({ mode: "open" });
@@ -46,12 +71,14 @@ class ContentSwitch extends HTMLElement {
   setInitialClasses = () => {
     const slides = this.slides();
     slides.forEach((slide) => {
-      slide.classList.add(this._slideClassName);
+      slide.classList.add(SLIDE_ANIMATION.FADE.SLIDE_CLASS_NAME);
     });
-    slides[this._currentSlideIndex].classList.add(this._activeSlideClassName);
+    slides[this._currentSlideIndex].classList.add(
+      SLIDE_ANIMATION.FADE.ACTIVE_SLIDE_CLASS_NAME
+    );
   };
 
-  attributeChangedCallback(name, _, newValue) {
+  attributeChangedCallback(name) {
     if (name != MS_PER_SLIDE_ATTRIBUTE_NAME) {
       return;
     }
@@ -78,10 +105,12 @@ class ContentSwitch extends HTMLElement {
   nextSlide = () => {
     const slides = this.slides();
     slides[this._currentSlideIndex].classList.remove(
-      this._activeSlideClassName
+      SLIDE_ANIMATION.FADE.ACTIVE_SLIDE_CLASS_NAME
     );
     this._currentSlideIndex = (this._currentSlideIndex + 1) % slides.length;
-    slides[this._currentSlideIndex].classList.add(this._activeSlideClassName);
+    slides[this._currentSlideIndex].classList.add(
+      SLIDE_ANIMATION.FADE.ACTIVE_SLIDE_CLASS_NAME
+    );
   };
 
   set millisecondsPerSlide(val) {
@@ -89,8 +118,4 @@ class ContentSwitch extends HTMLElement {
   }
 }
 
-const SLIDE_CLASS_MANDATORY_STYLES = `
-grid-column: 1;
-grid-row: 1;`;
-
-export { ContentSwitch, SLIDE_CLASS_MANDATORY_STYLES };
+customElements.define("oma-content-switch", ContentSwitch);

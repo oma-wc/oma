@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - New web component: <oma-center>
-- New web component: <oma-content-switch-fade>
+- New web component: <oma-content-switch>
 
 ### Changes
 

@@ -39,7 +39,7 @@ const Center = ({ preferredColumns }) => {
 
     setScreenSizeClass(
       ["screen-size--large", "screen-size--medium", "screen-size--small"].find(
-        (clazz) => document.documentElement.classList.contains(clazz)
+        (className) => document.documentElement.classList.contains(className)
       )
     );
 

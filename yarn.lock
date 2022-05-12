@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@accodeing/prettier-config@^2019.8.2-1.1":
+  version "2019.8.2-1.1"
+  resolved "https://registry.yarnpkg.com/@accodeing/prettier-config/-/prettier-config-2019.8.2-1.1.tgz#281a106352de1c531bd7934cc741702163de50a5"
+  integrity sha512-1dT9Bd16UG3YMJ4n4B/phLbKOEzNddcl7ep17UDZbHUr0gPfbuqjpJTXLs6OJR3t6rpoYN9iOEFuywKLV4FBIA==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5":
   version "7.15.8"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.15.8.tgz#45990c47adadb00c03677baa89221f7cc23d2503"
