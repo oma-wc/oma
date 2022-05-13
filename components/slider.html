@@ -1,0 +1,67 @@
+<html>
+  <head></head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+      }
+    </style>
+    <h1>Slider component</h1>
+    <p>Can be used to show images or quotes from happy customers</p>
+
+    <h2>Fade animation</h2>
+    <oma-grid style="margin-bottom: 100px">
+      <oma-grid-row fullwidth paddingOnSelf style="background-color: #ffaf33">
+        <oma-center preferred-columns="4,4,1,8">
+          <oma-content-switch milliseconds-per-slide="3000" transition="fade">
+            <div
+              style="
+                text-align: center;
+                padding: 100px 0;
+                border: 1px solid black;
+              "
+            >
+              'First slide'
+            </div>
+            <div
+              style="
+                text-align: center;
+                padding: 100px 0;
+                border: 1px solid black;
+              "
+            >
+              'Second slide'
+            </div>
+          </oma-content-switch>
+        </oma-center>
+      </oma-grid-row>
+    </oma-grid>
+    <script src="site/dist/index.cjs.js" type="module"></script>
+    <script src="grid/dist/index.cjs.js" type="module"></script>
+    <script src="grid-subgrid/dist/index.cjs.js" type="module"></script>
+    <script src="grid-row/dist/index.cjs.js" type="module"></script>
+    <script src="center/dist/index.cjs.js" type="module"></script>
+    <script src="content-switch/dist/index.cjs.js" type="module"></script>
+    <script>
+      setTimeout(() => {
+        const contentSwitch =
+          document.getElementsByTagName('oma-content-switch')[0]
+        console.log(
+          'Updating milliseconds per slide and removing animation via element attributes'
+        )
+        contentSwitch.setAttribute('milliseconds-per-slide', 5000)
+        contentSwitch.setAttribute('transition', 'none')
+      }, 10000)
+
+      setTimeout(() => {
+        const contentSwitch =
+          document.getElementsByTagName('oma-content-switch')[0]
+        console.log(
+          'Updating milliseconds per slide and adding animation via element property'
+        )
+        contentSwitch.millisecondsPerSlide = 10000
+        contentSwitch.transition = 'fade'
+      }, 20000)
+    </script>
+  </body>
+</html>

@@ -20,7 +20,7 @@ State.stylesheet.add_rule(
   }`
 )
 State.stylesheet.add_rule(
-  `.size-1200 oma-grid {
+  `.screen-size--large oma-grid {
     ${GRID_COLUMNS}: 12;
     ${GRID_COLUMN_WIDTH}: calc( ( var(${GRID_WIDTH}) - ( (var(${GRID_COLUMNS}) - 1) * var(${GRID_COLUMN_GAP}) ) ) / var(${GRID_COLUMNS}) );
     grid-template-columns:
@@ -29,7 +29,7 @@ State.stylesheet.add_rule(
   }`
 )
 State.stylesheet.add_rule(
-  `.size-600 oma-grid {
+  `.screen-size--small oma-grid {
     ${GRID_COLUMNS}: 8;
     ${GRID_COLUMN_WIDTH}: 12.5%;
     grid-template-columns:
@@ -49,9 +49,9 @@ State.stylesheet.add_rule(
 )
 
 const DEFAULT_BREAKPOINTS = {
-  '(min-width: 600px)': 'size-600',
-  '(min-width: 900px)': 'size-900',
-  '(min-width: 1200px)': 'size-1200',
+  '(min-width: 600px)': 'screen-size--small',
+  '(min-width: 900px)': 'screen-size--medium',
+  '(min-width: 1200px)': 'screen-size--large',
   '(landscape: true)': 'landscape',
   '(landscape: false)': 'portrait',
 }

@@ -1,7 +1,7 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
 import { terser } from 'rollup-plugin-terser'
 //import commonjs from 'rollup-plugin-commonjs'
-//import babel from 'rollup-plugin-babel'
+import babel from 'rollup-plugin-babel'
 
 export default (opts) => {
   const options = Object.assign(
@@ -21,12 +21,12 @@ export default (opts) => {
     plugins: [
       nodeResolve({}),
       terser(),
-      //      commonjs({}),
-      //      babel({
-      //        runtimeHelpers: true,
-      //        exclude: '../../node_modules/**',
-      //        configFile: '../../babel.config.js',
-      //      }),
+            //commonjs({}),
+            babel({
+              runtimeHelpers: true,
+              exclude: '../../node_modules/**',
+              configFile: '../../babel.config.js',
+            }),
     ],
   }
 }

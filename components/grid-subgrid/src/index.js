@@ -9,7 +9,7 @@ import {
 } from '@oma-wc/state'
 
 State.stylesheet.add_rule(
-  `.size-1200 oma-grid-subgrid {
+  `.screen-size--large oma-grid-subgrid {
     grid-column: 2 / -2;
   }`
 )
