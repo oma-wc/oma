@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/grid-subgrid",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
@@ -19,7 +19,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@oma-wc/state": "^0.8.0",
+    "@oma-wc/state": "^0.9.0",
     "haunted": "^4.7.0"
   },
   "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"

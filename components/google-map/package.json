@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/google-map",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
