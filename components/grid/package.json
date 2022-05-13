@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/grid",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
@@ -19,8 +19,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@oma-wc/state": "^0.9.0",
+    "@oma-wc/state": "^0.9.1",
     "haunted": "^4.7.0"
   },
-  "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
+  "gitHead": "a98aab6cca72b93b22ec837248f275017a6f7a14"
 }

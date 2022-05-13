@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/state",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
@@ -18,5 +18,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "fbecae7b85201797fc74f7e12263121895f916ca"
+  "gitHead": "a98aab6cca72b93b22ec837248f275017a6f7a14"
 }
