@@ -1,5 +1,5 @@
 <html>
-  <head> </head>
+  <head></head>
   <body>
     <style>
       body {
@@ -13,7 +13,7 @@
     <oma-grid style="margin-bottom: 100px">
       <oma-grid-row fullwidth paddingOnSelf style="background-color: #ffaf33">
         <oma-center preferred-columns="4,4,1,8">
-          <oma-content-switch milliseconds-per-slide="3000">
+          <oma-content-switch milliseconds-per-slide="3000" transition="fade">
             <div
               style="
                 text-align: center;
@@ -44,18 +44,24 @@
     <script src="content-switch/dist/index.cjs.js" type="module"></script>
     <script>
       setTimeout(() => {
-        console.log("Updating milliseconds per slide via element attributes");
-        document
-          .getElementsByTagName("oma-content-switch")[0]
-          .setAttribute("milliseconds-per-slide", 5000);
-      }, 10000);
+        const contentSwitch =
+          document.getElementsByTagName('oma-content-switch')[0]
+        console.log(
+          'Updating milliseconds per slide and removing animation via element attributes'
+        )
+        contentSwitch.setAttribute('milliseconds-per-slide', 5000)
+        contentSwitch.setAttribute('transition', 'none')
+      }, 10000)
 
       setTimeout(() => {
-        console.log("Updating milliseconds per slide via element property");
-        document.getElementsByTagName(
-          "oma-content-switch"
-        )[0].millisecondsPerSlide = 10000;
-      }, 20000);
+        const contentSwitch =
+          document.getElementsByTagName('oma-content-switch')[0]
+        console.log(
+          'Updating milliseconds per slide and adding animation via element property'
+        )
+        contentSwitch.millisecondsPerSlide = 10000
+        contentSwitch.transition = 'fade'
+      }, 20000)
     </script>
   </body>
 </html>

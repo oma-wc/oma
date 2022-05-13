@@ -18,5 +18,6 @@
   "dependencies": {
     "haunted": "^4.8.2"
   },
-  "private": true
+  "private": true,
+  "prettier": "@accodeing/prettier-config"
 }

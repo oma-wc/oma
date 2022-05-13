@@ -1,6 +1,6 @@
-import { component, html, useEffect } from "haunted";
+import { component, html, useEffect } from 'haunted'
 
-import { State } from "@oma-wc/state";
+import { State } from '@oma-wc/state'
 import {
   GRID_BACKGROUND_COLOR,
   GRID_COLUMNS,
@@ -8,7 +8,7 @@ import {
   GRID_COLUMN_WIDTH,
   GRID_ROW_GAP,
   GRID_WIDTH,
-} from "@oma-wc/state";
+} from '@oma-wc/state'
 
 State.stylesheet.add_rule(
   `html {
@@ -18,7 +18,7 @@ State.stylesheet.add_rule(
     ${GRID_COLUMNS}: 4;
     ${GRID_ROW_GAP}: 0;
   }`
-);
+)
 State.stylesheet.add_rule(
   `.screen-size--large oma-grid {
     ${GRID_COLUMNS}: 12;
@@ -27,7 +27,7 @@ State.stylesheet.add_rule(
       auto repeat(var(${GRID_COLUMNS}), var(${GRID_COLUMN_WIDTH}))
       auto;
   }`
-);
+)
 State.stylesheet.add_rule(
   `.screen-size--small oma-grid {
     ${GRID_COLUMNS}: 8;
@@ -35,7 +35,7 @@ State.stylesheet.add_rule(
     grid-template-columns:
       repeat(var(${GRID_COLUMNS}), var(${GRID_COLUMN_WIDTH}));
   }`
-);
+)
 State.stylesheet.add_rule(
   `oma-grid {
     display: grid;
@@ -46,58 +46,57 @@ State.stylesheet.add_rule(
       repeat(var(${GRID_COLUMNS}), var(${GRID_COLUMN_WIDTH}));
     background-color: var(${GRID_BACKGROUND_COLOR});
   }`
-);
+)
 
 const DEFAULT_BREAKPOINTS = {
-  "(min-width: 600px)": "screen-size--small",
-  "(min-width: 900px)": "screen-size--medium",
-  "(min-width: 1200px)": "screen-size--large",
-  "(landscape: true)": "landscape",
-  "(landscape: false)": "portrait",
-};
+  '(min-width: 600px)': 'screen-size--small',
+  '(min-width: 900px)': 'screen-size--medium',
+  '(min-width: 1200px)': 'screen-size--large',
+  '(landscape: true)': 'landscape',
+  '(landscape: false)': 'portrait',
+}
 
 const Grid = ({
   breakpoints: breakpoints_json = JSON.stringify(DEFAULT_BREAKPOINTS),
   ...props
 }) => {
-  const breakpoints = JSON.parse(breakpoints_json);
-  let mediaQueryHandlers = [];
+  const breakpoints = JSON.parse(breakpoints_json)
+  let mediaQueryHandlers = []
 
   const adjustToMedia = (mediaQueryList, className) => {
-    document.documentElement.classList.toggle(
-      className,
-      mediaQueryList.matches
-    );
-  };
+    document.documentElement.classList.toggle(className, mediaQueryList.matches)
+  }
 
   useEffect(() => {
-    State.stylesheet.write();
-  });
+    State.stylesheet.write()
+  })
 
   useEffect(() => {
     for (let [breakpoint, className] of Object.entries(breakpoints)) {
-      const mediaQueryList = window.matchMedia(breakpoint);
-      const adjustToBreakpoint = () => adjustToMedia(mediaQueryList, className);
+      const mediaQueryList = window.matchMedia(breakpoint)
+      const adjustToBreakpoint = () => adjustToMedia(mediaQueryList, className)
 
-      mediaQueryHandlers.push([mediaQueryList, adjustToBreakpoint]);
+      mediaQueryHandlers.push([mediaQueryList, adjustToBreakpoint])
 
-      adjustToBreakpoint();
-      mediaQueryList.addListener(adjustToBreakpoint);
+      adjustToBreakpoint()
+      mediaQueryList.addListener(adjustToBreakpoint)
     }
     return () => {
       mediaQueryHandlers.forEach(([mediaQueryList, adjustToBreakpoint]) => {
         if (mediaQueryList.removeListener) {
-          mediaQueryList.removeListener(adjustToBreakpoint);
+          mediaQueryList.removeListener(adjustToBreakpoint)
         } else {
-          mediaQueryList.removeEventListener("change", adjustToBreakpoint);
+          mediaQueryList.removeEventListener('change', adjustToBreakpoint)
         }
-      });
-    };
-  });
+      })
+    }
+  })
 
-  return html` <slot></slot> `;
-};
+  return html`
+    <slot></slot>
+  `
+}
 
-Grid.observedAttributes = ["breakpoints"];
+Grid.observedAttributes = ['breakpoints']
 
-customElements.define("oma-grid", component(Grid));
+customElements.define('oma-grid', component(Grid))

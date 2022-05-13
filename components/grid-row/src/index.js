@@ -1,21 +1,21 @@
-import { component, html, useEffect } from "haunted";
+import { component, html, useEffect } from 'haunted'
 
-import { State } from "@oma-wc/state";
+import { State } from '@oma-wc/state'
 
-import { GRID_WIDTH } from "@oma-wc/state";
+import { GRID_WIDTH } from '@oma-wc/state'
 
 State.stylesheet.add_rule(
   `.screen-size--large oma-grid-row[paddingOnChildren] > * {
     padding-left: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
     padding-right: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
   }`
-);
+)
 
 State.stylesheet.add_rule(
   `.screen-size--large oma-grid-row:not([fullWidth]):not([paddingOnChildren]) {
     grid-column: 2 / -2;
   }`
-);
+)
 
 State.stylesheet.add_rule(
   `.screen-size--large oma-grid-row[fullWidth][contentAlignedWithGrid]:not([paddingOnChildren]),
@@ -23,20 +23,22 @@ State.stylesheet.add_rule(
     padding-left: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
     padding-right: calc( ( 100% - var(${GRID_WIDTH}) ) / 2 );
   }`
-);
+)
 
 State.stylesheet.add_rule(
   `oma-grid-row {
     grid-column: 1 / -1;
   }`
-);
+)
 
 const Row = () => {
   useEffect(() => {
-    State.stylesheet.write();
-  });
+    State.stylesheet.write()
+  })
 
-  return html` <slot></slot> `;
-};
+  return html`
+    <slot></slot>
+  `
+}
 
-customElements.define("oma-grid-row", component(Row));
+customElements.define('oma-grid-row', component(Row))
