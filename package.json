@@ -19,5 +19,6 @@
     "haunted": "^4.8.2"
   },
   "private": true,
-  "prettier": "@accodeing/prettier-config"
+  "prettier": "@accodeing/prettier-config",
+  "packageManager": "yarn@3.2.1"
 }
