@@ -20,7 +20,10 @@ const Center = ({ preferredColumns }) => {
     .map(parseFloat)
     .map(Math.round)
 
-  if (preferredColumnsPerScreenSize.length !== 4) {
+  if (
+    preferredColumnsPerScreenSize.length !== 4 ||
+    preferredColumnsPerScreenSize.contains(NaN)
+  ) {
     throw Error(
       `Invalid preferred-columns value passed to <oma-center />. 
       The expected format is a list of comma separated numbers (preferred-columns="4,4,2,1") where 
@@ -89,7 +92,7 @@ const Center = ({ preferredColumns }) => {
         );
       }
     </style>
-    <div class="center ${screenSizeClass}">
+    <div class="center ${screenSizeClass || ''}">
       <div class="center__content"><slot></slot></div>
     </div>
   `
