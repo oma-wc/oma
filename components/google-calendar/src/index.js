@@ -1,55 +1,58 @@
 import { component, html, useEffect, useState } from 'haunted'
 
-const BASE_URI = 'https://www.googleapis.com/calendar/v3/calendars/'
-const DEFAULT_DAYS_FORWARD = 30
-const DEFAULT_DAYS_FORWARD_IN_MILLIS = 1000 * 3600 * 24 * DEFAULT_DAYS_FORWARD
+import { groupByDay, renderEvent, renderCalendarDay } from './helpers'
+
+import { getEvents } from './events'
+
+const DEFAULT_MAX_RESULTS = 250
 
 const GoogleCalendar = ({
   apiKey,
   calendarId,
-  maxResults = 250,
+  maxResults = DEFAULT_MAX_RESULTS,
+  groupEventsBy,
   timeMin,
   timeMax,
   timezone = 'Europe/Stockholm',
 }) => {
+  if (groupEventsBy && groupEventsBy !== 'day') {
+    console.error(
+      'oma-google-calendar - invalid group-events-by attribute: ' +
+        groupEventsBy
+    )
+  }
   const [events, setEvents] = useState([])
   useEffect(() => {
-    const params =
-      `key=${apiKey}` +
-      `&timeZone=${encodeURIComponent(timezone)}` +
-      `&maxResults=${maxResults || 250}` +
-      '&sanitizeHtml=true' +
-      `&timeMin=${encodeURIComponent(timeMin || new Date().toISOString())}` +
-      `&timeMax=${encodeURIComponent(
-        timeMax ||
-          new Date(Date.now() + DEFAULT_DAYS_FORWARD_IN_MILLIS).toISOString()
-      )}`
-
-    const url = `${BASE_URI}${encodeURIComponent(calendarId)}/events?${params}`
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => data.items)
+    getEvents({
+      apiKey,
+      calendarId,
+      maxResults,
+      timeMin,
+      timeMax,
+      timezone,
+    })
+      .then((events) => (groupEventsBy === 'day' ? groupByDay(events) : events))
       .then(setEvents)
-  }, [maxResults, timeMin, timeMax])
+  }, [calendarId, maxResults, groupEventsBy, timeMin, timeMax, timezone])
+
+  const renderEvents = () =>
+    groupEventsBy === 'day'
+      ? Object.keys(events).map((date) => renderCalendarDay(date, events[date]))
+      : events.map(renderEvent)
+
   return html`
-    <div part="calendar">
-      ${events.map(
-        (event) =>
-          html`
-            <div part="event">${event.summary}</div>
-          `
-      )}
-    </div>
+    <div part="calendar">${renderEvents()}</div>
   `
 }
 
 GoogleCalendar.observedAttributes = [
   'api-key',
   'calendar-id',
+  'max-results',
+  'group-events-by',
+  'timezone',
   'time-min',
   'time-max',
-  'max-results',
-  'timezone',
 ]
 
 customElements.define('oma-google-calendar', component(GoogleCalendar))

@@ -14,16 +14,38 @@
         grid-template-columns: repeat(5, 1fr);
       }
 
-      oma-google-calendar::part(event) {
-        border: 1px solid royalblue;
-        height: 100px;
+      oma-google-calendar::part(calendar-day) {
+        border: 1px solid black;
+        min-height: 100px;
         padding: 12px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      oma-google-calendar::part(event) {
+        background-color: lightblue;
+        padding: 12px;
+        word-break: break-word;
+        flex-grow: 1;
+        margin-bottom: 12px;
+      }
+
+      oma-google-calendar::part(date) {
+        color: darkblue;
+      }
+      oma-google-calendar::part(summary) {
+        font-size: 1.3rem;
+        color: #b7924b;
+      }
+      oma-google-calendar::part(description) {
+        color: darkslategray;
       }
     </style>
     <h1>Google Calendar component</h1>
     <oma-google-calendar
       api-key="RESTRICTED_BUT_PUBLIC_API_KEY"
       calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
+      group-events-by="day"
     ></oma-google-calendar>
     <script src="google-calendar/dist/index.cjs.js" type="module"></script>
     <script>
@@ -37,7 +59,7 @@
         )[0]
         console.log('Updating minTime to ' + newTimeMin)
         contentSwitch.setAttribute('time-min', newTimeMin)
-      }, 10000)
+      }, 2000)
     </script>
   </body>
 </html>
