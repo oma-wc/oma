@@ -21,7 +21,7 @@ const GoogleCalendar = ({
         groupEventsBy
     )
   }
-  const [events, setEvents] = useState([])
+  const [events, setEvents] = useState(null)
   useEffect(() => {
     getEvents({
       apiKey,
@@ -33,15 +33,17 @@ const GoogleCalendar = ({
     })
       .then((events) => (groupEventsBy === 'day' ? groupByDay(events) : events))
       .then(setEvents)
+      .catch((error) => {
+        console.error(error.message)
+      })
   }, [calendarId, maxResults, groupEventsBy, timeMin, timeMax, timezone])
-
   const renderEvents = () =>
     groupEventsBy === 'day'
       ? Object.keys(events).map((date) => renderCalendarDay(date, events[date]))
       : events.map(renderEvent)
 
   return html`
-    <div part="calendar">${renderEvents()}</div>
+    <div part="calendar">${events ? renderEvents() : null}</div>
   `
 }
 

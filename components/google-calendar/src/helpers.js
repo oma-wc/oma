@@ -33,6 +33,10 @@ export const renderEvent = (event, showDate = true) =>
       ${showDate ? datePart(event.start.date || event.start.dateTime) : null}
       ${event.start.dateTime ? timePart(event.start.dateTime) : null}
       <p part="summary">${event.summary}</p>
-      <p part="description">${html([event.description || ''])}</p>
+      <p part="description">
+        ${html`
+          ${event.description || ''}
+        `}
+      </p>
     </div>
   `
