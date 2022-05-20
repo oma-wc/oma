@@ -26,20 +26,23 @@ const datePart = (date) => html`
   <p part="date">${extractDate(date)}</p>
 `
 
-const timePart = (date) => html`
-  <p part="time">${extractHourAndMinutes(date)}</p>
+const timePart = (event) => html`
+  <p part="time">
+    ${extractHourAndMinutes(startDate(event))}
+    ${endDate(event) ? ` - ${extractHourAndMinutes(endDate(event))}` : ''}
+  </p>
 `
+
+const endDate = (event) => event.end.dateTime || event.end.date
+const startDate = (event) => event.start.dateTime || event.start.date
+
 const renderEvent = (event, showDate) =>
   html`
     <div part="event">
-      ${showDate ? datePart(event.start.date || event.start.dateTime) : null}
-      ${event.start.dateTime ? timePart(event.start.dateTime) : null}
+      ${showDate ? datePart(startDate(event)) : null}
+      ${event.start.dateTime ? timePart(event) : null}
       <p part="summary">${event.summary}</p>
-      <p part="description">
-        ${html`
-          ${event.description || ''}
-        `}
-      </p>
+      <p part="description">${html([event.description || ''])}</p>
     </div>
   `
 
