@@ -15,11 +15,13 @@ export const groupByDay = (events) =>
     return days
   }, {})
 
-export const renderCalendarDay = (date, events) => html`
-  <div part="calendar-day">
-    ${datePart(date)} ${events.map((event) => renderEvent(event, false))}
-  </div>
-`
+export const renderCalendarDay = (date, events) =>
+  html`
+    <div part="calendar-day">
+      ${datePart(date)} ${events.map(renderEventWithOutDate)}
+    </div>
+  `
+
 const datePart = (date) => html`
   <p part="date">${extractDate(date)}</p>
 `
@@ -27,7 +29,7 @@ const datePart = (date) => html`
 const timePart = (date) => html`
   <p part="time">${extractHourAndMinutes(date)}</p>
 `
-export const renderEvent = (event, showDate = true) =>
+const renderEvent = (event, showDate) =>
   html`
     <div part="event">
       ${showDate ? datePart(event.start.date || event.start.dateTime) : null}
@@ -40,3 +42,6 @@ export const renderEvent = (event, showDate = true) =>
       </p>
     </div>
   `
+
+export const renderEventWithOutDate = (event) => renderEvent(event, false)
+export const renderEventWithDate = (event) => renderEvent(event, true)

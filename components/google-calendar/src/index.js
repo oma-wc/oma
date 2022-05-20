@@ -1,8 +1,8 @@
 import { component, html, useEffect, useState } from 'haunted'
 
-import { groupByDay, renderEvent, renderCalendarDay } from './helpers'
+import { groupByDay, renderEventWithDate, renderCalendarDay } from './helpers'
 
-import { getEvents } from './events'
+import { getEvents } from './google_calendar_api'
 
 const DEFAULT_MAX_RESULTS = 250
 
@@ -40,8 +40,7 @@ const GoogleCalendar = ({
   const renderEvents = () =>
     groupEventsBy === 'day'
       ? Object.keys(events).map((date) => renderCalendarDay(date, events[date]))
-      : events.map(renderEvent)
-
+      : events.map(renderEventWithDate)
   return html`
     <div part="calendar">${events ? renderEvents() : null}</div>
   `
