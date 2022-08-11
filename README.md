@@ -16,6 +16,8 @@ See `components/` for available components.
 
 See each components documentation for details on properties and styling.
 
+[asdf](https://asdf-vm.com) is used as runtime dependency manager.
+
 ### Using a javascript build tool
 
 Install: `yarn add @oma-wc/button`
