@@ -16,6 +16,8 @@ See `components/` for available components.
 
 See each components documentation for details on properties and styling.
 
+[asdf](https://asdf-vm.com) is used as runtime dependency manager.
+
 ### Using a javascript build tool
 
 Install: `yarn add @oma-wc/button`
@@ -42,14 +44,10 @@ Doesn't require <oma-site>, self contained style.
 This is a multi package repo managed with [Lerna](https://lerna.js.org).
 
 ## Adding new components
-Run `lerna bootstrap` to setup internal dependencies.
+Run `yarn bootstrap` to setup internal dependencies.
 
 ## Testing components
-There's a very simple test page located in `components/index.html` which you can run with a local web server like [http-server](https://github.com/http-party/http-server), something like
-```
-$ cd components/
-$ http-server .
-```
+There's a very simple test page located in `components/index.html` which you can run with `yarn dev-server`.
 
 ## Publishing
 - `yarn build`

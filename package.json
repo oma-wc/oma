@@ -2,7 +2,9 @@
   "scripts": {
     "build": "node scripts/build.js --all",
     "start": "npm run watch",
-    "test": "jest"
+    "test": "jest",
+    "dev:server": "npx http-server components/",
+    "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {
     "@accodeing/prettier-config": "^2019.8.2-1.1",

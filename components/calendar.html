@@ -1,0 +1,65 @@
+<html>
+  <head></head>
+  <body>
+    <style>
+      body {
+        margin: 0;
+        padding: 12px;
+      }
+
+      oma-google-calendar::part(calendar) {
+        display: grid;
+        column-gap: 12px;
+        row-gap: 12px;
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      oma-google-calendar::part(calendar-day) {
+        border: 1px solid black;
+        min-height: 100px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      oma-google-calendar::part(event) {
+        background-color: lightblue;
+        padding: 12px;
+        word-break: break-word;
+        flex-grow: 1;
+        margin-bottom: 12px;
+      }
+
+      oma-google-calendar::part(date) {
+        color: darkblue;
+      }
+      oma-google-calendar::part(summary) {
+        font-size: 1.3rem;
+        color: #b7924b;
+      }
+      oma-google-calendar::part(description) {
+        color: darkslategray;
+      }
+    </style>
+    <h1>Google Calendar component</h1>
+    <oma-google-calendar
+      api-key="RESTRICTED_BUT_PUBLIC_API_KEY"
+      calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
+      group-events-by="day"
+    ></oma-google-calendar>
+    <script src="google-calendar/dist/index.cjs.js" type="module"></script>
+    <script>
+      setTimeout(() => {
+        const yearsBack = 5
+        const daysBack = 365 * yearsBack
+        const daysBackInMillis = 1000 * 3600 * 24 * daysBack
+        const newTimeMin = new Date(Date.now() - daysBackInMillis).toISOString()
+        const contentSwitch = document.getElementsByTagName(
+          'oma-google-calendar'
+        )[0]
+        console.log('Updating minTime to ' + newTimeMin)
+        contentSwitch.setAttribute('time-min', newTimeMin)
+      }, 2000)
+    </script>
+  </body>
+</html>
