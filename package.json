@@ -4,7 +4,8 @@
     "start": "npm run watch",
     "test": "jest",
     "dev:server": "npx http-server components/",
-    "bootstrap": "lerna bootstrap"
+    "lerna:bootstrap": "lerna bootstrap",
+    "lerna:publish": "lerna publish"
   },
   "devDependencies": {
     "@accodeing/prettier-config": "^2019.8.2-1.1",
