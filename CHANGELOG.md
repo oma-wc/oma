@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.10.1]
+### Fixed
+- `<oma-google-calendar>` now sorts events on start time. Before, they were sorted
+  in an "unspecified" but "stable" order from Google. This change also expands
+  recurring events into single events.
+
+
 ## [0.10.0]
 
 ### Added
@@ -21,7 +28,7 @@ and this project adheres to
 - New web component: <oma-center>
 - New web component: <oma-content-switch>
 
-### Changes
+### Changed
 
 - The screen size classes has changed name from size-600, size-900 and size-1200
   to screen-size--small, screen-size--medium and screen-size--large (Backward
