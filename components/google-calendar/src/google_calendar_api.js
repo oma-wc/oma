@@ -21,7 +21,9 @@ export const getEvents = ({
     `&maxResults=${maxResults}` +
     '&sanitizeHtml=true' +
     `&timeMin=${encodeURIComponent(timeMin || DEFAULT_TIME_MIN)}` +
-    `&timeMax=${encodeURIComponent(timeMax || DEFAULT_TIME_MAX)}`
+    `&timeMax=${encodeURIComponent(timeMax || DEFAULT_TIME_MAX)}` +
+    `&orderBy=startTime` +
+    `&singleEvents=True`
 
   return fetch(`${BASE_URI}${encodeURIComponent(calendarId)}/events?${params}`)
     .then((response) => response.json())
