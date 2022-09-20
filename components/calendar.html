@@ -42,24 +42,50 @@
       }
     </style>
     <h1>Google Calendar component</h1>
+
     <oma-google-calendar
       api-key="RESTRICTED_BUT_PUBLIC_API_KEY"
       calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
       group-events-by="day"
-    ></oma-google-calendar>
+      data-handle="oma-google-calendar"
+      ></oma-google-calendar>
+    <button data-handle="oma-google-calendar-back">Föregående vecka</button>
+    <button data-handle="oma-google-calendar-forward">Nästa vecka</button>
     <script src="google-calendar/dist/index.cjs.js" type="module"></script>
     <script>
-      setTimeout(() => {
-        const yearsBack = 5
-        const daysBack = 365 * yearsBack
-        const daysBackInMillis = 1000 * 3600 * 24 * daysBack
-        const newTimeMin = new Date(Date.now() - daysBackInMillis).toISOString()
-        const contentSwitch = document.getElementsByTagName(
-          'oma-google-calendar'
-        )[0]
-        console.log('Updating minTime to ' + newTimeMin)
-        contentSwitch.setAttribute('time-min', newTimeMin)
-      }, 2000)
+      const getElementByDataHandle = (handle) =>
+        document.querySelector('[data-handle="' + handle + '"]')
+      const getTimeMin = () => new Date(contentSwitch.getAttribute('time-min'))
+      const getTimeMax = () => new Date(contentSwitch.getAttribute('time-max'))
+      const setTimeMin = (time) => contentSwitch.setAttribute('time-min', time)
+      const setTimeMax = (time) => contentSwitch.setAttribute('time-max', time)
+
+      // Steps
+      const nrOfDaysToDisplay = 10
+      const step = (date, delta) => new Date(date.getFullYear(), date.getMonth(), date.getDate() + delta).toISOString()
+      const stepBack = (date) => step(date, -nrOfDaysToDisplay)
+      const stepForward = (date) => step(date, nrOfDaysToDisplay)
+
+      // Initial values
+      const startTime = new Date()
+      const timeMin = startTime.toISOString()
+      const timeMax = stepForward(startTime)
+
+      // Initialize
+      const contentSwitch = getElementByDataHandle('oma-google-calendar')
+      setTimeMin(timeMin)
+      setTimeMax(timeMax)
+
+      getElementByDataHandle('oma-google-calendar-back').addEventListener('click', () => {
+        setTimeMin(stepBack(getTimeMin()))
+        setTimeMax(stepBack(getTimeMax()))
+      })
+
+      getElementByDataHandle('oma-google-calendar-forward').addEventListener('click', () => {
+        setTimeMax(stepForward(getTimeMax()))
+        setTimeMin(stepForward(getTimeMin()))
+      })
     </script>
+
   </body>
 </html>
