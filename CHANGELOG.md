@@ -19,20 +19,21 @@ and this project adheres to
 
 ### Added
 
-- New web component: <oma-google-calendar>
+- New web component: `<oma-google-calendar>`
 
 ## [0.9.0]
+**Includes breaking changes!**
 
 ### Added
 
-- New web component: <oma-center>
-- New web component: <oma-content-switch>
+- New web component: `<oma-center>`
+- New web component: `<oma-content-switch>`
 
 ### Changed
 
-- The screen size classes has changed name from size-600, size-900 and size-1200
-  to screen-size--small, screen-size--medium and screen-size--large (Backward
-  incompatible change)
+- The screen size classes has changed name from `size-600`, `size-900` and `size-1200`
+  to `screen-size--small`, `screen-size--medium` and `screen-size--large`
+  (**breaking change!**)
 
 ## [0.8.0]
 
