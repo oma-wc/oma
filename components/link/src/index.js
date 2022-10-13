@@ -4,22 +4,27 @@ import { parsePhoneNumberFromString, ParseError } from 'libphonenumber-js/min'
 
 const ELEMENT = 'oma-link'
 
-const EmailLink = ({ email }) =>
+const EmailLink = ({ childrenalignment, email }) =>
   html`
-    ${LinkTag({ content: email, to: `mailto:${email}` })}
+    ${LinkTag({ childrenalignment: childrenalignment, content: email, to: `mailto:${email}` })}
   `
 
-const PhoneLink = ({ number }) =>
+const PhoneLink = ({ childrenalignment, number }) =>
   html`
     ${
       LinkTag({
+        childrenalignment: childrenalignment,
         content: number.formatNational(),
         to: number.getURI(),
       })
     }
   `
 
-const LinkTag = ({ content, to }) => {
+const LinkTag = ({ childrenalignment = 'after', content, to }) => {
+  const linkContent =  childrenalignment === 'after'
+    ? html`${content} <slot></slot>`
+    : html`<slot></slot> ${content}`
+
   return html`
     <style>
       a {
@@ -29,11 +34,11 @@ const LinkTag = ({ content, to }) => {
         text-decoration: var(--oma-link__text-decoration, underline);
       }
     </style>
-    <a href="${to}"> ${content} <slot></slot> </a>
+    <a href="${to}">${linkContent}</a>
   `
 }
 
-const Link = ({ to }) => {
+const Link = ({ childrenalignment, to }) => {
   if (to.includes('://')) {
     return html`
       <a href="${to}" /><slot></slot></a>
@@ -42,7 +47,7 @@ const Link = ({ to }) => {
 
   if (to.includes('@')) {
     return html`
-      ${EmailLink({ email: to })}
+      ${EmailLink({ childrenalignment: childrenalignment, email: to })}
     `
   }
 
@@ -50,7 +55,7 @@ const Link = ({ to }) => {
     const phoneNumber = parsePhoneNumberFromString(to)
     if (phoneNumber && phoneNumber.isValid()) {
       return html`
-        ${PhoneLink({ number: phoneNumber })}
+        ${PhoneLink({ childrenalignment: childrenalignment, number: phoneNumber })}
       `
     }
   } catch (error) {
@@ -64,6 +69,6 @@ const Link = ({ to }) => {
   console.error(`ERROR, ${ELEMENT}: Unknown link type. Link to: ${to}`)
 }
 
-Link.observedAttributes = ['to']
+Link.observedAttributes = ['childrenalignment', 'to']
 
 customElements.define(ELEMENT, component(Link))
