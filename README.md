@@ -52,4 +52,4 @@ There's a very simple test page located in `components/index.html` which you can
 ## Publishing
 - `yarn build`
 - Commit
-- Run `lerna publish` (you need authentication to NPM (`npm adduser`))
+- Run `yarn lerna:publish` (you need authentication to NPM (`npm adduser`))
