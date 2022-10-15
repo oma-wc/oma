@@ -4,24 +4,24 @@ import { parsePhoneNumberFromString, ParseError } from 'libphonenumber-js/min'
 
 const ELEMENT = 'oma-link'
 
-const EmailLink = ({ childrenalignment, email }) =>
+const EmailLink = ({ alignment, email }) =>
   html`
-    ${LinkTag({ childrenalignment: childrenalignment, content: email, to: `mailto:${email}` })}
+    ${LinkTag({ alignment: alignment, content: email, to: `mailto:${email}` })}
   `
 
-const PhoneLink = ({ childrenalignment, number }) =>
+const PhoneLink = ({ alignment, number }) =>
   html`
     ${
       LinkTag({
-        childrenalignment: childrenalignment,
+        alignment: alignment,
         content: number.formatNational(),
         to: number.getURI(),
       })
     }
   `
 
-const LinkTag = ({ childrenalignment = 'after', content, to }) => {
-  const linkContent =  childrenalignment === 'after'
+const LinkTag = ({ alignment = 'after', content, to }) => {
+  const linkContent =  alignment === 'after'
     ? html`${content} <slot></slot>`
     : html`<slot></slot> ${content}`
 
@@ -38,7 +38,7 @@ const LinkTag = ({ childrenalignment = 'after', content, to }) => {
   `
 }
 
-const Link = ({ childrenalignment, to }) => {
+const Link = ({ alignment, to }) => {
   if (to.includes('://')) {
     return html`
       <a href="${to}" /><slot></slot></a>
@@ -47,7 +47,7 @@ const Link = ({ childrenalignment, to }) => {
 
   if (to.includes('@')) {
     return html`
-      ${EmailLink({ childrenalignment: childrenalignment, email: to })}
+      ${EmailLink({ alignment: alignment, email: to })}
     `
   }
 
@@ -55,7 +55,7 @@ const Link = ({ childrenalignment, to }) => {
     const phoneNumber = parsePhoneNumberFromString(to)
     if (phoneNumber && phoneNumber.isValid()) {
       return html`
-        ${PhoneLink({ childrenalignment: childrenalignment, number: phoneNumber })}
+        ${PhoneLink({ alignment: alignment, number: phoneNumber })}
       `
     }
   } catch (error) {
@@ -69,6 +69,6 @@ const Link = ({ childrenalignment, to }) => {
   console.error(`ERROR, ${ELEMENT}: Unknown link type. Link to: ${to}`)
 }
 
-Link.observedAttributes = ['childrenalignment', 'to']
+Link.observedAttributes = ['alignment', 'to']
 
 customElements.define(ELEMENT, component(Link))
