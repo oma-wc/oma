@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.11.0]
+### Added
+- `alignment` property to `oma-link`. When the `to` property includes either a phone number
+  or an email address, the link component outputs the phone number or the email address.
+  If you also pass childrens, they were previously added after the phone number / email address.
+  With this new property, you can choose the alignment yourself.
+
 ## [0.10.1]
 ### Fixed
 - `<oma-google-calendar>` now sorts events on start time. Before, they were sorted
@@ -103,7 +110,8 @@ and this project adheres to
 
 - `oma-grid-subgrid` now renders its children.
 
-[0.10.0]: https://github.com/oma-wc/oma/compare/v0.9.0...v0.10.0
+[0.11.0]: https://github.com/oma-wc/oma/compare/v0.10.1...v0.11.0
+[0.10.1]: https://github.com/oma-wc/oma/compare/v0.10.0...v0.10.1
 [0.9.0]: https://github.com/oma-wc/oma/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/oma-wc/oma/compare/v0.7.4...v0.8.0
 [0.7.4]: https://github.com/oma-wc/oma/compare/v0.7.3...v0.7.4
