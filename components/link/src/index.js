@@ -4,22 +4,27 @@ import { parsePhoneNumberFromString, ParseError } from 'libphonenumber-js/min'
 
 const ELEMENT = 'oma-link'
 
-const EmailLink = ({ email }) =>
+const EmailLink = ({ alignment, email }) =>
   html`
-    ${LinkTag({ content: email, to: `mailto:${email}` })}
+    ${LinkTag({ alignment: alignment, content: email, to: `mailto:${email}` })}
   `
 
-const PhoneLink = ({ number }) =>
+const PhoneLink = ({ alignment, number }) =>
   html`
     ${
       LinkTag({
+        alignment: alignment,
         content: number.formatNational(),
         to: number.getURI(),
       })
     }
   `
 
-const LinkTag = ({ content, to }) => {
+const LinkTag = ({ alignment = 'after', content, to }) => {
+  const linkContent =  alignment === 'after'
+    ? html`${content} <slot></slot>`
+    : html`<slot></slot> ${content}`
+
   return html`
     <style>
       a {
@@ -29,11 +34,11 @@ const LinkTag = ({ content, to }) => {
         text-decoration: var(--oma-link__text-decoration, underline);
       }
     </style>
-    <a href="${to}"> ${content} <slot></slot> </a>
+    <a href="${to}">${linkContent}</a>
   `
 }
 
-const Link = ({ to }) => {
+const Link = ({ alignment, to }) => {
   if (to.includes('://')) {
     return html`
       <a href="${to}" /><slot></slot></a>
@@ -42,7 +47,7 @@ const Link = ({ to }) => {
 
   if (to.includes('@')) {
     return html`
-      ${EmailLink({ email: to })}
+      ${EmailLink({ alignment: alignment, email: to })}
     `
   }
 
@@ -50,7 +55,7 @@ const Link = ({ to }) => {
     const phoneNumber = parsePhoneNumberFromString(to)
     if (phoneNumber && phoneNumber.isValid()) {
       return html`
-        ${PhoneLink({ number: phoneNumber })}
+        ${PhoneLink({ alignment: alignment, number: phoneNumber })}
       `
     }
   } catch (error) {
@@ -64,6 +69,6 @@ const Link = ({ to }) => {
   console.error(`ERROR, ${ELEMENT}: Unknown link type. Link to: ${to}`)
 }
 
-Link.observedAttributes = ['to']
+Link.observedAttributes = ['alignment', 'to']
 
 customElements.define(ELEMENT, component(Link))

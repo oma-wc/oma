@@ -6,7 +6,7 @@
         margin: 0;
       }
       .wrapper {
-        background-color: red;
+        border: 1px solid black;
       }
     </style>
     <oma-grid>
@@ -32,6 +32,20 @@
           </oma-grid-subgrid>
         </div>
       </oma-grid-row>
+      <oma-link to="+4610-111111"></oma-link>
+      <br />
+      <oma-link to="+4610-222222">With link text</oma-link>
+      <br />
+      <oma-link to="+4610-333333" alignment='after'>After phone number</oma-link>
+      <br />
+      <oma-link to="+4610-444444" alignment='before'>Before phone number</oma-link>
+      <oma-link to="user@example.com"></oma-link>
+      <br />
+      <oma-link to="user@example.com">With link text</oma-link>
+      <br />
+      <oma-link to="user@example.com" alignment='after'>After email</oma-link>
+      <br />
+      <oma-link to="user@example.com" alignment='before'>Before email</oma-link>
       <oma-grid-row>
         <oma-google-map
           title="Test map"
@@ -46,6 +60,7 @@
     <script src="grid/dist/index.cjs.js" type="module"></script>
     <script src="grid-subgrid/dist/index.cjs.js" type="module"></script>
     <script src="grid-row/dist/index.cjs.js" type="module"></script>
+    <script src="link/dist/index.cjs.js" type="module"></script>
     <script src="google-map/dist/index.cjs.js" type="module"></script>
   </body>
 </html>
