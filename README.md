@@ -47,7 +47,7 @@ This is a multi package repo managed with [Lerna](https://lerna.js.org).
 Run `yarn bootstrap` to setup internal dependencies.
 
 ## Testing components
-There's a very simple test page located in `components/index.html` which you can run with `yarn dev-server`.
+There's a very simple test page located in `components/index.html` which you can run with `yarn dev:server`.
 
 ## Publishing
 - `yarn build`
