@@ -14,16 +14,23 @@ const GoogleMap = ({
 
   return html`
     <iframe
-    title=${title}
-    width=${width}
-    height=${height}
-    frameBorder='0'
-    style="border: 0"
-    src=${src}
-  />
+      title=${title}
+      width=${width}
+      height=${height}
+      frameborder="0"
+      style="border: 0"
+      src=${src}
+    />
   `
 }
 
-GoogleMap.observedAttributes = ['title', 'width', 'height', 'zoom', 'placeid', 'apikey']
+GoogleMap.observedAttributes = [
+  'title',
+  'width',
+  'height',
+  'zoom',
+  'placeid',
+  'apikey',
+]
 
 customElements.define('oma-google-map', component(GoogleMap))

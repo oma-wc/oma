@@ -2,5 +2,5 @@
   "compilerOptions": {
     "baseUrl": "src"
   },
-  "include": ["src","components/**/src"]
+  "include": ["src", "components/**/src"]
 }

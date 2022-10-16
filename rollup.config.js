@@ -21,12 +21,12 @@ export default (opts) => {
     plugins: [
       nodeResolve({}),
       terser(),
-            //commonjs({}),
-            babel({
-              runtimeHelpers: true,
-              exclude: '../../node_modules/**',
-              configFile: '../../babel.config.js',
-            }),
+      //commonjs({}),
+      babel({
+        runtimeHelpers: true,
+        exclude: '../../node_modules/**',
+        configFile: '../../babel.config.js',
+      }),
     ],
   }
 }

@@ -22,26 +22,26 @@ class StyleSheet {
     return style_element.sheet
   }
 
-  add_rule( input ){
+  add_rule(input) {
     const matches = input.match(/^([^{]*)\{([^}]*)\}/)
     const selector = matches[1].trim()
     const rules = matches[2].trim()
 
-    if( !this.pending_rules[ selector ]){
-      this.pending_rules[ selector ] = `${rules}`
+    if (!this.pending_rules[selector]) {
+      this.pending_rules[selector] = `${rules}`
     } else {
-      this.pending_rules[ selector ] += `\n${rules}`
+      this.pending_rules[selector] += `\n${rules}`
     }
   }
 
   write() {
-    for( let [ selector, rules ] of Object.entries( this.pending_rules )){
+    for (let [selector, rules] of Object.entries(this.pending_rules)) {
       this.write_rule(selector, rules)
 
-      if( !this.written_rules[ selector ]){
-        this.written_rules[ selector ] = `${rules}`
+      if (!this.written_rules[selector]) {
+        this.written_rules[selector] = `${rules}`
       } else {
-        this.written_rules[ selector ] += `\n${rules}`
+        this.written_rules[selector] += `\n${rules}`
       }
 
       delete this.pending_rules[selector]
