@@ -8,6 +8,10 @@
       .wrapper {
         border: 1px solid black;
       }
+      .accordion {
+        --oma-accordion__background: lightsalmon;
+        --oma-accordion__summary-background: indianred;
+      }
     </style>
     <oma-grid>
       <oma-grid-row fullwidth paddingOnSelf>
@@ -62,10 +66,12 @@
     </oma-grid>
     <oma-accordion>
       <span slot="summary">A summary for the accordion</span>
+      <span slot="icon">#</span>
       <div slot="details"><p>Some text</p></div>
     </oma-accordion>
-    <oma-accordion>
-      <span slot="summary">Another summary</span>
+    <oma-accordion class="accordion" appendicon="true">
+      <span slot="summary">A styled accordion with icon appended</span>
+      <span slot="icon">#</span>
       <div slot="details"><p>Some other text</p></div>
     </oma-accordion>
     <script src="site/dist/index.cjs.js" type="module"></script>
