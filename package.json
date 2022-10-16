@@ -5,13 +5,15 @@
     "test": "jest",
     "dev:server": "npx http-server components/",
     "lerna:bootstrap": "lerna bootstrap",
-    "lerna:publish": "lerna publish"
+    "lerna:publish": "lerna publish",
+    "prettify": "prettier --write ."
   },
   "devDependencies": {
     "@accodeing/prettier-config": "^2019.8.2-1.1",
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "lerna": "^4.0.0",
+    "prettier": "^2.7.1",
     "rollup": "^1.27.4",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
