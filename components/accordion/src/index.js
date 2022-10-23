@@ -3,9 +3,11 @@ import { component, html, useState, useEffect } from 'haunted'
 const Accordion = (element) => {
   const { appendExpander = false } = element
   const [expanded, setExpanded] = useState(false)
+  const summary = element.querySelector('[slot=summary]')
   const expander = element.querySelector('[slot=expander]')
   const details = element.querySelector('[slot=details]')
 
+  summary.classList.add('oma-accordion__summary')
   expander.classList.add('oma-accordion__expander')
   details.classList.add('oma-accordion__details')
 
@@ -24,8 +26,8 @@ const Accordion = (element) => {
     }
   }, [expanded])
 
-  const headingSlot = html`
-    <slot name="heading"></slot>
+  const summarySlot = html`
+    <slot name="summary"></slot>
   `
   const expanderSlot = html`
     <slot name="expander"></slot>
@@ -33,10 +35,10 @@ const Accordion = (element) => {
 
   const header = appendExpander
     ? html`
-        ${headingSlot}${expanderSlot}
+        ${summarySlot}${expanderSlot}
       `
     : html`
-        ${expanderSlot}${headingSlot}
+        ${expanderSlot}${summarySlot}
       `
 
   return html`
