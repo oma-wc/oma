@@ -8,9 +8,24 @@
       .wrapper {
         border: 1px solid black;
       }
-      .accordion {
-        --oma-accordion__background: lightsalmon;
-        --oma-accordion__summary-background: indianred;
+      .oma-accordion {
+        display: block;
+      }
+      .oma-accordion__expander {
+        display: inline-block;
+        width: 10px;
+      }
+      .oma-accordion__expander::before {
+        content: '+';
+      }
+      .oma-accordion__expander--expanded::before {
+        content: '-';
+      }
+      .oma-accordion__details {
+        display: none;
+      }
+      .oma-accordion__details--expanded {
+        display: block;
       }
     </style>
     <oma-grid>
@@ -64,14 +79,14 @@
         />
       </oma-grid-row>
     </oma-grid>
-    <oma-accordion>
-      <span slot="summary">A summary for the accordion</span>
-      <span slot="icon">#</span>
+    <oma-accordion class="oma-accordion">
+      <span slot="heading">A summary for the accordion</span>
+      <span slot="expander"></span>
       <div slot="details"><p>Some text</p></div>
     </oma-accordion>
-    <oma-accordion class="accordion" appendicon="true">
-      <span slot="summary">A styled accordion with icon appended</span>
-      <span slot="icon">#</span>
+    <oma-accordion class="accordion" append-expander="true">
+      <span slot="heading">A styled accordion with icon appended</span>
+      <span slot="expander"></span>
       <div slot="details"><p>Some other text</p></div>
     </oma-accordion>
     <script src="site/dist/index.cjs.js" type="module"></script>

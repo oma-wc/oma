@@ -1,47 +1,55 @@
-import { component, html } from 'haunted'
+import { component, html, useState, useEffect } from 'haunted'
 
-const ELEMENT = 'oma-accordion'
+const Accordion = (element) => {
+  const { appendExpander = false } = element
+  const [expanded, setExpanded] = useState(false)
+  const expander = element.querySelector('[slot=expander]')
+  const details = element.querySelector('[slot=details]')
 
-const Accordion = ({ appendicon = false }) => {
-  const summarySlot = html`
-    <slot name="summary"></slot>
+  expander.classList.add('oma-accordion__expander')
+  details.classList.add('oma-accordion__details')
+
+  expander.classList.toggle('oma-accordion__expander--expanded', expanded)
+  details.classList.toggle('oma-accordion__details--expanded', expanded)
+
+  useEffect(() => {
+    const onClick = () => {
+      setExpanded(!expanded)
+    }
+
+    expander.addEventListener('click', onClick)
+
+    return () => {
+      expander.removeEventListener('click', onClick)
+    }
+  }, [expanded])
+
+  const headingSlot = html`
+    <slot name="heading"></slot>
   `
-  const iconSlot = html`
-    <slot name="icon"></slot>
+  const expanderSlot = html`
+    <slot name="expander"></slot>
   `
 
-  const summaryContent = appendicon
+  const header = appendExpander
     ? html`
-        ${summarySlot}${iconSlot}
+        ${headingSlot}${expanderSlot}
       `
     : html`
-        ${iconSlot}${summarySlot}
+        ${expanderSlot}${headingSlot}
       `
 
   return html`
     <style>
-      details {
-        background: var(--oma-accordion__background);
-        border: var(--oma-accordion__details-border);
-      }
-
-      summary {
-        cursor: pointer;
-        background: var(--oma-accordion__summary-background);
-      }
-
-      summary::marker {
-        content: var(--oma-accordion__marker-content, none);
+      slot[name='expander'] {
+        cursor: var(--oma-accordion__expander-cursor, pointer);
       }
     </style>
-
-    <details>
-      <summary>${summaryContent}</summary>
-      <slot name="details"></slot>
-    </details>
+    ${header}
+    <slot name="details"></slot>
   `
 }
 
-Accordion.observedAttributes = ['appendicon']
+Accordion.observedAttributes = ['append-expander']
 
-customElements.define(ELEMENT, component(Accordion))
+customElements.define('oma-accordion', component(Accordion))
