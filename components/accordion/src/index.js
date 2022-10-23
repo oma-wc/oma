@@ -4,7 +4,7 @@ const Accordion = (element) => {
   const { appendExpander = false } = element
   const [expanded, setExpanded] = useState(false)
   const summary = element.querySelector('[slot=summary]')
-  const expander = element.querySelector('[slot=expander]')
+  const expander = element.querySelector('[data-handle=oma-accordion-expander]')
   const details = element.querySelector('[slot=details]')
 
   summary.classList.add('oma-accordion__summary')
@@ -26,32 +26,10 @@ const Accordion = (element) => {
     }
   }, [expanded])
 
-  const summarySlot = html`
-    <slot name="summary"></slot>
-  `
-  const expanderSlot = html`
-    <slot name="expander"></slot>
-  `
-
-  const header = appendExpander
-    ? html`
-        ${summarySlot}${expanderSlot}
-      `
-    : html`
-        ${expanderSlot}${summarySlot}
-      `
-
   return html`
-    <style>
-      slot[name='expander'] {
-        cursor: var(--oma-accordion__expander-cursor, pointer);
-      }
-    </style>
-    ${header}
+    <slot name="summary"></slot>
     <slot name="details"></slot>
   `
 }
-
-Accordion.observedAttributes = ['append-expander']
 
 customElements.define('oma-accordion', component(Accordion))

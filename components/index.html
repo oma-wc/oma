@@ -12,6 +12,7 @@
         display: block;
       }
       .oma-accordion__expander {
+        cursor: pointer;
         display: inline-block;
         width: 10px;
       }
@@ -80,13 +81,23 @@
       </oma-grid-row>
     </oma-grid>
     <oma-accordion class="oma-accordion">
-      <span slot="summary">A summary for the accordion</span>
-      <span slot="expander"></span>
+      <span slot="summary">
+        <span
+          class="oma-accordion__expander"
+          data-handle="oma-accordion-expander"
+        ></span>
+        A summary for the accordion
+      </span>
       <div slot="details"><p>Some text</p></div>
     </oma-accordion>
-    <oma-accordion class="accordion" append-expander="true">
-      <span slot="summary">A styled accordion with icon appended</span>
-      <span slot="expander"></span>
+    <oma-accordion class="accordion">
+      <span slot="summary">
+        A styled accordion with icon appended
+        <span
+          class="oma-accordion__expander"
+          data-handle="oma-accordion-expander"
+        ></span>
+      </span>
       <div slot="details"><p>Some other text</p></div>
     </oma-accordion>
     <script src="site/dist/index.cjs.js" type="module"></script>
