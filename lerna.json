@@ -1,6 +1,4 @@
 {
-  "packages": [
-    "components/*"
-  ],
+  "packages": ["components/*"],
   "version": "0.11.0"
 }

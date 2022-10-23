@@ -9,7 +9,7 @@ import {
   PAGE_SPACE_LARGE,
   PAGE_SPACE_MEDIUM,
   PAGE_SPACE_SMALL,
-} from '@oma-wc/state';
+} from '@oma-wc/state'
 
 State.stylesheet.add_rule(
   `html {

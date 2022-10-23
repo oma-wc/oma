@@ -11,19 +11,24 @@ const EmailLink = ({ alignment, email }) =>
 
 const PhoneLink = ({ alignment, number }) =>
   html`
-    ${
-      LinkTag({
-        alignment: alignment,
-        content: number.formatNational(),
-        to: number.getURI(),
-      })
-    }
+    ${LinkTag({
+      alignment: alignment,
+      content: number.formatNational(),
+      to: number.getURI(),
+    })}
   `
 
 const LinkTag = ({ alignment = 'after', content, to }) => {
-  const linkContent =  alignment === 'after'
-    ? html`${content} <slot></slot>`
-    : html`<slot></slot> ${content}`
+  const linkContent =
+    alignment === 'after'
+      ? html`
+          ${content}
+          <slot></slot>
+        `
+      : html`
+          <slot></slot>
+          ${content}
+        `
 
   return html`
     <style>

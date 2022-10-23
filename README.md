@@ -2,8 +2,8 @@
 
 # oma
 
-Qenya   
-**oma**    
+Qenya  
+**oma**  
 _noun_. everywhere
 
 oma is a framework independent web components library.
@@ -28,7 +28,8 @@ Use in HTML or JSX: `<oma-button>A simple button</oma-button>`
 
 ### Using a `<script>` tag
 
-Add to main HTML file: `<script src="https://unpkg.com/@oma-wc/button" type="text/javascript"></script>`
+Add to main HTML file:
+`<script src="https://unpkg.com/@oma-wc/button" type="text/javascript"></script>`
 
 And then use it in HTML: `<oma-button>A simple button</oma-button>`
 
@@ -41,15 +42,20 @@ Requires <oma-site> due to style dependancies.
 Doesn't require <oma-site>, self contained style.
 
 # Development
+
 This is a multi package repo managed with [Lerna](https://lerna.js.org).
 
 ## Adding new components
+
 Run `yarn bootstrap` to setup internal dependencies.
 
 ## Testing components
-There's a very simple test page located in `components/index.html` which you can run with `yarn dev:server`.
+
+There's a very simple test page located in `components/index.html` which you can
+run with `yarn dev:server`.
 
 ## Publishing
+
 - `yarn build`
 - Commit
 - Run `yarn lerna:publish` (you need authentication to NPM (`npm adduser`))

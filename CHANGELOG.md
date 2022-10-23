@@ -9,18 +9,22 @@ and this project adheres to
 ## [Unreleased]
 
 ## [0.11.0]
+
 ### Added
-- `alignment` property to `oma-link`. When the `to` property includes either a phone number
-  or an email address, the link component outputs the phone number or the email address.
-  If you also pass childrens, they were previously added after the phone number / email address.
-  With this new property, you can choose the alignment yourself.
+
+- `alignment` property to `oma-link`. When the `to` property includes either a
+  phone number or an email address, the link component outputs the phone number
+  or the email address. If you also pass childrens, they were previously added
+  after the phone number / email address. With this new property, you can choose
+  the alignment yourself.
 
 ## [0.10.1]
-### Fixed
-- `<oma-google-calendar>` now sorts events on start time. Before, they were sorted
-  in an "unspecified" but "stable" order from Google. This change also expands
-  recurring events into single events.
 
+### Fixed
+
+- `<oma-google-calendar>` now sorts events on start time. Before, they were
+  sorted in an "unspecified" but "stable" order from Google. This change also
+  expands recurring events into single events.
 
 ## [0.10.0]
 
@@ -29,6 +33,7 @@ and this project adheres to
 - New web component: `<oma-google-calendar>`
 
 ## [0.9.0]
+
 **Includes breaking changes!**
 
 ### Added
@@ -38,9 +43,9 @@ and this project adheres to
 
 ### Changed
 
-- The screen size classes has changed name from `size-600`, `size-900` and `size-1200`
-  to `screen-size--small`, `screen-size--medium` and `screen-size--large`
-  (**breaking change!**)
+- The screen size classes has changed name from `size-600`, `size-900` and
+  `size-1200` to `screen-size--small`, `screen-size--medium` and
+  `screen-size--large` (**breaking change!**)
 
 ## [0.8.0]
 

@@ -25,7 +25,7 @@ const getPackageNames = (callback, forceUpdatedPackages) => {
     (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`)
-        return;
+        return
       }
 
       if (stdout === '') {
