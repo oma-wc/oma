@@ -19,7 +19,6 @@ const GoogleCalendar = ({
 }) => {
   const defaultDateFormat = {
     weekday: 'short',
-    year: 'numeric',
     month: 'short',
     day: 'numeric',
   }
