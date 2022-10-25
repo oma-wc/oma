@@ -22,7 +22,6 @@ const GoogleCalendar = ({
     month: 'short',
     day: 'numeric',
   }
-  console.log(dateFormat ? JSON.parse(dateFormat) : defaultDateFormat)
   const renderOptions = {
     locale,
     dateFormat: dateFormat ? JSON.parse(dateFormat) : defaultDateFormat,
