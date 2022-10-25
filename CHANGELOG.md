@@ -10,8 +10,8 @@ and this project adheres to
 
 ### Added
 
-- `weekdays` property to `oma-google-calendar` which shows localized weekdays in combination
-  with the event date. Defaults to `true`.
+- `date-format` property to `oma-google-calendar` to format the date printed for each event.
+  It takes a stringified JSON object and passes it directly to `Date.prototype.toLocaleDate`.
 - `locale` property to `oma-google-calendar`. Defaults to `sv-SE`.
 
 ## [0.11.0]

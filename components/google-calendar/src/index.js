@@ -14,12 +14,19 @@ const GoogleCalendar = ({
   timeMin,
   timeMax,
   timezone = 'Europe/Stockholm',
-  weekdays = 'true',
+  dateFormat,
   locale = 'sv-SE',
 }) => {
+  const defaultDateFormat = {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }
+  console.log(dateFormat ? JSON.parse(dateFormat) : defaultDateFormat)
   const renderOptions = {
     locale,
-    weekdays: weekdays === 'true',
+    dateFormat: dateFormat ? JSON.parse(dateFormat) : defaultDateFormat,
   }
 
   if (groupEventsBy && groupEventsBy !== 'day') {
@@ -63,7 +70,7 @@ GoogleCalendar.observedAttributes = [
   'timezone',
   'time-min',
   'time-max',
-  'weekdays',
+  'date-format',
   'locale',
 ]
 

@@ -18,20 +18,19 @@ export const groupByDay = (events) =>
 export const renderCalendarDay = (date, events, options) =>
   html`
     <div part="calendar-day">
-      ${datePart(date, options.locale, options.weekdays)}
+      ${datePart(date, options.locale, options.dateFormat)}
       ${events.map((event) => renderEventWithOutDate(event, options))}
     </div>
   `
 
-const datePart = (dateString, locale, weekday) => {
-  const localizedWeekday = new Date(dateString).toLocaleDateString(locale, {
-    weekday: 'long',
-  })
+const datePart = (dateString, locale, dateFormat) => {
+  const localizedDate = new Date(extractDate(dateString)).toLocaleDateString(
+    locale,
+    dateFormat
+  )
 
   return html`
-    <p part="date">
-      ${weekday ? localizedWeekday : ''} ${extractDate(dateString)}
-    </p>
+    <p part="date">${localizedDate}</p>
   `
 }
 
@@ -49,7 +48,7 @@ const renderEvent = (event, showDate, options) =>
   html`
     <div part="event">
       ${showDate
-        ? datePart(startDate(event), options.locale, options.weekdays)
+        ? datePart(startDate(event), options.locale, options.dateFormat)
         : null}
       ${event.start.dateTime ? timePart(event) : null}
       <p part="summary">${event.summary}</p>
