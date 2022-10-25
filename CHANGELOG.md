@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- `weekdays` property to `oma-google-calendar` which shows localized weekdays in combination
+  with the event date. Defaults to `true`.
+- `locale` property to `oma-google-calendar`. Defaults to `sv-SE`.
+
 ## [0.11.0]
 
 ### Added
