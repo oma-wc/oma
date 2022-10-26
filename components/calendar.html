@@ -48,6 +48,7 @@
       calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
       group-events-by="day"
       data-handle="oma-google-calendar"
+      date-format='{"weekday":"long","year":"numeric","month":"short","day":"numeric"}'
     ></oma-google-calendar>
     <button data-handle="oma-google-calendar-back">Föregående vecka</button>
     <button data-handle="oma-google-calendar-forward">Nästa vecka</button>
@@ -97,5 +98,20 @@
         }
       )
     </script>
+    <oma-google-calendar
+      api-key="RESTRICTED_BUT_PUBLIC_API_KEY"
+      calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
+      group-events-by="day"
+      locale="en-GB"
+    ></oma-google-calendar>
+    <oma-google-calendar
+      api-key="RESTRICTED_BUT_PUBLIC_API_KEY"
+      calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
+      weekdays="false"
+    ></oma-google-calendar>
+    <oma-google-calendar
+      api-key="RESTRICTED_BUT_PUBLIC_API_KEY"
+      calendar-id="sv.swedish#holiday@group.v.calendar.google.com"
+    ></oma-google-calendar>
   </body>
 </html>

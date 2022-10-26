@@ -15,16 +15,24 @@ export const groupByDay = (events) =>
     return days
   }, {})
 
-export const renderCalendarDay = (date, events) =>
+export const renderCalendarDay = (date, events, options) =>
   html`
     <div part="calendar-day">
-      ${datePart(date)} ${events.map(renderEventWithOutDate)}
+      ${datePart(date, options.locale, options.dateFormat)}
+      ${events.map((event) => renderEventWithOutDate(event, options))}
     </div>
   `
 
-const datePart = (date) => html`
-  <p part="date">${extractDate(date)}</p>
-`
+const datePart = (dateString, locale, dateFormat) => {
+  const localizedDate = new Date(extractDate(dateString)).toLocaleDateString(
+    locale,
+    dateFormat
+  )
+
+  return html`
+    <p part="date">${localizedDate}</p>
+  `
+}
 
 const timePart = (event) => html`
   <p part="time">
@@ -36,15 +44,19 @@ const timePart = (event) => html`
 const endDate = (event) => event.end.dateTime || event.end.date
 const startDate = (event) => event.start.dateTime || event.start.date
 
-const renderEvent = (event, showDate) =>
+const renderEvent = (event, showDate, options) =>
   html`
     <div part="event">
-      ${showDate ? datePart(startDate(event)) : null}
+      ${showDate
+        ? datePart(startDate(event), options.locale, options.dateFormat)
+        : null}
       ${event.start.dateTime ? timePart(event) : null}
       <p part="summary">${event.summary}</p>
       <p part="description">${html([event.description || ''])}</p>
     </div>
   `
 
-export const renderEventWithOutDate = (event) => renderEvent(event, false)
-export const renderEventWithDate = (event) => renderEvent(event, true)
+export const renderEventWithOutDate = (event, options) =>
+  renderEvent(event, false, options)
+export const renderEventWithDate = (event, options) =>
+  renderEvent(event, true, options)
