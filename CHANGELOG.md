@@ -14,6 +14,7 @@ and this project adheres to
 - `date-format` property is added to `oma-google-calendar` to format the date printed for each event.
   It takes a stringified JSON object and passes it directly to `Date.prototype.toLocaleDateString`.
   See Changed below for information regarding the default value.
+- `oma-hamburger-button`, a button that you can use to activate something, for instance `oma-menu`.
 
 ### Changed
 
