@@ -8,6 +8,26 @@
       .wrapper {
         border: 1px solid black;
       }
+      .oma-accordion {
+        display: block;
+      }
+      .oma-accordion__expander {
+        cursor: pointer;
+        display: inline-block;
+        width: 10px;
+      }
+      .oma-accordion__expander::before {
+        content: '+';
+      }
+      .oma-accordion__expander--expanded::before {
+        content: '-';
+      }
+      .oma-accordion__details {
+        display: none;
+      }
+      .oma-accordion__details--expanded {
+        display: block;
+      }
     </style>
     <oma-grid>
       <oma-grid-row fullwidth paddingOnSelf>
@@ -60,11 +80,32 @@
         />
       </oma-grid-row>
     </oma-grid>
+    <oma-accordion class="oma-accordion">
+      <span slot="summary">
+        <span
+          class="oma-accordion__expander"
+          data-handle="oma-accordion-expander"
+        ></span>
+        A summary for the accordion
+      </span>
+      <div slot="details"><p>Some text</p></div>
+    </oma-accordion>
+    <oma-accordion class="accordion">
+      <span slot="summary">
+        A styled accordion with icon appended
+        <span
+          class="oma-accordion__expander"
+          data-handle="oma-accordion-expander"
+        ></span>
+      </span>
+      <div slot="details"><p>Some other text</p></div>
+    </oma-accordion>
     <script src="site/dist/index.cjs.js" type="module"></script>
     <script src="grid/dist/index.cjs.js" type="module"></script>
     <script src="grid-subgrid/dist/index.cjs.js" type="module"></script>
     <script src="grid-row/dist/index.cjs.js" type="module"></script>
     <script src="link/dist/index.cjs.js" type="module"></script>
     <script src="google-map/dist/index.cjs.js" type="module"></script>
+    <script src="accordion/dist/index.cjs.js" type="module"></script>
   </body>
 </html>
