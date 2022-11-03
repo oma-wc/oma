@@ -32,6 +32,22 @@
           </oma-grid-subgrid>
         </div>
       </oma-grid-row>
+      <oma-clerk clerk-id="00000000-0000-0000-0000-000000000000">
+        <form slot="form">
+          <input type="text" name="value" />
+          <textarea row="2"></textarea>
+          <input type="submit" value="Send" />
+        </form>
+        <div slot="failure">
+          <p>Something went wrong, please try again later...</p>
+        </div>
+        <div slot="success">
+          <p>Message sent!</p>
+        </div>
+        <div slot="processing">
+          <p>Processing...</p>
+        </div>
+      </oma-clerk>
       <oma-link to="+4610-111111"></oma-link>
       <br />
       <oma-link to="+4610-222222">With link text</oma-link>
@@ -66,5 +82,6 @@
     <script src="grid-row/dist/index.cjs.js" type="module"></script>
     <script src="link/dist/index.cjs.js" type="module"></script>
     <script src="google-map/dist/index.cjs.js" type="module"></script>
+    <script src="clerk/dist/index.cjs.js" type="module"></script>
   </body>
 </html>
