@@ -109,7 +109,7 @@ const Clerk = ({ clerkId }) => {
   if (status === SUCCESS) {
     return html`
       ${formSlot} 
-      <slot name="sucess"></slot>
+      <slot name="success"></slot>
     `
   }
 
