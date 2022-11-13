@@ -1,20 +1,11 @@
 import { component, html, useEffect } from 'haunted'
 
 const HamburgerButton = (element) => {
-  /*
-   * Query the button element from the shadow DOM.
-   *
-   * Since the button is added in the component,
-   * this query must be run when the component has been rendered.
-   **/
-  const queryButton = () =>
-    element.shadowRoot.querySelector('.hamburger-button')
-
   useEffect(() => {
-    const button = queryButton()
+    const button = element.shadowRoot.querySelector('.hamburger-button')
 
     const onClick = () => {
-      button.classList.toggle('hamburger-button--active')
+      button.toggleAttribute('data-open')
     }
 
     button.addEventListener('click', onClick)
@@ -31,11 +22,11 @@ const HamburgerButton = (element) => {
         border: none;
         cursor: pointer;
         display: block;
-        height: 48px; /* Minimum size for buttons according to Lighthouse */
         justify-self: var(--menu__justify-button, unset);
         margin: 0;
+        min-height: 48px; /* Minimum size for buttons according to Lighthouse */
+        min-width: 48px; /* Minimum size for buttons according to Lighthouse */
         padding: 0;
-        width: 48px; /* Minimum size for buttons according to Lighthouse */
         z-index: 5;
       }
 
@@ -45,7 +36,6 @@ const HamburgerButton = (element) => {
         flex-direction: column;
         height: 26px;
         justify-content: space-between;
-        margin-left: auto; /* Adjust lines to page margin */
         width: 32px;
         z-index: 2;
       }
@@ -72,21 +62,15 @@ const HamburgerButton = (element) => {
         transition: transform 0.4s ease-in-out;
       }
 
-      .hamburger-button--active
-        > .hamburger-button__lines
-        .hamburger-button__line--top {
+      [data-open] > .hamburger-button__lines .hamburger-button__line--top {
         transform: rotate(45deg);
       }
 
-      .hamburger-button--active
-        > .hamburger-button__lines
-        .hamburger-button__line--middle {
+      [data-open] > .hamburger-button__lines .hamburger-button__line--middle {
         transform: scaleY(0);
       }
 
-      .hamburger-button--active
-        > .hamburger-button__lines
-        .hamburger-button__line--bottom {
+      [data-open] > .hamburger-button__lines .hamburger-button__line--bottom {
         transform: rotate(-45deg);
       }
     </style>
