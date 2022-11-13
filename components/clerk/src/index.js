@@ -69,11 +69,13 @@ const Clerk = ({ clerkId }) => {
   const submitForm = (event) => {
     event.preventDefault()
 
+    if (status === PROCESSING) {
+      return
+    }
+
     setStatus(PROCESSING)
 
     clientLibraryOnSubmit()
-
-    console.log('Clerk: Posting data...')
 
     const data = dataFromFormElements(event.target.elements)
 
