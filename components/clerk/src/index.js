@@ -6,14 +6,14 @@ import ClientLibrary from './client-library.js'
  * NOTE: A lot of this code also exists in @formclerk/react
  */
 const Clerk = ({ clerkId }) => {
-  const INITIALIZED = 0
-  const PROCESSING = 1
-  const SUCCESS = 2
-  const FAILURE = 3
+  const INITIALIZED = 'initialized'
+  const PROCESSING = 'processing'
+  const SUCCESS = 'success'
+  const FAILURE = 'failure'
 
   const url = `https://europe-west1-accodeing-saas.cloudfunctions.net/clerk_enqueue/${clerkId}`
   const form = document.querySelector('[slot="form"]')
-  const clientLibraryOnSubmit = new ClientLibrary(form, { autobind: false})
+  const clientLibraryOnSubmit = new ClientLibrary(form, { autobind: false })
   const [status, setStatus] = useState(INITIALIZED)
 
   const dataFromFormElements = (elements) => {
@@ -90,31 +90,9 @@ const Clerk = ({ clerkId }) => {
   }
   form.onsubmit = submitForm
 
-  const formSlot = html`<slot name="form"></slot>`
-
-  if (status === PROCESSING) {
-    return html`
-      ${formSlot} 
-      <slot name="processing"></slot>
-    `
-  }
-
-  if (status === FAILURE) {
-    return html`
-      ${formSlot} 
-      <slot name="failure"></slot>
-    `
-  }
-
-  if (status === SUCCESS) {
-    return html`
-      ${formSlot} 
-      <slot name="success"></slot>
-    `
-  }
-
   return html`
-    ${formSlot} 
+    <slot name="form"></slot>
+    <slot name="${status}"></slot>
   `
 }
 
