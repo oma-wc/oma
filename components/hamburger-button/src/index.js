@@ -22,7 +22,7 @@ const HamburgerButton = (element) => {
         border: none;
         cursor: pointer;
         display: block;
-        justify-self: var(--menu__justify-button, unset);
+        justify-self: var(--oma-menu__justify-button, unset);
         margin: 0;
         min-height: 48px; /* Minimum size for buttons according to Lighthouse */
         min-width: 48px; /* Minimum size for buttons according to Lighthouse */
