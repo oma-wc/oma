@@ -1,18 +1,13 @@
-import { component, html, useState, useEffect } from 'haunted'
+import { component, html, useEffect } from 'haunted'
 
 const Menu = (element) => {
-  const [open, setOpen] = useState(false)
-  const button = element.querySelector('[slot=button]')
-  const items = element.querySelector('[slot=items]')
-
-  button.classList.add('oma-menu__button')
-  items.classList.add('oma-menu__items')
-
-  items.classList.toggle('oma-menu__items--open', open)
-
   useEffect(() => {
+    const shadowRoot = element.shadowRoot
+    const button = shadowRoot.querySelector('slot[name=button]')
+    const panel = shadowRoot.querySelector('slot[name=panel]')
+
     const onClick = () => {
-      setOpen(!open)
+      panel.toggleAttribute('data-open')
     }
 
     button.addEventListener('click', onClick)
@@ -20,12 +15,21 @@ const Menu = (element) => {
     return () => {
       button.removeEventListener('click', onClick)
     }
-  }, [open])
+  }, [])
 
   return html`
+    <style>
+      slot[name='panel'] {
+        display: none;
+      }
+
+      slot[data-open] {
+        display: block;
+      }
+    </style>
     <nav>
       <slot name="button"></slot>
-      <slot name="items"></slot>
+      <slot name="panel"></slot>
     </nav>
   `
 }
