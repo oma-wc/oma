@@ -11,17 +11,18 @@ and this project adheres to
 ### Added
 
 - `locale` property to `oma-google-calendar`. Defaults to `sv-SE`.
-- `date-format` property is added to `oma-google-calendar` to format the date printed for each event.
-  It takes a stringified JSON object and passes it directly to `Date.prototype.toLocaleDateString`.
-  See Changed below for information regarding the default value.
-- `oma-hamburger-button`, a button that you can use to activate something, for instance `oma-menu`.
+- `date-format` property is added to `oma-google-calendar` to format the date
+  printed for each event. It takes a stringified JSON object and passes it
+  directly to `Date.prototype.toLocaleDateString`. See Changed below for
+  information regarding the default value.
 
 ### Changed
 
 **Inlcudes breaking changes!**
 
-- Due to the new `date-format` attribute, dates printed by `oma-google-calendar` has changed it's default
-  format from 'yyyy-mm-dd' to localized weekday, month and date: "ons 26 okt.".
+- Due to the new `date-format` attribute, dates printed by `oma-google-calendar`
+  has changed it's default format from 'yyyy-mm-dd' to localized weekday, month
+  and date: "ons 26 okt.".
 
 ## [0.11.0]
 
