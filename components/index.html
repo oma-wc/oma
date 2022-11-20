@@ -8,6 +8,12 @@
       .wrapper {
         border: 1px solid black;
       }
+      .oma-menu__panel {
+        display: none;
+      }
+      .oma-menu__panel--open {
+        display: block;
+      }
     </style>
     <oma-grid>
       <oma-grid-row fullwidth paddingOnSelf>
@@ -32,24 +38,37 @@
           </oma-grid-subgrid>
         </div>
       </oma-grid-row>
-      <oma-link to="+4610-111111"></oma-link>
-      <br />
-      <oma-link to="+4610-222222">With link text</oma-link>
-      <br />
-      <oma-link to="+4610-333333" alignment="after">
-        After phone number
-      </oma-link>
-      <br />
-      <oma-link to="+4610-444444" alignment="before">
-        Before phone number
-      </oma-link>
-      <oma-link to="user@example.com"></oma-link>
-      <br />
-      <oma-link to="user@example.com">With link text</oma-link>
-      <br />
-      <oma-link to="user@example.com" alignment="after">After email</oma-link>
-      <br />
-      <oma-link to="user@example.com" alignment="before">Before email</oma-link>
+      <oma-grid-row>
+        <oma-link to="+4610-111111"></oma-link>
+        <br />
+        <oma-link to="+4610-222222">With link text</oma-link>
+        <br />
+        <oma-link to="+4610-333333" alignment="after">
+          After phone number
+        </oma-link>
+        <br />
+        <oma-link to="+4610-444444" alignment="before">
+          Before phone number
+        </oma-link>
+        <oma-link to="user@example.com"></oma-link>
+        <br />
+        <oma-link to="user@example.com">With link text</oma-link>
+        <br />
+        <oma-link to="user@example.com" alignment="after">After email</oma-link>
+        <br />
+        <oma-link to="user@example.com" alignment="before">
+          Before email
+        </oma-link>
+      </oma-grid-row>
+      <oma-grid-row>
+        <oma-menu>
+          <button slot="button">Open</button>
+          <ul slot="panel">
+            <li>Menu item 1</li>
+            <li>Menu item 2</li>
+          </ul>
+        </oma-menu>
+      </oma-grid-row>
       <oma-grid-row>
         <oma-google-map
           title="Test map"
@@ -65,6 +84,7 @@
     <script src="grid-subgrid/dist/index.cjs.js" type="module"></script>
     <script src="grid-row/dist/index.cjs.js" type="module"></script>
     <script src="link/dist/index.cjs.js" type="module"></script>
+    <script src="menu/dist/index.cjs.js" type="module"></script>
     <script src="google-map/dist/index.cjs.js" type="module"></script>
   </body>
 </html>
