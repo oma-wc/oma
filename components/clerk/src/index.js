@@ -3,7 +3,13 @@ import { component, html, useState } from 'haunted'
 import ClientLibrary from './client-library.js'
 
 /**
+ * TODO: Clean form when sent.
+ */
+
+/**
  * NOTE: A lot of this code also exists in @formclerk/react
+ *       That component should be rewritten to use this web component
+ *       in the background.
  */
 const Clerk = ({ clerkId }) => {
   const INITIALIZED = 'initialized'
