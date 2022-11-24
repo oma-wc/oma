@@ -91,32 +91,23 @@ const HamburgerButton = (element) => {
 customElements.define('oma-hamburger-button', component(HamburgerButton))
 
 const Menu = (element) => {
-  const slotButton = element.querySelector('[slot=button]') !== null
-  const button = slotButton
+  const hasUserProvidedButton = element.querySelector('[slot=button]') !== null
+
+  const onClick = () => {
+    // panel will be present in shadowRoot here since you can't click the button
+    // before the component is renederd
+    element.shadowRoot
+      .querySelector('slot[name=panel]')
+      .toggleAttribute('data-open')
+  }
+
+  const button = hasUserProvidedButton
     ? html`
-        <slot name="button"></slot>
+        <slot name="button" @click=${onClick}></slot>
       `
     : html`
-        <oma-hamburger-button></oma-hamburger-button>
+        <oma-hamburger-button @click=${onClick}></oma-hamburger-button>
       `
-
-  useEffect(() => {
-    const shadowRoot = element.shadowRoot
-    const button = slotButton
-      ? shadowRoot.querySelector('slot[name=button]')
-      : shadowRoot.querySelector('oma-hamburger-button')
-    const panel = shadowRoot.querySelector('slot[name=panel]')
-
-    const onClick = () => {
-      panel.toggleAttribute('data-open')
-    }
-
-    button.addEventListener('click', onClick)
-
-    return () => {
-      button.removeEventListener('click', onClick)
-    }
-  }, [])
 
   return html`
     <style>
