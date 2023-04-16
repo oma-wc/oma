@@ -18,7 +18,13 @@ and this project adheres to
 
 ### Changed
 
-**Inlcudes breaking changes!**
+## [0.11.1]
+
+### Fixed
+
+Fixed bug in the oma-center component
+
+**Includes breaking changes!**
 
 - Due to the new `date-format` attribute, dates printed by `oma-google-calendar`
   has changed it's default format from 'yyyy-mm-dd' to localized weekday, month
