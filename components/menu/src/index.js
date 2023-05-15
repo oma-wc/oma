@@ -106,7 +106,10 @@ const Menu = (element) => {
         <slot name="button" @click=${onClick}></slot>
       `
     : html`
-        <oma-hamburger-button @click=${onClick}></oma-hamburger-button>
+        <oma-hamburger-button
+          part="button"
+          @click=${onClick}
+        ></oma-hamburger-button>
       `
 
   return html`
