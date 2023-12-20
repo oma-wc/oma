@@ -28,6 +28,8 @@ and this project adheres to
 ### Fixed
 
 - Bug in `<oma-center>`.
+- Styling issues in `<oma-link>` (styles were not applied on "ordinary links",
+  compared to email and phone links)
 
 ## [0.11.0]
 
