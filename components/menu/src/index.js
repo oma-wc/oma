@@ -16,6 +16,15 @@ const HamburgerButton = (element) => {
     }
   }, [])
 
+  const hasProvidedAccessibilityLabel =
+    element.querySelector('[slot=button-accessibility-label]') !== null
+  const accessibilityLabel = hasProvidedAccessibilityLabel
+    ? html`
+        <slot name="button-accessibility-label"></slot>
+      `
+    : html`
+        Menu
+      `
   return html`
     <style>
       .hamburger-button {
@@ -83,10 +92,10 @@ const HamburgerButton = (element) => {
     </style>
     <button
       class="hamburger-button"
-      aria-label="Öppna eller stäng menyn"
       aria-controls="menu-panel"
       aria-expanded="false"
     >
+      ${accessibilityLabel}
       <div class="hamburger-button__lines">
         <span class="hamburger-button__line hamburger-button__line--top"></span>
         <span
@@ -104,6 +113,9 @@ customElements.define('oma-hamburger-button', component(HamburgerButton))
 
 const Menu = (element) => {
   const hasUserProvidedButton = element.querySelector('[slot=button]') !== null
+  const buttonAccessibilityLabel = element.querySelector(
+    '[slot=button-accessibility-label]'
+  )
 
   const onClick = () => {
     // panel will be present in shadowRoot here since you can't click the button
@@ -118,10 +130,9 @@ const Menu = (element) => {
         <slot name="button" @click=${onClick}></slot>
       `
     : html`
-        <oma-hamburger-button
-          part="button"
-          @click=${onClick}
-        ></oma-hamburger-button>
+        <oma-hamburger-button part="button" @click=${onClick}>
+          ${buttonAccessibilityLabel}
+        </oma-hamburger-button>
       `
 
   return html`
@@ -137,6 +148,7 @@ const Menu = (element) => {
     <nav>
       ${button}
       <slot name="panel" id="menu-panel"></slot>
+      <slot name="button-accessibility-label"></slot>
     </nav>
   `
 }
