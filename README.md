@@ -54,6 +54,9 @@ Run `yarn bootstrap` to setup internal dependencies.
 There's a very simple test page located in `components/index.html` which you can
 run with `yarn dev:server`.
 
+Build components automatically with `yarn watch`, for instance `yarn watch @oma-wc/menu`.
+The watcher just forwards arguments to the build script.
+
 ## Publishing
 
 - `yarn build`
