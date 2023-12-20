@@ -5,7 +5,8 @@ const HamburgerButton = (element) => {
     const button = element.shadowRoot.querySelector('.hamburger-button')
 
     const onClick = () => {
-      button.toggleAttribute('data-open')
+      const expanded = button.getAttribute('aria-expanded') === 'true'
+      button.setAttribute('aria-expanded', !expanded)
     }
 
     button.addEventListener('click', onClick)
@@ -62,19 +63,29 @@ const HamburgerButton = (element) => {
         transition: transform 0.4s ease-in-out;
       }
 
-      [data-open] > .hamburger-button__lines .hamburger-button__line--top {
+      [aria-expanded='true']
+        > .hamburger-button__lines
+        .hamburger-button__line--top {
         transform: rotate(45deg);
       }
 
-      [data-open] > .hamburger-button__lines .hamburger-button__line--middle {
+      [aria-expanded='true']
+        > .hamburger-button__lines
+        .hamburger-button__line--middle {
         transform: scaleY(0);
       }
 
-      [data-open] > .hamburger-button__lines .hamburger-button__line--bottom {
+      [aria-expanded='true']
+        > .hamburger-button__lines
+        .hamburger-button__line--bottom {
         transform: rotate(-45deg);
       }
     </style>
-    <button class="hamburger-button" aria-label="Öppna eller stäng menyn">
+    <button
+      class="hamburger-button"
+      aria-label="Öppna eller stäng menyn"
+      aria-expanded="false"
+    >
       <div class="hamburger-button__lines">
         <span class="hamburger-button__line hamburger-button__line--top"></span>
         <span
@@ -98,7 +109,7 @@ const Menu = (element) => {
     // before the component is renederd
     element.shadowRoot
       .querySelector('slot[name=panel]')
-      .toggleAttribute('data-open')
+      .toggleAttribute('data-expanded')
   }
 
   const button = hasUserProvidedButton
@@ -118,7 +129,7 @@ const Menu = (element) => {
         display: none;
       }
 
-      slot[data-open] {
+      slot[data-expanded] {
         display: block;
       }
     </style>
