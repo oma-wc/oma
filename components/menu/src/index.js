@@ -41,7 +41,6 @@ const HamburgerButton = (element) => {
       }
 
       .hamburger-button__lines {
-        display: block;
         display: flex;
         flex-direction: column;
         height: 26px;
