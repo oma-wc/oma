@@ -18,7 +18,7 @@ const PhoneLink = ({ alignment, number }) =>
     })}
   `
 
-const LinkTag = ({ alignment = 'after', content, to }) => {
+const LinkTag = ({ alignment = 'after', content = '', to }) => {
   const linkContent =
     alignment === 'after'
       ? html`
@@ -46,7 +46,7 @@ const LinkTag = ({ alignment = 'after', content, to }) => {
 const Link = ({ alignment, to }) => {
   if (to.includes('://')) {
     return html`
-      <a href="${to}" /><slot></slot></a>
+      ${LinkTag({ alignment: alignment, to: to })}
     `
   }
 
