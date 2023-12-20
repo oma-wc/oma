@@ -25,19 +25,18 @@ const HamburgerButton = (element) => {
     : html`
         Menu
       `
+
   return html`
     <style>
       .hamburger-button {
         background: none;
         border: none;
         cursor: pointer;
-        display: block;
         justify-self: var(--oma-menu__justify-button, unset);
         margin: 0;
         min-height: 48px; /* Minimum size for buttons according to Lighthouse */
         min-width: 48px; /* Minimum size for buttons according to Lighthouse */
         padding: 0;
-        z-index: 5;
       }
 
       .hamburger-button__lines {
