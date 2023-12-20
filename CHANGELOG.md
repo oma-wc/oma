@@ -8,6 +8,8 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.12.0]
+
 ### Added
 
 - `locale` property to `oma-google-calendar`. Defaults to `sv-SE`.
@@ -138,6 +140,7 @@ and this project adheres to
 
 - `oma-grid-subgrid` now renders its children.
 
+[0.12.0]: https://github.com/oma-wc/oma/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/oma-wc/oma/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/oma-wc/oma/compare/v0.10.0...v0.10.1
 [0.9.0]: https://github.com/oma-wc/oma/compare/v0.8.0...v0.9.0
