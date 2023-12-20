@@ -22,7 +22,7 @@ const Center = ({ preferredColumns }) => {
 
   if (
     preferredColumnsPerScreenSize.length !== 4 ||
-    preferredColumnsPerScreenSize.contains(NaN)
+    preferredColumnsPerScreenSize.includes(NaN)
   ) {
     throw Error(
       `Invalid preferred-columns value passed to <oma-center />. 
