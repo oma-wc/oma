@@ -118,8 +118,8 @@ const Menu = (element) => {
   )
 
   const onClick = () => {
-    // panel will be present in shadowRoot here since you can't click the button
-    // before the component is renederd
+    // In this context it's safe to assume that panel is present in the shadowRoot
+    // since the button can't be clicked before the component is rendered
     element.shadowRoot
       .querySelector('slot[name=panel]')
       .toggleAttribute('data-expanded')
