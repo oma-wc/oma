@@ -84,6 +84,7 @@ const HamburgerButton = (element) => {
     <button
       class="hamburger-button"
       aria-label="Öppna eller stäng menyn"
+      aria-controls="menu-panel"
       aria-expanded="false"
     >
       <div class="hamburger-button__lines">
@@ -135,7 +136,7 @@ const Menu = (element) => {
     </style>
     <nav>
       ${button}
-      <slot name="panel"></slot>
+      <slot name="panel" id="menu-panel"></slot>
     </nav>
   `
 }
