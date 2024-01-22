@@ -4,12 +4,10 @@ import { groupByDay, renderEventWithDate, renderCalendarDay } from './helpers'
 
 import { getEvents } from './google_calendar_api'
 
-const DEFAULT_MAX_RESULTS = 250
-
 const GoogleCalendar = ({
   apiKey,
   calendarId,
-  maxResults = DEFAULT_MAX_RESULTS,
+  maxResults,
   groupEventsBy,
   timeMin,
   timeMax,

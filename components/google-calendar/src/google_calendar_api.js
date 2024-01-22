@@ -1,6 +1,4 @@
 const BASE_URI = 'https://www.googleapis.com/calendar/v3/calendars/'
-const DEFAULT_DAYS_FORWARD = 30
-const DEFAULT_DAYS_FORWARD_IN_MILLIS = 1000 * 3600 * 24 * DEFAULT_DAYS_FORWARD
 
 export const getEvents = ({
   apiKey,
@@ -10,18 +8,13 @@ export const getEvents = ({
   timeMax,
   timezone,
 }) => {
-  const DEFAULT_TIME_MIN = new Date().toISOString()
-  const DEFAULT_TIME_MAX = new Date(
-    Date.now() + DEFAULT_DAYS_FORWARD_IN_MILLIS
-  ).toISOString()
-
   const params =
     `key=${apiKey}` +
     `&timeZone=${encodeURIComponent(timezone)}` +
-    `&maxResults=${maxResults}` +
+    (maxResults ? `&maxResults=${maxResults}` : '') +
     '&sanitizeHtml=true' +
-    `&timeMin=${encodeURIComponent(timeMin || DEFAULT_TIME_MIN)}` +
-    `&timeMax=${encodeURIComponent(timeMax || DEFAULT_TIME_MAX)}` +
+    (timeMin ? `&timeMin=${encodeURIComponent(timeMin)}` : '') +
+    (timeMax ? `&timeMax=${encodeURIComponent(timeMax)}` : '') +
     `&orderBy=startTime` +
     `&singleEvents=True`
 
