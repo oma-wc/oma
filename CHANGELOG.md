@@ -8,6 +8,19 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+**Includes breaking changes for `<oma-google-calendar>`!**
+
+- Changed properties for `<oma-google-calendar>` to facilitate fetching all events
+  from a calendar.
+  * The default value for `maxResults` is removed. Implicitly, that means the
+   default limits from the API is now used instead.
+  * The default value for `timeMin` is removed. The default was
+    `new Date().toISOString()`.
+  * The default value for `timeMax` is removed. The default was
+   `new Date(Date.now() + 30_DAYS_IN_MILLILSECONDS).toISOString()`.
+
 ## [0.12.0]
 
 ### Added
@@ -21,7 +34,7 @@ and this project adheres to
 
 ### Changed
 
-**Includes breaking changes!**
+**Includes breaking changes for `<oma-google-calendar>`!**
 
 - Due to the new `date-format` attribute, dates printed by `oma-google-calendar`
   has changed it's default format from 'yyyy-mm-dd' to localized weekday, month
@@ -59,7 +72,7 @@ and this project adheres to
 
 ## [0.9.0]
 
-**Includes breaking changes!**
+**Includes breaking changes for screen size classes!**
 
 ### Added
 
