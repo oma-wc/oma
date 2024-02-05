@@ -73,22 +73,32 @@
         <h2>oma-menu</h2>
         <oma-menu>
           <ul slot="panel">
-            <li>Menu item 1</li>
-            <li>Menu item 2</li>
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
+        <h3>With custom accessibility label</h3>
         <oma-menu>
           <ul slot="panel">
-            <li>Menu item 1</li>
-            <li>Menu item 2</li>
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
           </ul>
           <span slot="button-accessibility-label">Meny</span>
         </oma-menu>
+        <h3>With button alignment</h3>
+        <oma-menu buttonalignment="left">
+          <ul slot="panel">
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
+          </ul>
+          <span slot="button-accessibility-label">Meny</span>
+        </oma-menu>
+        <h3>Custom button</h3>
         <oma-menu>
           <button slot="button">Custom button</button>
           <ul slot="panel">
-            <li>Other menu item 1</li>
-            <li>Other menu item 2</li>
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
       </oma-grid-row>
