@@ -12,20 +12,27 @@ and this project adheres to
 
 ### Added
 
-- `<social-media-link>` not supports `type='youtube'`.
+- `<social-media-link>` now supports `type='youtube'`.
+
+### Removed
+
+**Includes breaking changes for `<oma-menu>`!**
+
+- CSS custom property `--oma-menu__justify-button` is removed. The hamburger now
+  fills the whole button, so that property is no longer needed.
 
 ### Changed
 
 **Includes breaking changes for `<oma-google-calendar>`!**
 
-- Changed properties for `<oma-google-calendar>` to facilitate fetching all events
-  from a calendar.
-  * The default value for `maxResults` is removed. Implicitly, that means the
-   default limits from the API is now used instead.
-  * The default value for `timeMin` is removed. The default was
+- Changed properties for `<oma-google-calendar>` to facilitate fetching all
+  events from a calendar.
+  - The default value for `maxResults` is removed. Implicitly, that means the
+    default limits from the API is now used instead.
+  - The default value for `timeMin` is removed. The default was
     `new Date().toISOString()`.
-  * The default value for `timeMax` is removed. The default was
-   `new Date(Date.now() + 30_DAYS_IN_MILLILSECONDS).toISOString()`.
+  - The default value for `timeMax` is removed. The default was
+    `new Date(Date.now() + 30_DAYS_IN_MILLILSECONDS).toISOString()`.
 
 ## [0.12.0]
 
@@ -95,8 +102,8 @@ and this project adheres to
 
 ### Added
 
-- Part attribute to `<social-media-link>`, which allows you to style the anchor tag
-  from outside the Shadow DOM, with something like
+- Part attribute to `<social-media-link>`, which allows you to style the anchor
+  tag from outside the Shadow DOM, with something like
   `social-media-link::part(link)`
 
 ## [0.7.4]
