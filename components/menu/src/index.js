@@ -20,10 +20,13 @@ const HamburgerButton = (element) => {
     element.querySelector('[slot=button-accessibility-label]') !== null
   const accessibilityLabel = hasProvidedAccessibilityLabel
     ? html`
-        <slot name="button-accessibility-label"></slot>
+        <slot
+          name="button-accessibility-label"
+          class="accessibility-label"
+        ></slot>
       `
     : html`
-        Menu
+        <span class="accessibility-label">Menu</span>
       `
 
   return html`
@@ -32,11 +35,15 @@ const HamburgerButton = (element) => {
         background: none;
         border: none;
         cursor: pointer;
-        justify-self: var(--oma-menu__justify-button, unset);
+        display: inline-block;
         margin: 0;
         min-height: 48px; /* Minimum size for buttons according to Lighthouse */
         min-width: 48px; /* Minimum size for buttons according to Lighthouse */
         padding: 0;
+      }
+
+      .hamburger-button:active {
+        outline: 1px solid black;
       }
 
       .hamburger-button__lines {
@@ -44,8 +51,8 @@ const HamburgerButton = (element) => {
         flex-direction: column;
         height: 26px;
         justify-content: space-between;
-        width: 32px;
-        z-index: 2;
+        margin-top: 4px;
+        width: 100%;
       }
 
       .hamburger-button__line {
@@ -73,7 +80,7 @@ const HamburgerButton = (element) => {
       [aria-expanded='true']
         > .hamburger-button__lines
         .hamburger-button__line--top {
-        transform: rotate(45deg);
+        transform: rotate(25deg) scaleX(1.13);
       }
 
       [aria-expanded='true']
@@ -85,7 +92,7 @@ const HamburgerButton = (element) => {
       [aria-expanded='true']
         > .hamburger-button__lines
         .hamburger-button__line--bottom {
-        transform: rotate(-45deg);
+        transform: rotate(-25deg) scaleX(1.13);
       }
     </style>
     <button
@@ -143,11 +150,11 @@ const Menu = (element) => {
         display: block;
       }
 
-      .navigation {
-        display: inline-block; // Avoid full width since click is somehow passed to the button
+      oma-hamburger-button {
+        display: inline-block; // To align button with the nav element
       }
     </style>
-    <nav class="navigation">
+    <nav>
       ${button}
       <slot name="panel" id="menu-panel"></slot>
       <slot name="button-accessibility-label"></slot>
