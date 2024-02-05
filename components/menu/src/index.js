@@ -142,8 +142,12 @@ const Menu = (element) => {
       slot[data-expanded] {
         display: block;
       }
+
+      .navigation {
+        display: inline-block; // Avoid full width since click is somehow passed to the button
+      }
     </style>
-    <nav>
+    <nav class="navigation">
       ${button}
       <slot name="panel" id="menu-panel"></slot>
       <slot name="button-accessibility-label"></slot>
