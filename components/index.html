@@ -16,6 +16,12 @@
       }
     </style>
     <oma-grid>
+      <oma-grid-row>
+        <h1>Components</h1>
+      </oma-grid-row>
+      <oma-grid-row>
+        <h2>oma-grid-row</h2>
+      </oma-grid-row>
       <oma-grid-row fullwidth paddingOnSelf>
         <div class="wrapper">
           <p>Padding on self</p>
@@ -39,6 +45,7 @@
         </div>
       </oma-grid-row>
       <oma-grid-row>
+        <h2>oma-link</h2>
         <oma-link to="+4610-111111"></oma-link>
         <br />
         <oma-link to="+4610-222222">With link text</oma-link>
@@ -63,21 +70,40 @@
         <oma-link to="https://example.com">An ordinary link</oma-link>
       </oma-grid-row>
       <oma-grid-row>
+        <h2>oma-menu</h2>
         <oma-menu>
           <ul slot="panel">
-            <li>Menu item 1</li>
-            <li>Menu item 2</li>
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
+        <h3>With custom accessibility label</h3>
+        <oma-menu>
+          <ul slot="panel">
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
+          </ul>
+          <span slot="button-accessibility-label">Meny</span>
+        </oma-menu>
+        <h3>With button alignment</h3>
+        <oma-menu buttonalignment="left">
+          <ul slot="panel">
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
+          </ul>
+          <span slot="button-accessibility-label">Meny</span>
+        </oma-menu>
+        <h3>Custom button</h3>
         <oma-menu>
           <button slot="button">Custom button</button>
           <ul slot="panel">
-            <li>Other menu item 1</li>
-            <li>Other menu item 2</li>
+            <li><a href="#">Menu item 1</a></li>
+            <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
       </oma-grid-row>
       <oma-grid-row>
+        <h2>oma-google-map</h2>
         <oma-google-map
           title="Test map"
           placeid="ChIJEYJiM88adkgR4SKDqHd2XUQ"

@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Removed
+
+**Includes breaking changes for `<oma-menu>`!**
+
+- CSS custom property `--oma-menu__justify-button` is removed.
+  The hamburger now fills the whole button, so that property is no longer needed.
+
 ### Changed
 
 **Includes breaking changes for `<oma-google-calendar>`!**

@@ -5,7 +5,8 @@ const HamburgerButton = (element) => {
     const button = element.shadowRoot.querySelector('.hamburger-button')
 
     const onClick = () => {
-      button.toggleAttribute('data-open')
+      const expanded = button.getAttribute('aria-expanded') === 'true'
+      button.setAttribute('aria-expanded', !expanded)
     }
 
     button.addEventListener('click', onClick)
@@ -15,29 +16,43 @@ const HamburgerButton = (element) => {
     }
   }, [])
 
+  const hasProvidedAccessibilityLabel =
+    element.querySelector('[slot=button-accessibility-label]') !== null
+  const accessibilityLabel = hasProvidedAccessibilityLabel
+    ? html`
+        <slot
+          name="button-accessibility-label"
+          class="accessibility-label"
+        ></slot>
+      `
+    : html`
+        <span class="accessibility-label">Menu</span>
+      `
+
   return html`
     <style>
       .hamburger-button {
         background: none;
         border: none;
         cursor: pointer;
-        display: block;
-        justify-self: var(--oma-menu__justify-button, unset);
+        display: inline-block;
         margin: 0;
         min-height: 48px; /* Minimum size for buttons according to Lighthouse */
         min-width: 48px; /* Minimum size for buttons according to Lighthouse */
         padding: 0;
-        z-index: 5;
+      }
+
+      .hamburger-button:active {
+        outline: 1px solid black;
       }
 
       .hamburger-button__lines {
-        display: block;
         display: flex;
         flex-direction: column;
         height: 26px;
         justify-content: space-between;
-        width: 32px;
-        z-index: 2;
+        margin-top: 4px;
+        width: 100%;
       }
 
       .hamburger-button__line {
@@ -62,19 +77,30 @@ const HamburgerButton = (element) => {
         transition: transform 0.4s ease-in-out;
       }
 
-      [data-open] > .hamburger-button__lines .hamburger-button__line--top {
-        transform: rotate(45deg);
+      [aria-expanded='true']
+        > .hamburger-button__lines
+        .hamburger-button__line--top {
+        transform: rotate(25deg) scaleX(1.13);
       }
 
-      [data-open] > .hamburger-button__lines .hamburger-button__line--middle {
+      [aria-expanded='true']
+        > .hamburger-button__lines
+        .hamburger-button__line--middle {
         transform: scaleY(0);
       }
 
-      [data-open] > .hamburger-button__lines .hamburger-button__line--bottom {
-        transform: rotate(-45deg);
+      [aria-expanded='true']
+        > .hamburger-button__lines
+        .hamburger-button__line--bottom {
+        transform: rotate(-25deg) scaleX(1.13);
       }
     </style>
-    <button class="hamburger-button" aria-label="Öppna eller stäng menyn">
+    <button
+      class="hamburger-button"
+      aria-controls="menu-panel"
+      aria-expanded="false"
+    >
+      ${accessibilityLabel}
       <div class="hamburger-button__lines">
         <span class="hamburger-button__line hamburger-button__line--top"></span>
         <span
@@ -92,13 +118,16 @@ customElements.define('oma-hamburger-button', component(HamburgerButton))
 
 const Menu = (element) => {
   const hasUserProvidedButton = element.querySelector('[slot=button]') !== null
+  const buttonAccessibilityLabel = element.querySelector(
+    '[slot=button-accessibility-label]'
+  )
 
   const onClick = () => {
-    // panel will be present in shadowRoot here since you can't click the button
-    // before the component is renederd
+    // In this context it's safe to assume that panel is present in the shadowRoot
+    // since the button can't be clicked before the component is rendered
     element.shadowRoot
       .querySelector('slot[name=panel]')
-      .toggleAttribute('data-open')
+      .toggleAttribute('data-expanded')
   }
 
   const button = hasUserProvidedButton
@@ -106,10 +135,9 @@ const Menu = (element) => {
         <slot name="button" @click=${onClick}></slot>
       `
     : html`
-        <oma-hamburger-button
-          part="button"
-          @click=${onClick}
-        ></oma-hamburger-button>
+        <oma-hamburger-button part="button" @click=${onClick}>
+          ${buttonAccessibilityLabel}
+        </oma-hamburger-button>
       `
 
   return html`
@@ -118,13 +146,18 @@ const Menu = (element) => {
         display: none;
       }
 
-      slot[data-open] {
+      slot[data-expanded] {
         display: block;
+      }
+
+      oma-hamburger-button {
+        display: inline-block; // To align button with the nav element
       }
     </style>
     <nav>
       ${button}
-      <slot name="panel"></slot>
+      <slot name="panel" id="menu-panel"></slot>
+      <slot name="button-accessibility-label"></slot>
     </nav>
   `
 }
