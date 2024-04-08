@@ -14,6 +14,10 @@
       .oma-menu__panel--open {
         display: block;
       }
+
+      .accessibility-label {
+        margin-bottom: 4px;
+      }
     </style>
     <oma-grid>
       <oma-grid-row>
@@ -101,6 +105,22 @@
             <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
+        <div style="padding-bottom: 1rem; background-color: black">
+          <h3>With custom colors and sizes</h3>
+          <oma-menu
+            class="menu-dark-mode"
+            style="
+              --line-color: white;
+              --label-color: green;
+              --button-size: 128px;
+            "
+          >
+            <ul slot="panel">
+              <li><a href="#">Menu item 1</a></li>
+              <li><a href="#">Menu item 2</a></li>
+            </ul>
+          </oma-menu>
+        </div>
       </oma-grid-row>
       <oma-grid-row>
         <h2>oma-google-map</h2>

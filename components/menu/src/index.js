@@ -1,5 +1,8 @@
 import { component, html, useEffect } from 'haunted'
 
+/* Using 48 as is minimum size for buttons according to Lighthouse */
+const defaultButtonSize = 48
+
 const HamburgerButton = (element) => {
   useEffect(() => {
     const button = element.shadowRoot.querySelector('.hamburger-button')
@@ -7,6 +10,13 @@ const HamburgerButton = (element) => {
     const onClick = () => {
       const expanded = button.getAttribute('aria-expanded') === 'true'
       button.setAttribute('aria-expanded', !expanded)
+      window.dispatchEvent(
+        new CustomEvent('oma-menu-toggled', {
+          bubbles: true,
+          cancelable: true,
+          detail: { expanded: !expanded },
+        })
+      )
     }
 
     button.addEventListener('click', onClick)
@@ -31,14 +41,21 @@ const HamburgerButton = (element) => {
 
   return html`
     <style>
+      .accessibility-label {
+        margin-bottom: var(--label-margin-bottom, 0.5rem);
+      }
+
       .hamburger-button {
         background: none;
         border: none;
+        color: var(--label-color);
         cursor: pointer;
-        display: inline-block;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
         margin: 0;
-        min-height: 48px; /* Minimum size for buttons according to Lighthouse */
-        min-width: 48px; /* Minimum size for buttons according to Lighthouse */
+        height: var(--button-size, ${defaultButtonSize}px);
+        width: var(--button-size, ${defaultButtonSize}px);
         padding: 0;
       }
 
@@ -46,53 +63,35 @@ const HamburgerButton = (element) => {
         outline: 1px solid black;
       }
 
-      .hamburger-button__lines {
-        display: flex;
-        flex-direction: column;
-        height: 26px;
-        justify-content: space-between;
-        margin-top: 4px;
-        width: 100%;
+      .line {
+        transform-origin: center;
       }
 
-      .hamburger-button__line {
-        background: #0e2431;
-        border-radius: 10px;
-        display: block;
-        height: 4px;
-        width: 100%;
+      .line__top,
+      .line__bottom {
+        transition: all 0.3s ease;
       }
 
-      .hamburger-button__line--top {
-        transform-origin: 0% 0%;
-        transition: transform 0.4s ease-in-out;
+      [aria-expanded='true'] .line__top,
+      [aria-expanded='true'] .line__bottom {
+        width: 136;
       }
 
-      .hamburger-button__line--middle {
-        transition: transform 0.2s ease-in-out;
+      [aria-expanded='true'] .line__top {
+        transform: translate(-42px, 14px) rotate(45deg);
       }
 
-      .hamburger-button__line--bottom {
-        transform-origin: 0% 100%;
-        transition: transform 0.4s ease-in-out;
+      [aria-expanded='true'] .line__bottom {
+        transform: translate(-42px, -14px) rotate(-45deg);
       }
 
-      [aria-expanded='true']
-        > .hamburger-button__lines
-        .hamburger-button__line--top {
-        transform: rotate(25deg) scaleX(1.13);
+      .line__middle {
+        transition: opacity 0.3s 0.1s ease;
       }
 
-      [aria-expanded='true']
-        > .hamburger-button__lines
-        .hamburger-button__line--middle {
-        transform: scaleY(0);
-      }
-
-      [aria-expanded='true']
-        > .hamburger-button__lines
-        .hamburger-button__line--bottom {
-        transform: rotate(-25deg) scaleX(1.13);
+      [aria-expanded='true'] .line__middle {
+        opacity: 0;
+        transition: opacity 0.1s ease;
       }
     </style>
     <button
@@ -101,15 +100,33 @@ const HamburgerButton = (element) => {
       aria-expanded="false"
     >
       ${accessibilityLabel}
-      <div class="hamburger-button__lines">
-        <span class="hamburger-button__line hamburger-button__line--top"></span>
-        <span
-          class="hamburger-button__line hamburger-button__line--middle"
-        ></span>
-        <span
-          class="hamburger-button__line hamburger-button__line--bottom"
-        ></span>
-      </div>
+
+      <svg fill="var(--line-color)" viewBox="0 0 100 100" width="100%">
+        <rect
+          class="line line__top"
+          x="0"
+          y="8"
+          width="100"
+          height="8"
+          rx="5"
+        ></rect>
+        <rect
+          class="line line__middle"
+          x="0"
+          y="46"
+          width="100"
+          height="8"
+          rx="5"
+        ></rect>
+        <rect
+          class="line line__bottom"
+          x="0"
+          y="84"
+          width="100"
+          height="8"
+          rx="5"
+        ></rect>
+      </svg>
     </button>
   `
 }
@@ -139,9 +156,13 @@ const Menu = (element) => {
           ${buttonAccessibilityLabel}
         </oma-hamburger-button>
       `
-
   return html`
     <style>
+      :host {
+        --line-color: #0e2431;
+        --label-color: black;
+      }
+
       slot[name='panel'] {
         display: none;
       }
