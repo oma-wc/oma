@@ -8,6 +8,12 @@ and this project adheres to
 
 ## [Unreleased]
 
+## [0.13.0]
+
+### Added
+
+- `<social-media-link>` not supports `type='youtube'`.
+
 ### Changed
 
 **Includes breaking changes for `<oma-google-calendar>`!**
@@ -89,7 +95,7 @@ and this project adheres to
 
 ### Added
 
-- Part attribute to social-media-link, which allows you to style the anchor tag
+- Part attribute to `<social-media-link>`, which allows you to style the anchor tag
   from outside the Shadow DOM, with something like
   `social-media-link::part(link)`
 
@@ -153,6 +159,7 @@ and this project adheres to
 
 - `oma-grid-subgrid` now renders its children.
 
+[0.13.0]: https://github.com/oma-wc/oma/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/oma-wc/oma/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/oma-wc/oma/compare/v0.10.1...v0.11.0
 [0.10.1]: https://github.com/oma-wc/oma/compare/v0.10.0...v0.10.1
