@@ -1,6 +1,6 @@
 {
   "name": "@oma-wc/google-calendar",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "",
   "main": "dist/index.cjs.js",
   "unpkg": "dist/index.cjs.js",
