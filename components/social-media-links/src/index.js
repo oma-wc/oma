@@ -5,14 +5,23 @@ const INSTAGRAM = 'instagram'
 const LINKEDIN_PRIVATE = 'linkedin-private'
 const LINKEDIN_COMPANY = 'linkedin-company'
 const TWITTER = 'twitter'
+const YOUTUBE = 'youtube'
 
-const types = [FACEBOOK, INSTAGRAM, LINKEDIN_PRIVATE, LINKEDIN_COMPANY, TWITTER]
+const types = [
+  FACEBOOK,
+  INSTAGRAM,
+  LINKEDIN_PRIVATE,
+  LINKEDIN_COMPANY,
+  TWITTER,
+  YOUTUBE,
+]
 const urls = {
   [FACEBOOK]: 'https://www.facebook.com/',
   [INSTAGRAM]: 'https://www.instagram.com/',
   [LINKEDIN_COMPANY]: 'https://www.linkedin.com/company/',
   [LINKEDIN_PRIVATE]: 'https://www.linkedin.com/in/',
   [TWITTER]: 'https://twitter.com/',
+  [YOUTUBE]: 'https://www.youtube.com/',
 }
 
 const labels = {
@@ -21,6 +30,7 @@ const labels = {
   [LINKEDIN_COMPANY]: 'Link to Linkedin',
   [LINKEDIN_PRIVATE]: 'Link to Linkedin',
   [TWITTER]: 'Link to Twitter',
+  [YOUTUBE]: 'Link to Youtube',
 }
 
 const Links = () =>
