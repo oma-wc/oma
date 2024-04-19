@@ -1,27 +1,17 @@
-import { component, html, useEffect } from 'haunted'
+import { component, html, useState } from 'haunted'
 
 const HamburgerButton = (element) => {
-  useEffect(() => {
-    const button = element.shadowRoot.querySelector('.hamburger-button')
-
-    const onClick = () => {
-      const expanded = button.getAttribute('aria-expanded') === 'true'
-      button.setAttribute('aria-expanded', !expanded)
-      window.dispatchEvent(
-        new CustomEvent('oma-menu-toggled', {
-          bubbles: true,
-          cancelable: true,
-          detail: { expanded: !expanded },
-        })
-      )
-    }
-
-    button.addEventListener('click', onClick)
-
-    return () => {
-      button.removeEventListener('click', onClick)
-    }
-  }, [])
+  const [expanded, setExpanded] = useState(false)
+  const onClick = () => {
+    window.dispatchEvent(
+      new CustomEvent('oma-menu-toggled', {
+        bubbles: true,
+        cancelable: true,
+        detail: { expanded: !expanded },
+      })
+    )
+    setExpanded(!expanded)
+  }
 
   const hasProvidedAccessibilityLabel =
     element.querySelector('[slot=button-accessibility-label]') !== null
@@ -92,9 +82,10 @@ const HamburgerButton = (element) => {
       }
     </style>
     <button
+      @click=${onClick}
       class="hamburger-button"
       aria-controls="menu-panel"
-      aria-expanded="false"
+      aria-expanded="${expanded}"
     >
       ${accessibilityLabel}
 
