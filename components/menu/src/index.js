@@ -1,8 +1,5 @@
 import { component, html, useEffect } from 'haunted'
 
-/* Using 48 as is minimum size for buttons according to Lighthouse */
-const defaultButtonSize = 48
-
 const HamburgerButton = (element) => {
   useEffect(() => {
     const button = element.shadowRoot.querySelector('.hamburger-button')
@@ -54,8 +51,8 @@ const HamburgerButton = (element) => {
         align-items: center;
         flex-direction: column;
         margin: 0;
-        height: var(--button-size, ${defaultButtonSize}px);
-        width: var(--button-size, ${defaultButtonSize}px);
+        height: var(--button-size);
+        width: var(--button-size);
         padding: 0;
       }
 
@@ -161,6 +158,7 @@ const Menu = (element) => {
       :host {
         --line-color: #0e2431;
         --label-color: black;
+        --button-size: 44px;
       }
 
       slot[name='panel'] {
