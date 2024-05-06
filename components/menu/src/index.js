@@ -33,17 +33,17 @@ const HamburgerButton = (element) => {
       }
 
       .hamburger-button {
+        align-items: center;
         background: none;
         border: none;
         color: var(--label-color);
         cursor: pointer;
         display: flex;
-        align-items: center;
         flex-direction: column;
-        margin: 0;
         height: var(--button-size);
-        width: var(--button-size);
+        margin: 0;
         padding: 0;
+        width: var(--button-size);
       }
 
       .hamburger-button:active {
@@ -147,9 +147,9 @@ const Menu = (element) => {
   return html`
     <style>
       :host {
-        --line-color: #0e2431;
-        --label-color: black;
         --button-size: 44px;
+        --label-color: black;
+        --line-color: #0e2431;
       }
 
       slot[name='panel'] {
