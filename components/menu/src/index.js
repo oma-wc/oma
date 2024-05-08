@@ -61,7 +61,7 @@ const HamburgerButton = (element) => {
 
       [aria-expanded='true'] .line__top,
       [aria-expanded='true'] .line__bottom {
-        width: 136;
+        width: 136px;
       }
 
       [aria-expanded='true'] .line__top {
@@ -94,7 +94,7 @@ const HamburgerButton = (element) => {
           class="line line__top"
           x="0"
           y="8"
-          width="100"
+          width="100px"
           height="8"
           rx="5"
         ></rect>
@@ -102,7 +102,7 @@ const HamburgerButton = (element) => {
           class="line line__middle"
           x="0"
           y="46"
-          width="100"
+          width="100px"
           height="8"
           rx="5"
         ></rect>
@@ -110,7 +110,7 @@ const HamburgerButton = (element) => {
           class="line line__bottom"
           x="0"
           y="84"
-          width="100"
+          width="100px"
           height="8"
           rx="5"
         ></rect>
