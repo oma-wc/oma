@@ -6,20 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.14.0]
+
+### Added
+
+- Added support for accessibility label to the menu button
+- Added keyboard navigation support to the Menu component
+- Added aria attributes for better accessibility
+- New CSS custom properties to configure the Menu component:
+  `--button-size, --label-color, --label-margin-bottom, --line-color`
+
+### Changed
+
+- The Menu component has a slightly new look
+
+### Removed
+
+- CSS custom property `--oma-menu__justify-button` is removed for the menu
+  component. The hamburger svg now fills the whole button, so that property is
+  no longer needed.
 
 ## [0.13.0]
 
 ### Added
 
 - `<social-media-link>` now supports `type='youtube'`.
-
-### Removed
-
-**Includes breaking changes for `<oma-menu>`!**
-
-- CSS custom property `--oma-menu__justify-button` is removed. The hamburger now
-  fills the whole button, so that property is no longer needed.
 
 ### Changed
 
