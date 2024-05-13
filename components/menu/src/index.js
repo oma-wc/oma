@@ -81,6 +81,7 @@ const HamburgerButton = (element) => {
         transition: opacity 0.1s ease;
       }
     </style>
+
     <button
       @click=${onClick}
       class="hamburger-button"
