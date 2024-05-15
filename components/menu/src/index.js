@@ -64,15 +64,15 @@ const HamburgerButton = (element) => {
 
       [aria-expanded='true'] .line__top,
       [aria-expanded='true'] .line__bottom {
-        width: 136px;
+        width: 137px;
       }
 
       [aria-expanded='true'] .line__top {
-        transform: translate(-38px, 9px) rotate(45deg);
+        transform: translate(-38px, 8px) rotate(45deg);
       }
 
       [aria-expanded='true'] .line__bottom {
-        transform: translate(-38px, -9px) rotate(-45deg);
+        transform: translate(-38px, -8px) rotate(-45deg);
       }
 
       .line__middle {
@@ -96,25 +96,25 @@ const HamburgerButton = (element) => {
         <rect
           class="line line__top"
           x="0"
-          y="16"
+          y="17"
           width="100px"
-          height="8"
+          height="6"
           rx="5"
         ></rect>
         <rect
           class="line line__middle"
           x="0"
-          y="46"
+          y="47"
           width="100px"
-          height="8"
+          height="6"
           rx="5"
         ></rect>
         <rect
           class="line line__bottom"
           x="0"
-          y="76"
+          y="77"
           width="100px"
-          height="8"
+          height="6"
           rx="5"
         ></rect>
       </svg>
