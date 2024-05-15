@@ -14,6 +14,7 @@ const GoogleCalendar = ({
   timezone = 'Europe/Stockholm',
   dateFormat,
   locale = 'sv-SE',
+  showLocation = 'true',
 }) => {
   const defaultDateFormat = {
     weekday: 'short',
@@ -23,6 +24,7 @@ const GoogleCalendar = ({
   const renderOptions = {
     locale,
     dateFormat: dateFormat ? JSON.parse(dateFormat) : defaultDateFormat,
+    showLocation: showLocation === 'true',
   }
 
   if (groupEventsBy && groupEventsBy !== 'day') {
@@ -68,6 +70,7 @@ GoogleCalendar.observedAttributes = [
   'time-max',
   'date-format',
   'locale',
+  'show-location',
 ]
 
 customElements.define('oma-google-calendar', component(GoogleCalendar))

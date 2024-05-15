@@ -41,20 +41,24 @@ const timePart = (event) => html`
   </p>
 `
 
+const locationPart = (location) => html`
+  <p part="location">${location}</p>
+`
+
 const endDate = (event) => event.end.dateTime || event.end.date
 const startDate = (event) => event.start.dateTime || event.start.date
 
-const renderEvent = (event, showDate, options) =>
-  html`
-    <div part="event">
-      ${showDate
-        ? datePart(startDate(event), options.locale, options.dateFormat)
-        : null}
-      ${event.start.dateTime ? timePart(event) : null}
-      <p part="summary">${event.summary}</p>
-      <p part="description">${html([event.description || ''])}</p>
-    </div>
-  `
+const renderEvent = (event, showDate, options) => html`
+  <div part="event">
+    ${showDate
+      ? datePart(startDate(event), options.locale, options.dateFormat)
+      : null}
+    ${event.start.dateTime ? timePart(event) : null}
+    ${options.showLocation ? locationPart(event.location) : null}
+    <p part="summary">${event.summary}</p>
+    <p part="description">${html([event.description || ''])}</p>
+  </div>
+`
 
 export const renderEventWithOutDate = (event, options) =>
   renderEvent(event, false, options)
