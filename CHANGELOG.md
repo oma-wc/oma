@@ -6,7 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.14.1]
+## [0.15.0]
+**Includes breaking changes for `<oma-google-calendar>`!**
 
 ### Added
 
@@ -15,10 +16,14 @@ and this project adheres to
 - Added aria attributes for better accessibility
 - New CSS custom properties to configure the Menu component:
   `--button-size, --label-color, --label-margin-bottom, --line-color`
+- New property show-location to `oma-google-calendar` that shows the location of the event if it exists.
+  By default, this property is set to true. If you don't want to show the location, please disable it
+  with `show-location="false"`.
 
 ### Changed
 
 - The Menu component has a slightly new look
+- `<oma-google-calendar>` now shows locations by default. See more in "Added" above.
 
 ### Removed
 
@@ -177,6 +182,7 @@ and this project adheres to
 
 - `oma-grid-subgrid` now renders its children.
 
+[0.15.0]: https://github.com/oma-wc/oma/compare/v0.13.0...v0.15.0
 [0.13.0]: https://github.com/oma-wc/oma/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/oma-wc/oma/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/oma-wc/oma/compare/v0.10.1...v0.11.0
