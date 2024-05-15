@@ -28,6 +28,11 @@ const HamburgerButton = (element) => {
 
   return html`
     <style>
+      svg {
+        height: calc(var(--button-size) * 0.67);
+        width: var(--button-size);
+      }
+
       .accessibility-label {
         margin-bottom: var(--label-margin-bottom, 0.5rem);
       }
@@ -40,10 +45,8 @@ const HamburgerButton = (element) => {
         cursor: pointer;
         display: flex;
         flex-direction: column;
-        height: var(--button-size);
         margin: 0;
         padding: 0;
-        width: var(--button-size);
       }
 
       .hamburger-button:active {
@@ -65,11 +68,11 @@ const HamburgerButton = (element) => {
       }
 
       [aria-expanded='true'] .line__top {
-        transform: translate(-42px, 14px) rotate(45deg);
+        transform: translate(-38px, 9px) rotate(45deg);
       }
 
       [aria-expanded='true'] .line__bottom {
-        transform: translate(-42px, -14px) rotate(-45deg);
+        transform: translate(-38px, -9px) rotate(-45deg);
       }
 
       .line__middle {
@@ -81,7 +84,6 @@ const HamburgerButton = (element) => {
         transition: opacity 0.1s ease;
       }
     </style>
-
     <button
       @click=${onClick}
       class="hamburger-button"
@@ -94,7 +96,7 @@ const HamburgerButton = (element) => {
         <rect
           class="line line__top"
           x="0"
-          y="8"
+          y="16"
           width="100px"
           height="8"
           rx="5"
@@ -110,7 +112,7 @@ const HamburgerButton = (element) => {
         <rect
           class="line line__bottom"
           x="0"
-          y="84"
+          y="76"
           width="100px"
           height="8"
           rx="5"
