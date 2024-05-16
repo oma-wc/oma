@@ -162,10 +162,6 @@ const Menu = (element) => {
       slot[data-expanded] {
         display: block;
       }
-
-      oma-hamburger-button {
-        display: inline-block; // To align button with the nav element
-      }
     </style>
     <nav>
       ${button}
