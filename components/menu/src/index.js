@@ -2,11 +2,13 @@ import { component, html, useState } from 'haunted'
 
 const HamburgerButton = (element) => {
   const [expanded, setExpanded] = useState(false)
+
   const onClick = () => {
-    window.dispatchEvent(
+    element.dispatchEvent(
       new CustomEvent('oma-menu-toggled', {
         bubbles: true,
         cancelable: true,
+        composed: true,
         detail: { expanded: !expanded },
       })
     )

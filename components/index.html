@@ -75,12 +75,14 @@
       </oma-grid-row>
       <oma-grid-row>
         <h2>oma-menu</h2>
+
         <oma-menu>
           <ul slot="panel">
             <li><a href="#">Menu item 1</a></li>
             <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
+
         <h3>With custom accessibility label</h3>
         <oma-menu>
           <ul slot="panel">
@@ -91,6 +93,7 @@
             Meny
           </span>
         </oma-menu>
+
         <h3>Custom button</h3>
         <oma-menu>
           <button slot="button">Custom button</button>
@@ -99,6 +102,12 @@
             <li><a href="#">Menu item 2</a></li>
           </ul>
         </oma-menu>
+
+        <h3>Example catching custom event</h3>
+        <oma-menu data-handle="custom-event">
+          <div slot="panel">A custom event is thrown.</div>
+        </oma-menu>
+
         <div style="padding-bottom: 1rem; background-color: black">
           <h3>With custom colors and sizes</h3>
           <oma-menu
@@ -134,5 +143,19 @@
     <script src="link/dist/index.cjs.js" type="module"></script>
     <script src="menu/dist/index.cjs.js" type="module"></script>
     <script src="google-map/dist/index.cjs.js" type="module"></script>
+    <script>
+      document
+        .querySelector('[data-handle="custom-event"]')
+        .addEventListener('oma-menu-toggled', (event) => {
+          alert(
+            `Custom event caught: ${JSON.stringify(
+              event.detail,
+              null,
+              2
+            )}. See console for more event details.`
+          )
+          console.log('oma-menu-toggled', event)
+        })
+    </script>
   </body>
 </html>
